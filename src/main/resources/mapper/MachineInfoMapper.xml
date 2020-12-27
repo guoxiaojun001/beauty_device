@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.machine.manager.dao.MachineInfoDao">
+  <resultMap id="BaseResultMap" type="com.machine.manager.entity.MachineInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="machine_type" jdbcType="VARCHAR" property="machineType" />
+    <result column="machine_function" jdbcType="VARCHAR" property="machineFunction" />
+    <result column="machine_param" jdbcType="VARCHAR" property="machineParam" />
+    <result column="machine_attribute" jdbcType="VARCHAR" property="machineAttribute" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, machine_type, machine_function, machine_param, machine_attribute, user_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from machine_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from machine_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.machine.manager.entity.MachineInfo" useGeneratedKeys="true">
+    insert into machine_info (machine_type, machine_function, machine_param, 
+      machine_attribute, user_id)
+    values (#{machineType,jdbcType=VARCHAR}, #{machineFunction,jdbcType=VARCHAR}, #{machineParam,jdbcType=VARCHAR}, 
+      #{machineAttribute,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.machine.manager.entity.MachineInfo" useGeneratedKeys="true">
+    insert into machine_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="machineType != null">
+        machine_type,
+      </if>
+      <if test="machineFunction != null">
+        machine_function,
+      </if>
+      <if test="machineParam != null">
+        machine_param,
+      </if>
+      <if test="machineAttribute != null">
+        machine_attribute,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="machineType != null">
+        #{machineType,jdbcType=VARCHAR},
+      </if>
+      <if test="machineFunction != null">
+        #{machineFunction,jdbcType=VARCHAR},
+      </if>
+      <if test="machineParam != null">
+        #{machineParam,jdbcType=VARCHAR},
+      </if>
+      <if test="machineAttribute != null">
+        #{machineAttribute,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.machine.manager.entity.MachineInfo">
+    update machine_info
+    <set>
+      <if test="machineType != null">
+        machine_type = #{machineType,jdbcType=VARCHAR},
+      </if>
+      <if test="machineFunction != null">
+        machine_function = #{machineFunction,jdbcType=VARCHAR},
+      </if>
+      <if test="machineParam != null">
+        machine_param = #{machineParam,jdbcType=VARCHAR},
+      </if>
+      <if test="machineAttribute != null">
+        machine_attribute = #{machineAttribute,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.machine.manager.entity.MachineInfo">
+    update machine_info
+    set machine_type = #{machineType,jdbcType=VARCHAR},
+      machine_function = #{machineFunction,jdbcType=VARCHAR},
+      machine_param = #{machineParam,jdbcType=VARCHAR},
+      machine_attribute = #{machineAttribute,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+  <!-- 自定义sql -->
+  <select id="getMachineInfoByAdmin" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from machine_info
+  </select>
+
+  <select id="getMachineInfoByNormal" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from machine_info t where t.user_id=#{userId}
+  </select>
+</mapper>
