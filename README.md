@@ -73,7 +73,7 @@ mysql>source /home/abc/abc.sql;
 mysql -u用户名 -p密码 数据库名 < 数据库名.sql
 #mysql -uabc_f -p abc < abc.sql
 
-
+阿里云添加安全组
 
 7. cd my-project-first/
    cnpm run dev
