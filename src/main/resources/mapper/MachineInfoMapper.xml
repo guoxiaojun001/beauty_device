@@ -8,9 +8,15 @@
     <result column="machine_param" jdbcType="VARCHAR" property="machineParam" />
     <result column="machine_attribute" jdbcType="VARCHAR" property="machineAttribute" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="used_duration" jdbcType="INTEGER" property="usedDuration" />
+    <result column="machine_brand" jdbcType="VARCHAR" property="machineBrand" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="machine_status" jdbcType="VARCHAR" property="machineStatus" />
+    <result column="machine_work_time_once" jdbcType="TIMESTAMP" property="machineWorkTimeOnce" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, machine_type, machine_function, machine_param, machine_attribute, user_id
+    id, machine_type, machine_function, machine_param, machine_attribute, user_id, used_duration, 
+    machine_brand, user_name, machine_status, machine_work_time_once
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -18,16 +24,19 @@
     from machine_info
     where id = #{id,jdbcType=INTEGER}
   </select>
-
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from machine_info
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.machine.manager.entity.MachineInfo" useGeneratedKeys="true">
     insert into machine_info (machine_type, machine_function, machine_param, 
-      machine_attribute, user_id)
+      machine_attribute, user_id, used_duration, 
+      machine_brand, user_name, machine_status, 
+      machine_work_time_once)
     values (#{machineType,jdbcType=VARCHAR}, #{machineFunction,jdbcType=VARCHAR}, #{machineParam,jdbcType=VARCHAR}, 
-      #{machineAttribute,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER})
+      #{machineAttribute,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{usedDuration,jdbcType=INTEGER}, 
+      #{machineBrand,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{machineStatus,jdbcType=VARCHAR}, 
+      #{machineWorkTimeOnce,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.machine.manager.entity.MachineInfo" useGeneratedKeys="true">
     insert into machine_info
@@ -47,6 +56,21 @@
       <if test="userId != null">
         user_id,
       </if>
+      <if test="usedDuration != null">
+        used_duration,
+      </if>
+      <if test="machineBrand != null">
+        machine_brand,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="machineStatus != null">
+        machine_status,
+      </if>
+      <if test="machineWorkTimeOnce != null">
+        machine_work_time_once,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="machineType != null">
@@ -63,6 +87,21 @@
       </if>
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="usedDuration != null">
+        #{usedDuration,jdbcType=INTEGER},
+      </if>
+      <if test="machineBrand != null">
+        #{machineBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="machineStatus != null">
+        #{machineStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="machineWorkTimeOnce != null">
+        #{machineWorkTimeOnce,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -84,6 +123,21 @@
       <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER},
       </if>
+      <if test="usedDuration != null">
+        used_duration = #{usedDuration,jdbcType=INTEGER},
+      </if>
+      <if test="machineBrand != null">
+        machine_brand = #{machineBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="machineStatus != null">
+        machine_status = #{machineStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="machineWorkTimeOnce != null">
+        machine_work_time_once = #{machineWorkTimeOnce,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -93,10 +147,14 @@
       machine_function = #{machineFunction,jdbcType=VARCHAR},
       machine_param = #{machineParam,jdbcType=VARCHAR},
       machine_attribute = #{machineAttribute,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=INTEGER}
+      user_id = #{userId,jdbcType=INTEGER},
+      used_duration = #{usedDuration,jdbcType=INTEGER},
+      machine_brand = #{machineBrand,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      machine_status = #{machineStatus,jdbcType=VARCHAR},
+      machine_work_time_once = #{machineWorkTimeOnce,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
-
 
   <!-- 自定义sql -->
   <select id="getMachineInfoByAdmin" resultMap="BaseResultMap">
