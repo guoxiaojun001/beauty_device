@@ -17,5 +17,5 @@ public interface UserInfoDao {
 
     int updateByPrimaryKey(UserInfo record);
 
-    boolean selectByUserName(String name, String password);
+    UserInfo selectByUserName(String name, String password);
 }

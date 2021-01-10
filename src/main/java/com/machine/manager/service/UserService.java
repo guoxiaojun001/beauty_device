@@ -17,5 +17,5 @@ public interface UserService {
 
     int updateByPrimaryKeySelective(UserInfo record);
 
-    boolean selectByUserName(UserInfo userInfo);
+    UserInfo selectByUserName(UserInfo userInfo);
 }

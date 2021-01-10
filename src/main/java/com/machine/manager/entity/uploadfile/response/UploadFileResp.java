@@ -1,4 +1,4 @@
-package com.machine.manager.entity.user.respone;
+package com.machine.manager.entity.uploadfile.response;
 
 import lombok.Data;
 

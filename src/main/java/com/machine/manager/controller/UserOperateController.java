@@ -20,11 +20,11 @@ public class UserOperateController {
     @Autowired
     private UserService userService;
 
-    @ApiOperation("用户登录")
-    @PostMapping("/login")
+   /* @ApiOperation("用户登录")
+    @GetMapping("/login")
     public boolean login(@RequestBody UserInfo userInfo) {
         return userService.selectByUserName(userInfo);
-    }
+    }*/
 
     @ApiOperation("新增用户")
     @PostMapping("/addUser")

@@ -125,8 +125,8 @@
     select count (*) from user_info where name =#{} and passwod=#{password}
   </select>-->
   <!--  自定义sql-->
-  <select id="selectByUserName" resultType="java.lang.Boolean">
-    SELECT COUNT(*) FROM user_info t WHERE t.`name`=#{name} AND t.`password`=#{password}
+  <select id="selectByUserName" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/> FROM user_info t WHERE t.`name`=#{name} AND t.`password`=#{password}
   </select>
 
 </mapper>
