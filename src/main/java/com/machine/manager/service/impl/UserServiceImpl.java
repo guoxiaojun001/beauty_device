@@ -3,7 +3,9 @@ package com.machine.manager.service.impl;
 import com.machine.manager.dao.UserInfoDao;
 import com.machine.manager.entity.UserInfo;
 import com.machine.manager.service.UserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
 
@@ -23,6 +25,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int insertSelective(UserInfo record) {
+        //比如对密码进行 md5 加密
+        String md5Pass = DigestUtils.md5DigestAsHex(record.getPassword().getBytes());
+        record.setPassword(md5Pass);
         return userInfoDao.insertSelective(record);
     }
 
@@ -38,8 +43,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean selectByUserName(UserInfo userInfo) {
-        boolean result = userInfoDao.selectByUserName(userInfo.getName(), userInfo.getPassword());
-        return result;
+        if (StringUtils.isNotBlank(userInfo.getName()) && StringUtils.isNotBlank(userInfo.getPassword())){
+            return userInfoDao.selectByUserName(userInfo.getName(), DigestUtils.md5DigestAsHex(userInfo.getPassword().getBytes()));
+        }
+        return false;
     }
 
 }

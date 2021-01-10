@@ -128,4 +128,5 @@
   <select id="selectByUserName" resultType="java.lang.Boolean">
     SELECT COUNT(*) FROM user_info t WHERE t.`name`=#{name} AND t.`password`=#{password}
   </select>
+
 </mapper>

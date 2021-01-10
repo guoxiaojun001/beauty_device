@@ -1,7 +1,6 @@
 package com.machine.manager.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import lombok.Data;
 
 /**
@@ -42,7 +41,11 @@ public class MachineInfo implements Serializable {
     /**
      * 单词使用时长
      */
-    private Date machineWorkTimeOnce;
+    private Integer machineWorkTimeOnce;
+
+    private String machineProvice;
+
+    private String machineCity;
 
     private static final long serialVersionUID = 1L;
 }
