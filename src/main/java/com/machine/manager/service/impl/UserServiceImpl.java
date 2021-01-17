@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserInfo selectByUserName(UserInfo userInfo) {
-        if (StringUtils.isNotBlank(userInfo.getName()) && StringUtils.isNotBlank(userInfo.getPassword())){
+        if (StringUtils.isNotBlank(userInfo.getName()) && StringUtils.isNotBlank(userInfo.getPassword())) {
             return userInfoDao.selectByUserName(userInfo.getName(), DigestUtils.md5DigestAsHex(userInfo.getPassword().getBytes()));
         }
         return null;

@@ -42,7 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/swagger-resources/**")
                 .antMatchers("/user/**")
                 .antMatchers("/machine/**")
-                .antMatchers("/uploadFile/**");
+                .antMatchers("/uploadFile/**")
+                .antMatchers("/login/**");
     }
 
     @Override
