@@ -2,6 +2,8 @@ package com.machine.manager.service;
 
 import com.machine.manager.entity.UserInfo;
 
+import java.util.List;
+
 /**
  * 用户操作接口
  *
@@ -18,4 +20,6 @@ public interface UserService {
     int updateByPrimaryKeySelective(UserInfo record);
 
     UserInfo selectByUserName(UserInfo userInfo);
+
+    List<UserInfo> selectAll();
 }

@@ -129,4 +129,8 @@
     SELECT <include refid="Base_Column_List"/> FROM user_info t WHERE t.`name`=#{name} AND t.`password`=#{password}
   </select>
 
+  <select id="selectAll" resultType="com.machine.manager.entity.UserInfo">
+      select <include refid="Base_Column_List"/> FROM user_info
+  </select>
+
 </mapper>

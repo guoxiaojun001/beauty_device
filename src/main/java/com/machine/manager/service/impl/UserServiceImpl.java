@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author guoxi_789@126.com
@@ -47,6 +48,11 @@ public class UserServiceImpl implements UserService {
             return userInfoDao.selectByUserName(userInfo.getName(), DigestUtils.md5DigestAsHex(userInfo.getPassword().getBytes()));
         }
         return null;
+    }
+
+    @Override
+    public List<UserInfo> selectAll() {
+        return userInfoDao.selectAll();
     }
 
 }
