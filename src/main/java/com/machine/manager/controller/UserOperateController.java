@@ -48,11 +48,6 @@ public class UserOperateController {
         return userService.updateByPrimaryKeySelective(userInfo);
     }
 
-   /* @ApiOperation("根据用户id查询单个用户信息")
-    @GetMapping("/queryUserInfo")
-    public UserInfo queryUserInfoById(Integer userId) {
-        return userService.selectByPrimaryKey(userId);
-    }*/
 
     @ApiOperation("输入id查询单个 不输入查询所有")
     @PostMapping("/queryUserInfo")
