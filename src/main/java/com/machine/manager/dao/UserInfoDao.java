@@ -3,6 +3,8 @@ package com.machine.manager.dao;
 import com.machine.manager.entity.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface UserInfoDao {
     int deleteByPrimaryKey(Integer id);
@@ -18,4 +20,6 @@ public interface UserInfoDao {
     int updateByPrimaryKey(UserInfo record);
 
     UserInfo selectByUserName(String name, String password);
+
+    List<UserInfo> selectAll();
 }

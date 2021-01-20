@@ -1,6 +1,7 @@
 package com.machine.manager.entity.user.request;
 
 import lombok.Data;
+
 /**
  * 登录请求request
  *

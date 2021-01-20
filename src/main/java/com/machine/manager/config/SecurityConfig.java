@@ -1,7 +1,11 @@
 package com.machine.manager.config;
 
+import com.machine.manager.jwt.JwtAuthTokenFilter;
+import com.machine.manager.service.impl.UserDetailServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -13,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationEntryPointFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
 import javax.servlet.ServletException;
@@ -29,9 +34,24 @@ import java.io.IOException;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private UserDetailServiceImpl myUserDetailsService;
+
+    @Autowired
+    private JwtAuthTokenFilter jwtAuthTokenFilter;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        super.configure(auth);
+        //调用DetailsService完成用户身份验证              设置密码加密方式
+        auth.userDetailsService(myUserDetailsService).passwordEncoder(passwordEncoder());
+    }
+
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 
     @Override
@@ -42,7 +62,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/swagger-resources/**")
                 .antMatchers("/user/**")
                 .antMatchers("/machine/**")
-                .antMatchers("/uploadFile/**");
+                .antMatchers("/uploadFile/**")
+                .antMatchers("/login/**");
     }
 
     @Override
@@ -62,7 +83,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf()
                 .csrfTokenRepository(new HttpSessionCsrfTokenRepository());
-               //.and().csrf().disable();
+        //  CRSF禁用，因为不使用session
+        //禁用跨站csrf攻击防御，否则无法登陆成功
+        //.and().csrf().disable();
+
+
+        //  添加JWT  filter, 在每次http请求前进行拦截
+        http.addFilterBefore(jwtAuthTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
    /* @Override
@@ -98,5 +125,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+
+    public static void main(String[] arg){
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String pp = bCryptPasswordEncoder.encode("123456");
+        System.out.println("xxxx p == "  + pp);
+      boolean ss =   bCryptPasswordEncoder.matches("123456",
+              "$2a$10$11wDzz6IBr2dULvvMnB8qOI/G8qhbxvKTX1hprsGv20C7r5NYkZ1.");
+        System.out.println("xxxx == "  + ss);
     }
 }
