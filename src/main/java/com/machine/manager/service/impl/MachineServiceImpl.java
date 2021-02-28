@@ -8,6 +8,7 @@ import com.machine.manager.service.MachineService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 设备逻辑
@@ -22,12 +23,12 @@ public class MachineServiceImpl implements MachineService {
 
     @Override
     public MachineInfo getMachineInfo(MachineRequest request) {
-        if (UserRoleEnum.ADMIN.getCode().equals(request.getRole())) {
-            return machineInfoDao.getMachineInfoByAdmin(request);
-        }
-        if (UserRoleEnum.NORMAL.getCode().equals(request.getRole())) {
-            return machineInfoDao.getMachineInfoByNormal(request);
-        }
+//        if (UserRoleEnum.ADMIN.getCode().equals(request.getRole())) {
+//            return machineInfoDao.getMachineInfoByAdmin(request);
+//        }
+//        if (UserRoleEnum.NORMAL.getCode().equals(request.getRole())) {
+//            return machineInfoDao.getMachineInfoByNormal(request);
+//        }
         return null;
     }
 
@@ -65,5 +66,40 @@ public class MachineServiceImpl implements MachineService {
     @Override
     public MachineInfo getMachineInfoByNormal(MachineRequest request) {
         return null;
+    }
+
+    @Override
+    public List<MachineInfo> selectAllByAdmin() {
+        return machineInfoDao.selectAllByAdmin();
+    }
+
+    @Override
+    public List<MachineInfo> selectAllByNormal(Integer id) {
+        return machineInfoDao.selectAllByNormal(id);
+    }
+
+    @Override
+    public List<MachineInfo> selectByType(String machine_type) {
+        return machineInfoDao.selectByType(machine_type);
+    }
+
+    @Override
+    public List<MachineInfo> selectByProv(MachineRequest request) {
+        return machineInfoDao.selectByProv(request);
+    }
+
+    @Override
+    public List<MachineInfo> selectByProvCity(MachineRequest request) {
+        return machineInfoDao.selectByProvCity(request);
+    }
+
+    @Override
+    public List<MachineInfo> selectByNameProvCity(MachineRequest request) {
+        return machineInfoDao.selectByNameProvCity(request);
+    }
+
+    @Override
+    public List<MachineInfo> selectByNameProv(MachineRequest request) {
+        return machineInfoDao.selectByNameProv(request);
     }
 }

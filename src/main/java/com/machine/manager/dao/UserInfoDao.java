@@ -21,5 +21,11 @@ public interface UserInfoDao {
 
     UserInfo selectByUserName(String name, String password);
 
+    List<UserInfo> selectByName(String name);
+
+    List<UserInfo> selectByPhone(String telephone);
+
     List<UserInfo> selectAll();
+
+    List<UserInfo> selectByUserInfo(UserInfo userInfo);
 }

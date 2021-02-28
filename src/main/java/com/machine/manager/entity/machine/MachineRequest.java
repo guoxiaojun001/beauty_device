@@ -17,4 +17,13 @@ public class MachineRequest {
 
     @ApiModelProperty("用户id")
     private Integer userId;
+
+    @ApiModelProperty("设备名称")
+    private String deviceName;
+
+    @ApiModelProperty("设备省")
+    private String machineProviceId;
+
+    @ApiModelProperty("设备市")
+    private String machineCityId;
 }

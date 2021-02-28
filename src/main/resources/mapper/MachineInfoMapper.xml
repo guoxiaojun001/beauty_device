@@ -13,13 +13,15 @@
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="machine_status" jdbcType="VARCHAR" property="machineStatus" />
     <result column="machine_work_time_once" jdbcType="INTEGER" property="machineWorkTimeOnce" />
+    <result column="machine_provice_id" jdbcType="VARCHAR" property="machineProviceId" />
     <result column="machine_provice" jdbcType="VARCHAR" property="machineProvice" />
+    <result column="machine_city_id" jdbcType="VARCHAR" property="machineCityId" />
     <result column="machine_city" jdbcType="VARCHAR" property="machineCity" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, machine_type, machine_function, machine_param, machine_attribute, user_id, used_duration, 
-    machine_brand, user_name, machine_status, machine_work_time_once, machine_provice, 
-    machine_city
+    id, machine_type, machine_function, machine_param, machine_attribute, user_id, used_duration,
+    machine_brand, user_name, machine_status, machine_work_time_once, machine_provice_id,machine_provice,
+    machine_city_id,machine_city
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -35,12 +37,12 @@
     insert into machine_info (machine_type, machine_function, machine_param, 
       machine_attribute, user_id, used_duration, 
       machine_brand, user_name, machine_status, 
-      machine_work_time_once, machine_provice, machine_city
+      machine_work_time_once, machine_provice_id,machine_provice, machine_city_id,machine_city
       )
     values (#{machineType,jdbcType=VARCHAR}, #{machineFunction,jdbcType=VARCHAR}, #{machineParam,jdbcType=VARCHAR}, 
       #{machineAttribute,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{usedDuration,jdbcType=INTEGER}, 
       #{machineBrand,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{machineStatus,jdbcType=VARCHAR}, 
-      #{machineWorkTimeOnce,jdbcType=INTEGER}, #{machineProvice,jdbcType=VARCHAR}, #{machineCity,jdbcType=VARCHAR}
+      #{machineWorkTimeOnce,jdbcType=INTEGER}, #{machineProviceId,jdbcType=VARCHAR}, #{machineProvice,jdbcType=VARCHAR}, #{machineCityId,jdbcType=VARCHAR},#{machineCity,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.machine.manager.entity.MachineInfo" useGeneratedKeys="true">
@@ -76,8 +78,14 @@
       <if test="machineWorkTimeOnce != null">
         machine_work_time_once,
       </if>
+      <if test="machineProviceId != null">
+        machine_provice_id,
+      </if>
       <if test="machineProvice != null">
         machine_provice,
+      </if>
+      <if test="machineCityId != null">
+        machine_city_id,
       </if>
       <if test="machineCity != null">
         machine_city,
@@ -114,8 +122,14 @@
       <if test="machineWorkTimeOnce != null">
         #{machineWorkTimeOnce,jdbcType=INTEGER},
       </if>
+      <if test="machineProviceId != null">
+        #{machineProviceId,jdbcType=VARCHAR},
+      </if>
       <if test="machineProvice != null">
         #{machineProvice,jdbcType=VARCHAR},
+      </if>
+      <if test="machineCityId != null">
+        #{machineCityId,jdbcType=VARCHAR},
       </if>
       <if test="machineCity != null">
         #{machineCity,jdbcType=VARCHAR},
@@ -155,8 +169,14 @@
       <if test="machineWorkTimeOnce != null">
         machine_work_time_once = #{machineWorkTimeOnce,jdbcType=INTEGER},
       </if>
+      <if test="machineProviceId != null">
+        machine_provice_id = #{machineProviceId,jdbcType=VARCHAR},
+      </if>
       <if test="machineProvice != null">
         machine_provice = #{machineProvice,jdbcType=VARCHAR},
+      </if>
+      <if test="machineCityId != null">
+        machine_city_id = #{machineCityId,jdbcType=VARCHAR},
       </if>
       <if test="machineCity != null">
         machine_city = #{machineCity,jdbcType=VARCHAR},
@@ -176,7 +196,9 @@
       user_name = #{userName,jdbcType=VARCHAR},
       machine_status = #{machineStatus,jdbcType=VARCHAR},
       machine_work_time_once = #{machineWorkTimeOnce,jdbcType=INTEGER},
+      machine_provice_id = #{machineProviceId,jdbcType=VARCHAR},
       machine_provice = #{machineProvice,jdbcType=VARCHAR},
+      machine_city_id = #{machineCityId,jdbcType=VARCHAR},
       machine_city = #{machineCity,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -189,6 +211,45 @@
 
   <select id="getMachineInfoByNormal" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
-    from machine_info t where t.user_id=#{userId}
+    from machine_info t where t.user_id=#{id}
   </select>
+
+  <select id="selectByType" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from machine_info t where t.machine_type=#{machine_type}
+  </select>
+
+
+  <select id="selectAllByAdmin" resultType="com.machine.manager.entity.MachineInfo">
+    select <include refid="Base_Column_List"/> FROM machine_info
+  </select>
+
+  <select id="selectAllByNormal" resultType="com.machine.manager.entity.MachineInfo">
+    select <include refid="Base_Column_List"/> FROM machine_info t where t.user_id=#{id}
+  </select>
+
+
+
+  <select id="selectByProv" resultType="com.machine.manager.entity.MachineInfo">
+    select <include refid="Base_Column_List"/> FROM machine_info t where t.`machine_provice_id`=#{machineProviceId}
+  </select>
+
+
+  <select id="selectByProvCity" resultType="com.machine.manager.entity.MachineInfo">
+    select <include refid="Base_Column_List"/> FROM machine_info t where t.`machine_provice_id`=#{machineProviceId}
+    AND t.`machine_city_id`=#{machineCityId}
+  </select>
+
+
+  <select id="selectByNameProvCity" resultType="com.machine.manager.entity.MachineInfo">
+    select <include refid="Base_Column_List"/> FROM machine_info t where t.machine_type=#{machine_type}
+    AND t.`machine_provice_id`=#{machineProviceId}   AND t.`machine_city_id`=#{machineCityId}
+  </select>
+
+
+  <select id="selectByNameProv" resultType="com.machine.manager.entity.MachineInfo">
+    select <include refid="Base_Column_List"/> FROM machine_info t where t.machine_type=#{machine_type}
+    AND t.`machine_provice_id`=#{machineProviceId}
+  </select>
+
 </mapper>

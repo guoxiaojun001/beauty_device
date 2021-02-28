@@ -2,6 +2,7 @@ package com.machine.manager.jwt;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -29,7 +30,9 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
         String token = request.getHeader(jwtTokenUtils.getHeader());
         if (token!=null && token.length()>0) {
             String username = jwtTokenUtils.getUsernameFromToken(token);
-            if (username != null && SecurityContextHolder.getContext().getAuthentication()==null) {
+            System.out.print("doFilterInternal username:" + username);
+            Authentication authentication =  SecurityContextHolder.getContext().getAuthentication();
+            if (username != null && authentication==null) {
                 UserDetails userDetails = userDetailServiceImpl.loadUserByUsername(username);
                 if (jwtTokenUtils.validateToken(token, userDetails)) {
                     //给使用该JWT令牌的用户进行授权
@@ -38,6 +41,9 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
                     //设置用户身份授权
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                 }
+            }else {
+
+                System.out.print("doFilterInternal getAuthorities:" + authentication.getAuthorities());
             }
         }
         filterChain.doFilter(request, response);

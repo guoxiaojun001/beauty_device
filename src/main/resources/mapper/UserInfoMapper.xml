@@ -12,7 +12,7 @@
     <result column="user_type" jdbcType="VARCHAR" property="userType" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, `name`, email, telephone, address, `password`, role_id, user_type
+    id, name, email, telephone, address, password, role_id, user_type
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -127,6 +127,23 @@
   <!--  自定义sql-->
   <select id="selectByUserName" resultMap="BaseResultMap">
     SELECT <include refid="Base_Column_List"/> FROM user_info t WHERE t.`name`=#{name} AND t.`password`=#{password}
+  </select>
+
+
+  <select id="selectByUserInfo" resultType="com.machine.manager.entity.UserInfo">
+    SELECT <include refid="Base_Column_List"/> FROM user_info t WHERE t.`name`=#{name} AND t.`telephone`=#{telephone}
+  </select>
+
+  <select id="selectAll" resultType="com.machine.manager.entity.UserInfo">
+      select <include refid="Base_Column_List"/> FROM user_info
+  </select>
+
+  <select id="selectByName" resultType="com.machine.manager.entity.UserInfo">
+    select <include refid="Base_Column_List"/> FROM user_info t WHERE t.`name`=#{name}
+  </select>
+
+  <select id="selectByPhone" resultType="com.machine.manager.entity.UserInfo">
+    select <include refid="Base_Column_List"/> FROM user_info t WHERE t.`telephone`=#{telephone}
   </select>
 
 </mapper>

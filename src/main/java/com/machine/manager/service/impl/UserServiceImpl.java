@@ -5,6 +5,7 @@ import com.machine.manager.dao.UserInfoDao;
 import com.machine.manager.entity.UserInfo;
 import com.machine.manager.service.UserService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -36,8 +37,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public int insertSelective(UserInfo record) {
         //比如对密码进行 md5 加密
-        String md5Pass = DigestUtils.md5DigestAsHex(record.getPassword().getBytes());
-        record.setPassword(md5Pass);
+//        String md5Pass = DigestUtils.md5DigestAsHex(record.getPassword().getBytes());
+//        record.setPassword(md5Pass);
+
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String pwss = bCryptPasswordEncoder.encode(record.getPassword());
+        record.setPassword(pwss);
+
         return userInfoDao.insertSelective(record);
     }
 
@@ -60,8 +66,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserInfo> selectByName(String name) {
+        return userInfoDao.selectByName(name);
+    }
+
+    @Override
+    public List<UserInfo> selectByPhone(String telephone) {
+        return userInfoDao.selectByPhone(telephone);
+    }
+
+    @Override
     public List<UserInfo> selectAll() {
         return userInfoDao.selectAll();
+    }
+
+    @Override
+    public List<UserInfo> selectByUserInfo(UserInfo userInfo) {
+        return userInfoDao.selectByUserInfo(userInfo);
     }
 
     @Override

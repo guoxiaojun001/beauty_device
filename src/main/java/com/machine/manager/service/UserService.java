@@ -21,7 +21,13 @@ public interface UserService {
 
     UserInfo selectByUserName(UserInfo userInfo);
 
+    List<UserInfo> selectByName(String name);
+
+    List<UserInfo> selectByPhone(String telephone);
+
     List<UserInfo> selectAll();
+
+    List<UserInfo> selectByUserInfo(UserInfo userInfo);
 
     //jwt使用
     public UserInfo selectUserByUserName(String userName);
