@@ -1,74 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e5b7c9d0-bd3b-4daf-a8aa-a123ed446911" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/user/request/UserQueryRequestParm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/ManagerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/ManagerApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/constant/UserRoleEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/constant/UserRoleEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/MachineListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/MachineListController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/MachineOperateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/MachineOperateController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/MessageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/MessageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/StatisticsDurationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/StatisticsDurationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/UploadController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/UploadController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/UserListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/UserListController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/UserOperateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/UserOperateController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/dao/MachineInfoDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/dao/MachineInfoDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/dao/UserInfoDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/dao/UserInfoDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/MachineInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/MachineInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/UserInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/UserInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/machine/MachineRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/machine/MachineRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/jwt/JwtAuthTokenFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/jwt/JwtAuthTokenFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/jwt/RestResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/jwt/RestResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/MachineService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/MachineService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/impl/JwtAuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/impl/JwtAuthService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/impl/MachineServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/impl/MachineServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/MachineInfoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/MachineInfoMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/UserInfoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/UserInfoMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/error.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/error.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/success.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/success.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/machine/manager/ManagerApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/machine/manager/ManagerApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/machine/manager/ManagerApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/machine/manager/ManagerApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/machine/manager/config/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/machine/manager/config/SecurityConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/machine/manager/constant/UserRoleEnum.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/machine/manager/constant/UserRoleEnum.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/machine/manager/controller/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/machine/manager/controller/LoginController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/machine/manager/controller/MachineListController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/machine/manager/controller/MachineListController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/machine/manager/controller/MachineOperateController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/machine/manager/controller/MachineOperateController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/machine/manager/controller/MessageController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/machine/manager/controller/MessageController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/machine/manager/controller/StatisticsDurationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/machine/manager/controller/StatisticsDurationController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/machine/manager/controller/UploadController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/machine/manager/controller/UploadController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/machine/manager/controller/UserListController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/machine/manager/controller/UserListController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/machine/manager/controller/UserOperateController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/machine/manager/controller/UserOperateController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/machine/manager/dao/MachineInfoDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/machine/manager/dao/MachineInfoDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/machine/manager/dao/UserInfoDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/machine/manager/dao/UserInfoDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/machine/manager/entity/MachineInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/machine/manager/entity/MachineInfo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/machine/manager/entity/UserInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/machine/manager/entity/UserInfo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/machine/manager/entity/machine/MachineRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/machine/manager/entity/machine/MachineRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/machine/manager/jwt/JwtAuthTokenFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/machine/manager/jwt/JwtAuthTokenFilter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/machine/manager/jwt/RestResult.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/machine/manager/jwt/RestResult.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/machine/manager/service/MachineService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/machine/manager/service/MachineService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/machine/manager/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/machine/manager/service/UserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/machine/manager/service/impl/JwtAuthService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/machine/manager/service/impl/JwtAuthService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/machine/manager/service/impl/MachineServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/machine/manager/service/impl/MachineServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/machine/manager/service/impl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/machine/manager/service/impl/UserServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mapper/MachineInfoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapper/MachineInfoMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mapper/UserInfoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapper/UserInfoMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/error.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/error.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/success.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/success.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/manager-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/manager-0.0.1-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/manager-0.0.1-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/target/manager-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
-    </list>
+    <list default="true" id="e5b7c9d0-bd3b-4daf-a8aa-a123ed446911" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -79,11 +12,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MachineOperateController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MachineOperateController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/machine/manager/controller/MachineOperateController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="86" column="41" selection-start-line="86" selection-start-column="41" selection-end-line="86" selection-end-column="41" />
+            <state relative-caret-position="168">
+              <caret line="92" column="52" selection-start-line="92" selection-start-column="52" selection-end-line="92" selection-end-column="52" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JwtUserDao.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/machine/manager/dao/JwtUserDao.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="9" column="36" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -179,6 +121,7 @@
       <find>admi</find>
       <find>machineProviceId</find>
       <find>根据 省 来综合查询</find>
+      <find>JpaRepository</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -637,12 +580,12 @@
       <workItem from="1611156128752" duration="5032000" />
       <workItem from="1613531925145" duration="2762000" />
       <workItem from="1613907534445" duration="3062000" />
-      <workItem from="1614435448336" duration="18692000" />
+      <workItem from="1614435448336" duration="18957000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="44906000" />
+    <option name="totallyTimeSpent" value="45171000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -655,20 +598,21 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="848" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32914925" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info anchor="bottom" id="Java Enterprise" order="7" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="right" id="Maven Projects" order="3" visible="true" weight="0.15214477" />
+      <window_info anchor="right" id="Maven Projects" order="3" weight="0.15214477" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32914925" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.40864715" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.40864715" />
       <window_info anchor="bottom" id="Spring" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.6973501" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.31101814" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.41152814" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18699732" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.121313676" />
       <window_info id="Web" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Tail" order="7" />
@@ -699,13 +643,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/manager.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="10" column="58" lean-forward="true" selection-start-line="10" selection-start-column="58" selection-end-line="10" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/machine/manager/ManagerApplication.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
@@ -992,8 +929,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/machine/manager/controller/MachineOperateController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="86" column="41" selection-start-line="86" selection-start-column="41" selection-end-line="86" selection-end-column="41" />
+        <state relative-caret-position="168">
+          <caret line="92" column="52" selection-start-line="92" selection-start-column="52" selection-end-line="92" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/machine/manager/dao/JwtUserDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="9" column="36" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
         </state>
       </provider>
     </entry>
