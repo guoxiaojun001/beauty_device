@@ -32,4 +32,5 @@ public class WorkRecords implements Serializable {
     private Integer usedDuration;
 
     private static final long serialVersionUID = 1L;
+
 }

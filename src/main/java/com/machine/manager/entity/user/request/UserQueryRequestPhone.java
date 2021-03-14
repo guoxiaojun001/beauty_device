@@ -11,4 +11,5 @@ import lombok.Data;
 @Data
 public class UserQueryRequestPhone {
     private String telephone;
+
 }

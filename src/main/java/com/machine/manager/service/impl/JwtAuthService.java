@@ -2,7 +2,7 @@ package com.machine.manager.service.impl;
 
 import com.machine.manager.entity.UserInfo;
 import com.machine.manager.entity.user.respone.UserLoginInResp;
-import com.machine.manager.jwt.JwtTokenUtils;
+import com.machine.manager.jwt.JwtTokenUtil222;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,8 +16,9 @@ public class JwtAuthService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private JwtTokenUtils jwtTokenUtils;
+//    @Autowired
+//    private JwtTokenUtils jwtTokenUtils;
+
 
     /**
      * 登录认证换取JWT令牌
@@ -44,17 +45,18 @@ public class JwtAuthService {
             return resp;
         }
 
-
-
+//        List list = (List) authentication.getAuthorities();
+//        System.out.print("list = " + list);
         UserInfo loginUser = (UserInfo) authentication.getPrincipal();
 
         if (loginUser != null) {
             //登录成功
             resp.setCode(200);
-            resp.setToken( jwtTokenUtils.generateToken(loginUser));
+            resp.setToken( /*jwtTokenUtils.generateToken(loginUser)*/JwtTokenUtil222.createToken(loginUser));
             resp.setSuccess(true);
             resp.setUserType(loginUser.getUserType());
             resp.setMsg("登录成功");
+            resp.setUserId(loginUser.getId());
             return resp;
         }
         resp.setCode(200);

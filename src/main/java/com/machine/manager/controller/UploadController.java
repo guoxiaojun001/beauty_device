@@ -1,5 +1,6 @@
 package com.machine.manager.controller;
 
+import com.machine.manager.reject.UserLoginToken;
 import io.swagger.annotations.Api;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ResourceUtils;
@@ -31,6 +32,7 @@ import java.util.UUID;
 public class UploadController extends BaseController {
     //指定一个临时路径作为上传目录
     @PostMapping("/upload")
+    @UserLoginToken
     @ResponseBody
     public String fileUpload(@RequestParam("file") MultipartFile srcFile, RedirectAttributes redirectAttributes,String fileType) {
         Path path=null;

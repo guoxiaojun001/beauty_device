@@ -2,6 +2,8 @@ package com.machine.manager.entity.user.request;
 
 import lombok.Data;
 
+import javax.persistence.Transient;
+
 /**
  * 用户列表实体类
  *
@@ -11,4 +13,5 @@ import lombok.Data;
 @Data
 public class UserQueryRequest {
     private Integer id;
+
 }

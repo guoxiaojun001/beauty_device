@@ -3,6 +3,8 @@ package com.machine.manager.entity.user.request;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.persistence.Transient;
+
 /**
  * 用户列表实体类
  *
@@ -11,10 +13,11 @@ import lombok.Data;
  */
 @Data
 public class UserQueryRequestParm {
-    @ApiModelProperty("用户id")
-    private Integer id;
+//    @ApiModelProperty("用户id")
+//    private Integer id;
     @ApiModelProperty("用户手机号")
     private String telephone;
     @ApiModelProperty("用户名")
     private String name;
+
 }

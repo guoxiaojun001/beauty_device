@@ -7,12 +7,17 @@ import com.machine.manager.jwt.CustomAuthorityDeserializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * user_info
@@ -53,7 +58,6 @@ public class UserInfo implements Serializable, UserDetails {
     private static final long serialVersionUID = 1L;
 
 
-
     //实体类中使想要添加表中不存在字段，就要使用@Transient这个注解了。
     @Transient
     private List<GrantedAuthority> authorities;
@@ -66,7 +70,38 @@ public class UserInfo implements Serializable, UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.authorities;
+//        return this.authorities;
+        if(null != userType && !"".equals(userType)){
+            String[] sp = userType.split(",");
+
+            List<GrantedAuthority> authorities = new ArrayList<>();
+            for(String role : sp){
+                authorities.add(new SimpleGrantedAuthority(role));
+            }
+            return authorities;
+
+        }
+
+        return null;
+    }
+
+    /**
+     * 获取用户信息
+     *
+     * @return
+     */
+    public static UserInfo getUserInfo() {
+        UserInfo userInfo = null;
+        // 获取用户认证信息对象。
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        // 认证信息可能为空，因此需要进行判断。
+        if (Objects.nonNull(authentication)) {
+            Object principal = authentication.getPrincipal();
+            if (principal instanceof UserInfo) {
+                userInfo = (UserInfo) principal;
+            }
+        }
+        return userInfo;
     }
 
     @Override

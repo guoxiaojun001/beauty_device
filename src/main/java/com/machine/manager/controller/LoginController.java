@@ -5,6 +5,7 @@ import com.machine.manager.entity.UserInfo;
 import com.machine.manager.entity.user.request.UserLoginRequest;
 import com.machine.manager.entity.user.respone.UserLoginInResp;
 import com.machine.manager.jwt.RestResult;
+import com.machine.manager.reject.PassToken;
 import com.machine.manager.service.UserService;
 import com.machine.manager.service.impl.JwtAuthService;
 import io.swagger.annotations.Api;
@@ -31,36 +32,16 @@ public class LoginController extends BaseController {
     private JwtAuthService jwtAuthService;
 
     @PostMapping(value = "/userLogin")
+    @PassToken
     public UserLoginInResp login(@RequestBody UserLoginRequest request) {
         UserLoginInResp resp = new UserLoginInResp();
         String username = request.getUserName();
         String password = request.getPassWord();
-        if (StringUtils.isNotBlank(username) && StringUtils.isNotBlank(password)) {
-//            UserInfo userInfo = new UserInfo();
-//            userInfo.setName(request.getUserName());
-//            userInfo.setPassword(request.getPassWord());
-//            UserInfo result = userService.selectByUserName(userInfo);
-//
-//            if (result != null) {
-//                //登录成功
-//                resp.setToken(  jwtAuthService.login(username,password));
-//                resp.setSuccess(true);
-//                resp.setUserType(result.getUserType());
-//                return resp;
-//            }
-//            resp.setSuccess(false);
-//            resp.setToken(  jwtAuthService.login(username,password));
-//            resp.setUserType("");
-//            return resp;
-//        }
-//        resp.setSuccess(false);
-
-//        return resp;
-        }
         return jwtAuthService.loaddUsergin(username, password);
     }
 
-    @PostMapping(value = "/userLoginMD5")
+//    @PostMapping(value = "/userLoginMD5")
+//    @PassToken
     public UserLoginInResp userLoginMD5(@RequestBody UserLoginRequest request) {
         UserLoginInResp resp = new UserLoginInResp();
         String username = request.getUserName();

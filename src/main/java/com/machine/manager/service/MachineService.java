@@ -3,6 +3,7 @@ package com.machine.manager.service;
 import com.machine.manager.entity.MachineInfo;
 import com.machine.manager.entity.UserInfo;
 import com.machine.manager.entity.machine.MachineRequest;
+import com.machine.manager.entity.machine.MachineRequestAfter;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public interface MachineService {
      * @author guoxi_789@126.com
      * @date 2020/12/14
      */
-    MachineInfo getMachineInfo(MachineRequest request);
+//    MachineInfo getMachineInfo(MachineRequestAfter request);
 
     /**
      * 功能描述
@@ -82,7 +83,7 @@ public interface MachineService {
      * @author guoxi_789@126.com
      * @date 2020/12/14
      */
-    MachineInfo getMachineInfoByAdmin(MachineRequest request);
+    MachineInfo getMachineInfoByAdmin(MachineRequestAfter request);
 
     /**
      * 功能描述
@@ -92,7 +93,7 @@ public interface MachineService {
      * @author guoxi_789@126.com
      * @date 2020/12/14
      */
-    MachineInfo getMachineInfoByNormal(MachineRequest request);
+    MachineInfo getMachineInfoByNormal(MachineRequestAfter request);
 
 
     /**
@@ -108,18 +109,20 @@ public interface MachineService {
     List<MachineInfo> selectAllByNormal( Integer id);
 
     //1按照省查询
-    List<MachineInfo> selectByProv( MachineRequest request);
+    List<MachineInfo> selectByProv( MachineRequestAfter request);
 
     //2按照省市查询
-    List<MachineInfo> selectByProvCity( MachineRequest request);
+    List<MachineInfo> selectByProvCity( MachineRequestAfter request);
 
     //3，按照名称
-    List<MachineInfo> selectByType( String name);
+    List<MachineInfo> selectByType( MachineRequestAfter request);
 
-    List<MachineInfo> selectByNameProvCity( MachineRequest request);
+    List<MachineInfo> selectByNameProvCity( MachineRequestAfter request);
 
     //4名称 省查询，
-    List<MachineInfo> selectByNameProv ( MachineRequest request);
+    List<MachineInfo> selectByNameProv ( MachineRequestAfter request);
+
+    List<MachineInfo> selectCommon ( MachineRequestAfter request);
 
 
 }

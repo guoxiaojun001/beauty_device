@@ -1,7 +1,9 @@
 package com.machine.manager;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -14,7 +16,11 @@ public class ManagerApplication {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(ManagerApplication.class, args);
+//        ConfigurableApplicationContext context =
+                SpringApplication.run(ManagerApplication.class, args);
+//        GlobaleApplication.setApplicationContext(context);
+//        JwtTokenUtils jwtTokenUtils = new JwtTokenUtils();
+//        GlobaleApplication.setjwtTokenUtils(jwtTokenUtils);
     }
 
 }

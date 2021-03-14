@@ -60,11 +60,11 @@
   </select>
 
   <select id="getMachineRecords" resultType="com.machine.manager.entity.WorkRecords">
-    select <include refid="Base_Column_List"/> FROM work_records t where t.machine_id=#{id}
+    select <include refid="Base_Column_List"/> FROM work_records t where t.machine_id=#{machineId}
   </select>
 
   <select id="sumRecordsById" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-    select sum(used_duration) FROM work_records  t where t.id=#{id}
+    select sum(used_duration) FROM work_records  t where t.machine_id=#{id}
   </select>
 
   <select id="sumRecordsAll" resultType="java.lang.Integer">

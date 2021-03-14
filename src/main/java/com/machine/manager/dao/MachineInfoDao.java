@@ -2,6 +2,7 @@ package com.machine.manager.dao;
 
 import com.machine.manager.entity.MachineInfo;
 import com.machine.manager.entity.machine.MachineRequest;
+import com.machine.manager.entity.machine.MachineRequestAfter;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -28,16 +29,18 @@ public interface MachineInfoDao {
 
     List<MachineInfo> selectAllByNormal(Integer id);
 
-    List<MachineInfo> selectByType( String machine_type);
+
+    List<MachineInfo> selectByType( MachineRequestAfter request);
+
+    public List<MachineInfo> selectByProv(MachineRequestAfter request);
+
+    public List<MachineInfo> selectByProvCity(MachineRequestAfter request) ;
+
+    public List<MachineInfo> selectByNameProvCity(MachineRequestAfter request) ;
+
+    public List<MachineInfo> selectByNameProv(MachineRequestAfter request) ;
 
 
-    public List<MachineInfo> selectByProv(MachineRequest request);
-
-    public List<MachineInfo> selectByProvCity(MachineRequest request) ;
-
-    public List<MachineInfo> selectByNameProvCity(MachineRequest request) ;
-
-    public List<MachineInfo> selectByNameProv(MachineRequest request) ;
-
+    public List<MachineInfo> selectCommon(MachineRequestAfter request) ;
 
 }

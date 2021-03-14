@@ -16,4 +16,5 @@ public class UserLoginInResp implements Serializable {
     private boolean isSuccess;
     private int code;
     private String msg;
+    private Integer userId;
 }

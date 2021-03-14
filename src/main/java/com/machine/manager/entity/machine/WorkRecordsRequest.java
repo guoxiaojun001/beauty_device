@@ -14,4 +14,5 @@ public class WorkRecordsRequest {
 
     @ApiModelProperty("设备id")
     private Integer machineId;
+
 }

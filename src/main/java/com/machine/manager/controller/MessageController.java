@@ -3,6 +3,7 @@ package com.machine.manager.controller;
 
 import com.machine.manager.jwt.RestResult;
 import com.machine.manager.mqtt.MqttGateway;
+import com.machine.manager.reject.UserLoginToken;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,14 +26,22 @@ public class MessageController extends BaseController {
      */
 
     @ResponseBody
+    @UserLoginToken
     @PostMapping("/sendMqttMessage")
     public RestResult sendMqttMessage(String message, String topic) {
-        mqttGateway.sendToMqtt(message, topic);
-        RestResult restResult = new RestResult();
-        restResult.setSuccess(true);
-        restResult.setMsg("发送成功");
-        restResult.setCode(200);
-        return restResult;
+        RestResult pre = preCheck("sendMqttMessage",MessageController.class);
+        if(null != pre){
+            System.out.print("提前判断权限，权限失败");
+            return pre;
+        }else {
+            mqttGateway.sendToMqtt(message, topic);
+            RestResult restResult = new RestResult();
+            restResult.setSuccess(true);
+            restResult.setMsg("发送成功");
+            restResult.setCode(200);
+            return restResult;
+        }
+
     }
 
 
@@ -40,12 +49,19 @@ public class MessageController extends BaseController {
     @ResponseBody
     @PostMapping("/sendMQ")
     public RestResult sendMQ(@RequestBody String data){
-        mqttGateway.sendToMqtt(data, "topic");
+        RestResult pre = preCheck("sendMQ",MessageController.class);
+        if(null != pre){
+            System.out.print("提前判断权限，权限失败");
+            return pre;
+        }else {
+            mqttGateway.sendToMqtt(data, "topic");
 
-        RestResult restResult = new RestResult();
-        restResult.setCode(200);
-        restResult.setMsg("发送成功");
-        restResult.setSuccess(true);
-        return restResult;
+            RestResult restResult = new RestResult();
+            restResult.setCode(200);
+            restResult.setMsg("发送成功");
+            restResult.setSuccess(true);
+            return restResult;
+        }
+
     }
 }

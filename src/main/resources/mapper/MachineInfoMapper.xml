@@ -214,42 +214,115 @@
     from machine_info t where t.user_id=#{id}
   </select>
 
-  <select id="selectByType" resultMap="BaseResultMap">
+  <select id="selectByType" parameterType="com.machine.manager.entity.machine.MachineRequestAfter" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
-    from machine_info t where t.machine_type=#{machine_type}
+    from machine_info t
+    where    1=1
+    <if test="role != 'admin' ">
+      AND t.`user_id`=#{userId}
+    </if>
+    AND t.machine_type=#{machineType}
   </select>
 
 
-  <select id="selectAllByAdmin" resultType="com.machine.manager.entity.MachineInfo">
+  <select id="selectAllByAdmin" parameterType="com.machine.manager.entity.machine.MachineRequestAfter" resultType="com.machine.manager.entity.MachineInfo">
     select <include refid="Base_Column_List"/> FROM machine_info
   </select>
 
-  <select id="selectAllByNormal" resultType="com.machine.manager.entity.MachineInfo">
+  <select id="selectAllByNormal" parameterType="com.machine.manager.entity.machine.MachineRequestAfter" resultType="com.machine.manager.entity.MachineInfo">
     select <include refid="Base_Column_List"/> FROM machine_info t where t.user_id=#{id}
   </select>
 
 
 
-  <select id="selectByProv" resultType="com.machine.manager.entity.MachineInfo">
-    select <include refid="Base_Column_List"/> FROM machine_info t where t.`machine_provice_id`=#{machineProviceId}
+  <select id="selectByProv" parameterType="com.machine.manager.entity.machine.MachineRequestAfter" resultType="com.machine.manager.entity.MachineInfo">
+    select <include refid="Base_Column_List"/> FROM machine_info t
+    where    1=1
+    <if test="role != 'admin' ">
+      AND t.`user_id`=#{userId}
+    </if>
+    AND t.`machine_provice_id`=#{machineProviceId}
+    AND t.`user_id`=#{userId}
   </select>
 
 
-  <select id="selectByProvCity" resultType="com.machine.manager.entity.MachineInfo">
-    select <include refid="Base_Column_List"/> FROM machine_info t where t.`machine_provice_id`=#{machineProviceId}
+  <select id="selectByProvCity" parameterType="com.machine.manager.entity.machine.MachineRequestAfter" resultType="com.machine.manager.entity.MachineInfo">
+    select <include refid="Base_Column_List"/> FROM machine_info t
+    where    1=1
+    <if test="role != 'admin' ">
+      AND t.`user_id`=#{userId}
+    </if>
+    AND t.`machine_provice_id`=#{machineProviceId}
     AND t.`machine_city_id`=#{machineCityId}
   </select>
 
 
-  <select id="selectByNameProvCity" resultType="com.machine.manager.entity.MachineInfo">
-    select <include refid="Base_Column_List"/> FROM machine_info t where t.machine_type=#{machine_type}
-    AND t.`machine_provice_id`=#{machineProviceId}   AND t.`machine_city_id`=#{machineCityId}
+  <select id="selectByNameProvCity" parameterType="com.machine.manager.entity.machine.MachineRequestAfter" resultType="com.machine.manager.entity.MachineInfo">
+    select <include refid="Base_Column_List"/> FROM machine_info t
+    <!--where    1=1-->
+    <!--<if test="machineType != null and machineType != '' ">-->
+      <!--AND t.machine_type=#{machineType}-->
+    <!--</if>-->
+
+    <!--<if test="machineProviceId != null and machineProviceId != '' ">-->
+      <!--AND t.machine_provice_id=#{machineProviceId}-->
+    <!--</if>-->
+
+    <!--<if test="machineCityId != null and machineCityId != '' ">-->
+      <!--AND t.machine_city_id=#{machineCityId}-->
+    <!--</if>-->
+
+    <!--<if test="curPage != null ">-->
+      <!--LIMIT #{curPage}, #{pageSize}-->
+    <!--</if>-->
+
+    select <include refid="Base_Column_List"/> FROM machine_info t
+    where    1=1
+    <if test="role != 'admin' ">
+      AND t.`user_id`=#{userId}
+    </if>
+    AND t.machine_type=#{machine_type}
+    AND t.`machine_provice_id`=#{machineProviceId}
+    AND t.machine_city_id=#{machineCityId}
+    AND t.machine_city_id=#{machineCityId}
+
+
   </select>
 
 
   <select id="selectByNameProv" resultType="com.machine.manager.entity.MachineInfo">
-    select <include refid="Base_Column_List"/> FROM machine_info t where t.machine_type=#{machine_type}
+    select <include refid="Base_Column_List"/> FROM machine_info t
+    where    1=1
+    <if test="role != 'admin' ">
+      AND t.`user_id`=#{userId}
+    </if>
+    AND t.machine_type=#{machine_type}
     AND t.`machine_provice_id`=#{machineProviceId}
   </select>
+
+
+
+  <select id="selectCommon" resultType="com.machine.manager.entity.MachineInfo">
+    select <include refid="Base_Column_List"/> FROM machine_info t
+    where    1=1
+    <if test="role != 'admin' ">
+      AND t.`user_id`=#{userId}
+    </if>
+
+    <if test="machineProviceId != null and machineProviceId != '' ">
+      AND t.`machine_provice_id`=#{machineProviceId}
+    </if>
+
+    <if test="machineCityId != null and machineCityId != '' ">
+      AND t.machine_city_id=#{machineCityId}
+    </if>
+
+    <if test="machineType != null and machineType != '' ">
+      AND t.machine_type=#{machineType}
+    </if>
+
+
+  </select>
+
 
 </mapper>

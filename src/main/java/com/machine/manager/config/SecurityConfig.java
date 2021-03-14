@@ -1,6 +1,7 @@
 package com.machine.manager.config;
 
-import com.machine.manager.jwt.JwtAuthTokenFilter;
+import com.machine.manager.controller.BaseController;
+import com.machine.manager.reject.UserLoginToken;
 import com.machine.manager.service.impl.UserDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -38,8 +40,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailServiceImpl myUserDetailsService;
 
-    @Autowired
-    private JwtAuthTokenFilter jwtAuthTokenFilter;
+//    @Autowired
+//    private JwtAuthTokenFilter jwtAuthTokenFilter;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -61,17 +63,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/webjars/**")
                 .antMatchers("/v2/**")
                 .antMatchers("/swagger-resources/**")
+                .antMatchers("/login/**")
                 .antMatchers("/user/**")
                 .antMatchers("/machine/**")
                 .antMatchers("/uploadFile/**")
                 .antMatchers("/mqtt/**")
-                .antMatchers("/login/**");
+        ;
     }
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
         //自定义登录页面
-        http.authorizeRequests()
+        http
+                // 基于token，所以不需要session
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .authorizeRequests()
+
                 .antMatchers("/submit").permitAll()
                 .anyRequest()
                 .authenticated()
@@ -82,9 +89,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/success")
                 .permitAll()
                 .failureUrl("/error")
-                .and()
-                .csrf()
-                .csrfTokenRepository(new HttpSessionCsrfTokenRepository());
+        // 由于使用的是JWT，我们这里不需要csrf
+//                .and() .csrf()  .csrfTokenRepository(new HttpSessionCsrfTokenRepository())
+
+        ;
         //  CRSF禁用，因为不使用session
         //禁用跨站csrf攻击防御，否则无法登陆成功
         //.and().csrf().disable();
@@ -92,8 +100,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.logout().deleteCookies("JSESSIONID");
 
         //  添加JWT  filter, 在每次http请求前进行拦截
-        System.out.println("xxxxxxxxxxxxxxx："  +jwtAuthTokenFilter .toString());
-        http.addFilterBefore(jwtAuthTokenFilter, UsernamePasswordAuthenticationFilter.class);
+//        System.out.println("xxxxxxxxxxxxxxx："  +jwtAuthTokenFilter .toString());
+//        http.addFilterBefore(jwtAuthTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
    /* @Override
@@ -131,10 +139,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    @UserLoginToken
+    public PasswordEncoder xx(int a) {
+        return new BCryptPasswordEncoder();
+    }
 
     public static void main(String[] arg){
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         String pp = bCryptPasswordEncoder.encode("123456");
         System.out.println("xxxx == "  + pp);
+
+
+        try {
+//         boolean checkAuthByAnotation =   BaseController.checkAuthByAnotation("xx",SecurityConfig.class);
+
+            BaseController.preCheck("xx",SecurityConfig.class);
+//            System.out.println("checkAuthByAnotation == "  + checkAuthByAnotation);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -4,6 +4,7 @@ import com.machine.manager.constant.UserRoleEnum;
 import com.machine.manager.dao.MachineInfoDao;
 import com.machine.manager.entity.MachineInfo;
 import com.machine.manager.entity.machine.MachineRequest;
+import com.machine.manager.entity.machine.MachineRequestAfter;
 import com.machine.manager.service.MachineService;
 import org.springframework.stereotype.Service;
 
@@ -21,16 +22,16 @@ public class MachineServiceImpl implements MachineService {
     @Resource
     private MachineInfoDao machineInfoDao;
 
-    @Override
-    public MachineInfo getMachineInfo(MachineRequest request) {
-//        if (UserRoleEnum.ADMIN.getCode().equals(request.getRole())) {
-//            return machineInfoDao.getMachineInfoByAdmin(request);
-//        }
-//        if (UserRoleEnum.NORMAL.getCode().equals(request.getRole())) {
-//            return machineInfoDao.getMachineInfoByNormal(request);
-//        }
-        return null;
-    }
+//    @Override
+//    public MachineInfo getMachineInfo(MachineRequestAfter request) {
+////        if (UserRoleEnum.ADMIN.getCode().equals(request.getRole())) {
+////            return machineInfoDao.getMachineInfoByAdmin(request);
+////        }
+////        if (UserRoleEnum.NORMAL.getCode().equals(request.getRole())) {
+////            return machineInfoDao.getMachineInfoByNormal(request);
+////        }
+//        return null;
+//    }
 
     @Override
     public int deleteByPrimaryKey(Integer id) {
@@ -59,12 +60,12 @@ public class MachineServiceImpl implements MachineService {
     }
 
     @Override
-    public MachineInfo getMachineInfoByAdmin(MachineRequest request) {
+    public MachineInfo getMachineInfoByAdmin(MachineRequestAfter request) {
         return null;
     }
 
     @Override
-    public MachineInfo getMachineInfoByNormal(MachineRequest request) {
+    public MachineInfo getMachineInfoByNormal(MachineRequestAfter request) {
         return null;
     }
 
@@ -79,27 +80,32 @@ public class MachineServiceImpl implements MachineService {
     }
 
     @Override
-    public List<MachineInfo> selectByType(String machine_type) {
-        return machineInfoDao.selectByType(machine_type);
+    public List<MachineInfo> selectByType(MachineRequestAfter request) {
+        return machineInfoDao.selectByType(request);
     }
 
     @Override
-    public List<MachineInfo> selectByProv(MachineRequest request) {
+    public List<MachineInfo> selectByProv(MachineRequestAfter request) {
         return machineInfoDao.selectByProv(request);
     }
 
     @Override
-    public List<MachineInfo> selectByProvCity(MachineRequest request) {
+    public List<MachineInfo> selectByProvCity(MachineRequestAfter request) {
         return machineInfoDao.selectByProvCity(request);
     }
 
     @Override
-    public List<MachineInfo> selectByNameProvCity(MachineRequest request) {
+    public List<MachineInfo> selectByNameProvCity(MachineRequestAfter request) {
         return machineInfoDao.selectByNameProvCity(request);
     }
 
     @Override
-    public List<MachineInfo> selectByNameProv(MachineRequest request) {
+    public List<MachineInfo> selectByNameProv(MachineRequestAfter request) {
         return machineInfoDao.selectByNameProv(request);
+    }
+
+    @Override
+    public List<MachineInfo> selectCommon(MachineRequestAfter request) {
+        return machineInfoDao.selectCommon(request);
     }
 }

@@ -68,4 +68,14 @@ public class RestResult {
     public void setSuccess(boolean success) {
         this.success = success;
     }
+
+    @Override
+    public String toString() {
+        return "RestResult{" +
+                "msg='" + msg + '\'' +
+                ", code=" + code +
+                ", data=" + data +
+                ", success=" + success +
+                '}';
+    }
 }

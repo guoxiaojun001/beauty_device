@@ -77,5 +77,6 @@ public class MachineInfo implements Serializable {
     @Column(name = "machine_city")
     private String machineCity;
 
+
     private static final long serialVersionUID = 1L;
 }

@@ -3,6 +3,7 @@ package com.machine.manager.entity.user;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import javax.persistence.Transient;
 import java.io.Serializable;
 
 /**
@@ -74,6 +75,8 @@ public class MqInfo implements Serializable {
 
     private String apkUrl;
     private String firmUrl;
+
+    private String token;
 
     private static final long serialVersionUID = 1L;
 

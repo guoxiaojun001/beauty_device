@@ -3,6 +3,7 @@ package com.machine.manager.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import javax.persistence.Transient;
 import java.util.List;
 
 /**
@@ -15,5 +16,8 @@ public class UserEntity {
     private String userName;
     private String password;
     private List<String> authorities;
+
+    @Transient
+    private String token;
 }
  
