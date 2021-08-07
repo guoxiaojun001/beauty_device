@@ -50,6 +50,11 @@ public class MachineServiceImpl implements MachineService {
     }
 
     @Override
+    public MachineInfo selectDeviceId(String machineParam) {
+        return machineInfoDao.selectDeviceId(machineParam);
+    }
+
+    @Override
     public int updateByPrimaryKeySelective(MachineInfo record) {
         return machineInfoDao.updateByPrimaryKeySelective(record);
     }
@@ -80,8 +85,8 @@ public class MachineServiceImpl implements MachineService {
     }
 
     @Override
-    public List<MachineInfo> selectByType(MachineRequestAfter request) {
-        return machineInfoDao.selectByType(request);
+    public List<MachineInfo> selectByBrand(MachineRequestAfter request) {
+        return machineInfoDao.selectByBrand(request);
     }
 
     @Override

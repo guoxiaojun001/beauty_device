@@ -1,20 +1,20 @@
 package com.machine.manager.controller;
 
-import com.machine.manager.entity.MachineInfo;
 import com.machine.manager.entity.WorkRecords;
-import com.machine.manager.entity.machine.MachineRequest;
 import com.machine.manager.entity.machine.WorkRecordsRequest;
 import com.machine.manager.jwt.RestResult;
 import com.machine.manager.reject.PassToken;
 import com.machine.manager.reject.UserLoginToken;
-import com.machine.manager.service.MachineService;
 import com.machine.manager.service.impl.WorkRecordsServiceImpl;
 import com.machine.manager.util.RequestUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -46,18 +46,18 @@ public class MachineRecordsController extends BaseController {
 
         HttpServletRequest httpServletRequest = RequestUtils.getHttpRequest();
         if(null == httpServletRequest ){
-            restResult.setCode(200);
+            restResult.setCode(202);
             restResult.setData("no data");
-            restResult.setMsg("插入记录失败1");
+            restResult.setMsg("请求参数异常1");
             restResult.setSuccess(false);
             return restResult;
         }
 
-        String specialId = httpServletRequest.getHeader("specialId");
+        String specialId = httpServletRequest.getHeader("blackId");
 
-        if(org.apache.commons.lang3.StringUtils.isEmpty(specialId)){
+        if( StringUtils.isEmpty(specialId)){
             System.out.print("提前判断权限，权限失败");
-            restResult.setCode(200);
+            restResult.setCode(202);
             restResult.setData("no data");
             restResult.setMsg("设备插入记录失败2");
             restResult.setSuccess(false);
@@ -65,11 +65,12 @@ public class MachineRecordsController extends BaseController {
         }else {
 
             int result = workRecordsService.insertSelective(workRecords);
-            restResult.setCode(200);
             if(result == 1){
+                restResult.setCode(200);
                 restResult.setSuccess(true);
                 restResult.setMsg("添加记录成功");
             }else {
+                restResult.setCode(202);
                 restResult.setSuccess(false);
                 restResult.setMsg("添加记录失败");
             }
@@ -91,11 +92,13 @@ public class MachineRecordsController extends BaseController {
         }else {
             RestResult restResult = new RestResult();
             int result = workRecordsService.deleteByPrimaryKey(id);
-            restResult.setCode(200);
+
             if(result == 1){
+                restResult.setCode(200);
                 restResult.setSuccess(true);
                 restResult.setMsg("删除设备记录成功");
             }else {
+                restResult.setCode(202);
                 restResult.setSuccess(false);
                 restResult.setMsg("删除设备记录失败");
             }
@@ -110,55 +113,60 @@ public class MachineRecordsController extends BaseController {
     @PostMapping("/updateWorkRecords")
     public RestResult updateWorkRecords(@RequestBody WorkRecords workRecords) {
 
-        RestResult pre = preCheck("updateWorkRecords",MachineRecordsController.class);
-        if(null != pre){
-            System.out.print("提前判断权限，权限失败");
-            return pre;
-        }else {
-            RestResult restResult = new RestResult();
+        RestResult restResult = new RestResult();
 
-            int result = workRecordsService.updateByPrimaryKey(workRecords);
-            restResult.setCode(200);
-            if(result == 1){
-                restResult.setSuccess(true);
-                restResult.setMsg("更新设备记录信息成功");
-            }else {
-                restResult.setSuccess(false);
-                restResult.setMsg("更新设备记录信息失败");
-            }
-
+        if(null == workRecords){
+            restResult.setCode(202);
+            restResult.setSuccess(false);
+            restResult.setMsg("请求参数异常2");
             return restResult;
         }
+
+        int result = workRecordsService.updateByPrimaryKey(workRecords);
+
+        if(result == 1){
+            restResult.setCode(200);
+            restResult.setSuccess(true);
+            restResult.setMsg("更新设备记录信息成功");
+        }else {
+            restResult.setCode(202);
+            restResult.setSuccess(false);
+            restResult.setMsg("更新设备记录信息失败");
+        }
+
+        return restResult;
 
     }
 
 
     @ApiOperation("查询设备使用记录信息")
     @UserLoginToken
-    @PostMapping("/selectAllWorkRecords")
-    public RestResult selectAllWorkRecords(WorkRecordsRequest request) {
+    @PostMapping("/getMachineRecordsByMachineId")
+    public RestResult getMachineRecordsByMachineId(WorkRecordsRequest request) {
 
-        RestResult pre = preCheck("selectAllWorkRecords",MachineRecordsController.class);
-        if(null != pre){
-            System.out.print("提前判断权限，权限失败");
-            return pre;
-        }else {
-            RestResult restResult = new RestResult();
-
-            List<WorkRecords> machineList = workRecordsService.getMachineRecords(request);
-            restResult.setCode(200);
-            if(machineList != null){
-                restResult.setSuccess(true);
-                restResult.setMsg("normal查询设备记录成功");
-                restResult.setData(machineList);
-            }else {
-                restResult.setSuccess(false);
-                restResult.setMsg("normal查询设备记录为空");
-                restResult.setData(null);
-            }
-
+        RestResult restResult = new RestResult();
+        if(null == request){
+            restResult.setCode(202);
+            restResult.setSuccess(false);
+            restResult.setMsg("请求参数异常2");
             return restResult;
         }
+
+
+        List<WorkRecords> machineList = workRecordsService.getMachineRecordsByMachineId(request.getMachineId());
+        if(machineList != null){
+            restResult.setSuccess(true);
+            restResult.setCode(200);
+            restResult.setMsg("normal查询设备记录成功");
+            restResult.setData(machineList);
+        }else {
+            restResult.setCode(202);
+            restResult.setSuccess(false);
+            restResult.setMsg("normal查询设备记录为空");
+            restResult.setData(null);
+        }
+
+        return restResult;
 
     }
 
@@ -167,27 +175,23 @@ public class MachineRecordsController extends BaseController {
     @UserLoginToken
     public RestResult selectAll() {
 
-        RestResult pre = preCheck("selectAll",MachineRecordsController.class);
-        if(null != pre){
-            System.out.print("提前判断权限，权限失败");
-            return pre;
-        }else {
-            RestResult restResult = new RestResult();
+        RestResult restResult = new RestResult();
 
-            List<WorkRecords> machineList = workRecordsService.getMachineRecordsAll();
+        List<WorkRecords> machineList = workRecordsService.getMachineRecordsAll();
+
+        if(machineList != null){
             restResult.setCode(200);
-            if(machineList != null){
-                restResult.setSuccess(true);
-                restResult.setMsg("查询设备记录成功");
-                restResult.setData(machineList);
-            }else {
-                restResult.setSuccess(false);
-                restResult.setMsg("查询设备记录为空");
-                restResult.setData(null);
-            }
-
-            return restResult;
+            restResult.setSuccess(true);
+            restResult.setMsg("查询设备记录成功");
+            restResult.setData(machineList);
+        }else {
+            restResult.setCode(202);
+            restResult.setSuccess(false);
+            restResult.setMsg("查询设备记录为空");
+            restResult.setData(null);
         }
+
+        return restResult;
 
     }
 
@@ -197,30 +201,24 @@ public class MachineRecordsController extends BaseController {
     @PostMapping("/sumRecordsById")
     public RestResult sumRecordsById(WorkRecordsRequest request) {
 
-        RestResult pre = preCheck("sumRecordsById",MachineRecordsController.class);
-        if(null != pre){
-            System.out.print("提前判断权限，权限失败");
-            return pre;
+        RestResult restResult = new RestResult();
+
+        System.out.println("sumRecordsById getMachineId =" +request.getMachineId());
+        Integer sum = workRecordsService.sumRecordsById(request.getMachineId());
+        System.out.println("sumRecordsById sum =" +sum);
+        //select sum(if(type=1,money,0)) from user group by id;
+        restResult.setCode(200);
+        if(null != sum && sum >= 0){
+            restResult.setSuccess(true);
+            restResult.setMsg("统计查询设备记录成功");
+            restResult.setData(sum);
         }else {
-            RestResult restResult = new RestResult();
-
-            System.out.println("sumRecordsById getMachineId =" +request.getMachineId());
-            Integer sum = workRecordsService.sumRecordsById(request.getMachineId());
-            System.out.println("sumRecordsById sum =" +sum);
-            //select sum(if(type=1,money,0)) from user group by id;
-            restResult.setCode(200);
-            if(null != sum && sum >= 0){
-                restResult.setSuccess(true);
-                restResult.setMsg("统计查询设备记录成功");
-                restResult.setData(sum);
-            }else {
-                restResult.setSuccess(false);
-                restResult.setMsg("统计查询设备记录为空");
-                restResult.setData(0);
-            }
-
-            return restResult;
+            restResult.setSuccess(true);
+            restResult.setMsg("统计查询设备记录为空");
+            restResult.setData(0);
         }
+
+        return restResult;
 
     }
 
@@ -240,11 +238,11 @@ public class MachineRecordsController extends BaseController {
             restResult.setCode(200);
             if(sum >= 0){
                 restResult.setSuccess(true);
-                restResult.setMsg("统计查询设备记录成功");
+                restResult.setMsg("统计查询设备时长记录成功");
                 restResult.setData(sum);
             }else {
-                restResult.setSuccess(false);
-                restResult.setMsg("统计查询设备记录为空");
+                restResult.setSuccess(true);
+                restResult.setMsg("统计查询设备时长记录为空");
                 restResult.setData(0);
             }
             return restResult;

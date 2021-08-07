@@ -24,7 +24,7 @@
       machine_id, used_duration
       )
     values (
-      #{machine_id,jdbcType=INTEGER}, #{usedDuration,jdbcType=INTEGER}
+      #{machineId,jdbcType=INTEGER}, #{usedDuration,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.machine.manager.entity.WorkRecords" useGeneratedKeys="true">
@@ -59,12 +59,12 @@
     select <include refid="Base_Column_List"/> FROM work_records
   </select>
 
-  <select id="getMachineRecords" resultType="com.machine.manager.entity.WorkRecords">
+  <select id="getMachineRecordsByMachineId" parameterType="java.lang.Integer" resultType="com.machine.manager.entity.WorkRecords">
     select <include refid="Base_Column_List"/> FROM work_records t where t.machine_id=#{machineId}
   </select>
 
   <select id="sumRecordsById" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-    select sum(used_duration) FROM work_records  t where t.machine_id=#{id}
+    select sum(used_duration) FROM work_records  t where t.machine_id=#{machineId}
   </select>
 
   <select id="sumRecordsAll" resultType="java.lang.Integer">

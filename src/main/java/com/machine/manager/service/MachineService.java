@@ -55,6 +55,8 @@ public interface MachineService {
      */
     MachineInfo selectByPrimaryKey(Integer id);
 
+    MachineInfo selectDeviceId(String machineParam);
+
     /**
      * 功能描述
      *
@@ -115,7 +117,7 @@ public interface MachineService {
     List<MachineInfo> selectByProvCity( MachineRequestAfter request);
 
     //3，按照名称
-    List<MachineInfo> selectByType( MachineRequestAfter request);
+    List<MachineInfo> selectByBrand( MachineRequestAfter request);
 
     List<MachineInfo> selectByNameProvCity( MachineRequestAfter request);
 

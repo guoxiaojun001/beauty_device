@@ -37,7 +37,7 @@ public class JwtAuthService {
             authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(username, password));
         } catch (Exception e) {
-            resp.setCode(200);
+            resp.setCode(202);
             resp.setSuccess(false);
             resp.setToken("");
             resp.setUserType("");
@@ -59,7 +59,7 @@ public class JwtAuthService {
             resp.setUserId(loginUser.getId());
             return resp;
         }
-        resp.setCode(200);
+        resp.setCode(202);
         resp.setSuccess(false);
         resp.setToken("");
         resp.setUserType("");

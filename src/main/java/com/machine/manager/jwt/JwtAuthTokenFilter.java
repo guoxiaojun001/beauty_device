@@ -53,7 +53,7 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
                 try {
                     JSONObject res = new JSONObject();
                     res.put("success", false);
-                    res.put("code", 200);
+                    res.put("code", 201);
                     res.put("msg", "被拦截，登录用户失效0！");
                     res.put("data", "no data！");
                     response.setStatus(200);
@@ -84,7 +84,7 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
 
                     JSONObject res = new JSONObject();
                     res.put("success", false);
-                    res.put("code", 200);
+                    res.put("code", 201);
                     res.put("msg", "被拦截，登录用户失效1！");
                     res.put("data", "no data！");
                     response.setStatus(200);
@@ -107,7 +107,7 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
                             ){
                         if("admin".equals(userType) ){
                             filterChain.doFilter(request, response);
-                        }else if("user".equals(userType) ){
+                        }else if("user".equals(userType) || "normal".equals(userType) ){
 
                             JSONObject res = new JSONObject();
                             res.put("success", false);
@@ -130,7 +130,7 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
                             return;
                         }
                     } else {
-                        if("admin".equals(userType)||"user".equals(userType) ){
+                        if("admin".equals(userType)||"user".equals(userType) || "normal".equals(userType)){
                             filterChain.doFilter(request, response);
                             return;
                         }else {

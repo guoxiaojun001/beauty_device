@@ -11,7 +11,8 @@ package com.machine.manager.constant;
 public enum UserRoleEnum {
     /***/
     ADMIN("admin","管理员"),
-    USER("user","普通用户");
+    USER("user","普通用户"),
+    NORMAL("normal","普通用户");
     /***/
     private String code;
     /***/

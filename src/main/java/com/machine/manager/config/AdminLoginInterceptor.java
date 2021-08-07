@@ -43,8 +43,8 @@ public class AdminLoginInterceptor implements HandlerInterceptor {
 
 
         String token = request.getHeader("token");// 从 http 请求头中取出 token
-        String specialId = request.getHeader("blackId");// android设备用
-
+        String blackId = request.getHeader("blackId");// android设备用
+        System.out.println("method blackId = " + blackId);
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=utf-8");
         PrintWriter out = null;
@@ -90,7 +90,7 @@ public class AdminLoginInterceptor implements HandlerInterceptor {
                     if(null == decodedJWT){
 
                         res.put("success", false);
-                        res.put("code", 200);
+                        res.put("code", 300);
                         res.put("msg", "被拦截，需要管理员权限！");
                         res.put("data", "no data！");
                         response.setStatus(200);
@@ -104,7 +104,7 @@ public class AdminLoginInterceptor implements HandlerInterceptor {
 
                         if(StringUtils.isEmpty(userName)|| StringUtils.isEmpty(userType)){
                             res.put("success", false);
-                            res.put("code", 200);
+                            res.put("code", 201);
                             res.put("msg", "被拦截，权限为空！");
                             res.put("data", "no data！");
                             response.setStatus(200);
@@ -115,10 +115,10 @@ public class AdminLoginInterceptor implements HandlerInterceptor {
                             if("admin".equals(userType)){
                                 System.out.println("管理员 放行");
                                 return true;
-                            }else if("user".equals(userType)){
+                            }else if("user".equals(userType) || "normal".equals(userType)){
                                 System.out.println("普通用户 不放行");
                                 res.put("success", false);
-                                res.put("code", 200);
+                                res.put("code", 300);
                                 res.put("msg", "被拦截，权限不足！");
                                 res.put("data", "no data！");
                                 response.setStatus(200);
@@ -128,7 +128,7 @@ public class AdminLoginInterceptor implements HandlerInterceptor {
                             }else {
                                 System.out.println("未知用户 不放行");
                                 res.put("success", false);
-                                res.put("code", 200);
+                                res.put("code", 201);
                                 res.put("msg", "被拦截，未知权限 ！");
                                 res.put("data", "no data！");
                                 response.setStatus(200);
@@ -151,7 +151,7 @@ public class AdminLoginInterceptor implements HandlerInterceptor {
                             if(StringUtils.isEmpty(userName)|| StringUtils.isEmpty(userType)){
                                 System.out.println("token异常用户 不放行");
                                 res.put("success", false);
-                                res.put("code", 200);
+                                res.put("code", 201);
                                 res.put("msg", "token异常用户 ！");
                                 res.put("data", "no data！");
                                 response.setStatus(200);
@@ -159,13 +159,13 @@ public class AdminLoginInterceptor implements HandlerInterceptor {
                                 out.append(res.toString());
                                 return false;
                             }else {
-                                if("admin".equals(userType) || "user".equals(userType)){
+                                if("admin".equals(userType) || "user".equals(userType)  || "normal".equals(userType)){
                                     System.out.println("登录用户 放行");
                                     return true;
                                 }else {
                                     System.out.println("token异常用户 不放行");
                                     res.put("success", false);
-                                    res.put("code", 200);
+                                    res.put("code", 201);
                                     res.put("msg", "未知用户 ！");
                                     res.put("data", "no data！");
                                     response.setStatus(200);
@@ -183,7 +183,7 @@ public class AdminLoginInterceptor implements HandlerInterceptor {
                         if (method.isAnnotationPresent(UserLoginToken.class)) {
                             System.out.println("token异常用户 不放行");
                             res.put("success", false);
-                            res.put("code", 200);
+                            res.put("code", 201);
                             res.put("msg", "未知用户 ！");
                             res.put("data", "no data！");
                             response.setStatus(200);

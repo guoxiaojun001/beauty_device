@@ -21,11 +21,11 @@ public interface WorkRecordsDao {
 
     int updateByPrimaryKey(WorkRecords record);
 
-    List<WorkRecords> getMachineRecords(WorkRecordsRequest request);
+    List<WorkRecords> getMachineRecordsByMachineId(Integer machineId);
 
     List<WorkRecords> getMachineRecordsAll();
 
-    Integer sumRecordsById(Integer id);
+    Integer sumRecordsById(Integer machineId);
 
     Integer sumRecordsAll();
 

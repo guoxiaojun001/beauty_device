@@ -15,7 +15,7 @@ public class MachineRequestAfter {
     public MachineRequestAfter(){}
 
     public MachineRequestAfter(MachineRequest request) {
-        this.machineType = request.getMachineType();
+        this.machineBrand = request.getMachineBrand();
         this.machineProviceId = request.getMachineProviceId();
         this.machineCityId = request.getMachineCityId();
         this.curPage = request.getCurPage();
@@ -27,7 +27,7 @@ public class MachineRequestAfter {
         return "MachineRequestAfter{" +
                 "role='" + role + '\'' +
                 ", userId=" + userId +
-                ", machineType='" + machineType + '\'' +
+                ", machineBrand='" + machineBrand + '\'' +
                 ", machineProviceId='" + machineProviceId + '\'' +
                 ", machineCityId='" + machineCityId + '\'' +
                 ", curPage=" + curPage +
@@ -42,7 +42,7 @@ public class MachineRequestAfter {
     private Integer userId;
 
     @ApiModelProperty("设备名称")
-    private String machineType;
+    private String machineBrand;
 
     @ApiModelProperty("设备省")
     private String machineProviceId;

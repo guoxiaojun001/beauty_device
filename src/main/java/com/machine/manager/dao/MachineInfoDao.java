@@ -17,6 +17,8 @@ public interface MachineInfoDao {
 
     MachineInfo selectByPrimaryKey(Integer id);
 
+    MachineInfo selectDeviceId(String machineParam);
+
     int updateByPrimaryKeySelective(MachineInfo record);
 
     int updateByPrimaryKey(MachineInfo record);
@@ -30,7 +32,7 @@ public interface MachineInfoDao {
     List<MachineInfo> selectAllByNormal(Integer id);
 
 
-    List<MachineInfo> selectByType( MachineRequestAfter request);
+    List<MachineInfo> selectByBrand( MachineRequestAfter request);
 
     public List<MachineInfo> selectByProv(MachineRequestAfter request);
 

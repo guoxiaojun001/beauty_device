@@ -49,12 +49,13 @@ public class WorkRecordsServiceImpl implements WorkRecordsService {
 
 
     @Override
-    public List<WorkRecords> getMachineRecords(WorkRecordsRequest workRecordsRequest) {
-        return workRecordsDao.getMachineRecords(workRecordsRequest);
+    public List<WorkRecords> getMachineRecordsByMachineId(Integer machineId) {
+        return workRecordsDao.getMachineRecordsByMachineId(machineId);
     }
 
     @Override
     public Integer sumRecordsById(Integer id) {
+        System.out.println("查询 设备id 时长:" +id );
         return workRecordsDao.sumRecordsById(id);
     }
 

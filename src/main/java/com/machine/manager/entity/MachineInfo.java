@@ -53,6 +53,8 @@ public class MachineInfo implements Serializable {
     @Column(name = "user_name")
     private String userName;
 
+    @Column(name = "telephone")
+    private String telephone;
     /**
      * 设备状态
      */
@@ -79,4 +81,26 @@ public class MachineInfo implements Serializable {
 
 
     private static final long serialVersionUID = 1L;
+
+    @Override
+    public String toString() {
+        return "MachineInfo{" +
+                "id=" + id +
+                ", machineType='" + machineType + '\'' +
+                ", machineFunction='" + machineFunction + '\'' +
+                ", machineParam='" + machineParam + '\'' +
+                ", machineAttribute='" + machineAttribute + '\'' +
+                ", userId=" + userId +
+                ", usedDuration=" + usedDuration +
+                ", machineBrand='" + machineBrand + '\'' +
+                ", userName='" + userName + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", machineStatus='" + machineStatus + '\'' +
+                ", machineWorkTimeOnce=" + machineWorkTimeOnce +
+                ", machineProviceId='" + machineProviceId + '\'' +
+                ", machineProvice='" + machineProvice + '\'' +
+                ", machineCityId='" + machineCityId + '\'' +
+                ", machineCity='" + machineCity + '\'' +
+                '}';
+    }
 }

@@ -25,7 +25,7 @@ public interface WorkRecordsService {
 
     List<WorkRecords> getMachineRecordsAll();
 
-    List<WorkRecords> getMachineRecords( WorkRecordsRequest machineId);
+    List<WorkRecords> getMachineRecordsByMachineId( Integer machineId);
 
     Integer sumRecordsById(Integer id);
 

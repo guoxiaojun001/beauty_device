@@ -4,6 +4,8 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.machine.manager.config.SecurityConfig;
 import com.machine.manager.constant.UserRoleEnum;
 import com.machine.manager.entity.MachineInfo;
+import com.machine.manager.entity.UserInfo;
+import com.machine.manager.entity.WorkRecords;
 import com.machine.manager.entity.machine.MachineRequest;
 import com.machine.manager.entity.machine.MachineRequestAfter;
 import com.machine.manager.jwt.JwtTokenUtil222;
@@ -11,6 +13,8 @@ import com.machine.manager.jwt.RestResult;
 import com.machine.manager.reject.AdminToken;
 import com.machine.manager.reject.UserLoginToken;
 import com.machine.manager.service.MachineService;
+import com.machine.manager.service.UserService;
+import com.machine.manager.service.impl.WorkRecordsServiceImpl;
 import com.machine.manager.util.RequestUtils;
 import io.jsonwebtoken.Claims;
 import io.swagger.annotations.Api;
@@ -41,6 +45,12 @@ import static com.machine.manager.controller.UserOperateController.checkValue;
 public class MachineOperateController extends BaseController {
     @Autowired
     private MachineService service;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private WorkRecordsServiceImpl workRecordsService;
 
 
     @ApiOperation("新增设备信息,machineParam为设备id，唯一性")
@@ -75,11 +85,23 @@ public class MachineOperateController extends BaseController {
         }
 
 
-        RestResult pre = preCheck("addMachine",MachineOperateController.class);
-        if(null != pre){
-            System.out.print("提前判断权限，权限失败");
-            return pre;
+        UserInfo qu =  userService. selectByPrimaryKey(machineInfo.getUserId());
+        MachineInfo machineInfo1 = service.selectDeviceId(machineInfo.getMachineParam());
+        if(null == qu ){
+            System.out.print("指定的用户id 不存在");
+            restResult.setCode(200);
+            restResult.setSuccess(false);
+            restResult.setMsg("指定的用户id 不存在");
+            return restResult;
+        }else if(machineInfo1 != null){
+            System.out.print("指定的设备id 已存在");
+            restResult.setCode(200);
+            restResult.setSuccess(false);
+            restResult.setMsg("指定的设备id 已存在");
+            return restResult;
         }else {
+            machineInfo.setUserName(qu.getUsername());
+            System.out.print("添加设备getUserName = " + qu.getUsername());
             int result = service.insertSelective(machineInfo);
             restResult.setCode(200);
             if(result == 1){
@@ -133,7 +155,7 @@ public class MachineOperateController extends BaseController {
 
         HttpServletRequest httpServletRequest = RequestUtils.getHttpRequest();
         if(null == httpServletRequest ){
-            restResult.setCode(200);
+            restResult.setCode(202);
             restResult.setData("no data");
             restResult.setMsg("请求参数异常3");
             restResult.setSuccess(false);
@@ -142,17 +164,35 @@ public class MachineOperateController extends BaseController {
 
         String token = httpServletRequest.getHeader("token");
         if(null == token || "".equals(token)){
-            restResult.setCode(200);
+            restResult.setCode(202);
             restResult.setSuccess(false);
             restResult.setMsg("请求token为空3");
             return restResult;
         }else {
+            UserInfo qu =  userService. selectByPrimaryKey(machineInfo.getUserId());
+            if(null == qu ){
+                System.out.print("指定的用户id 不存在2");
+                restResult.setCode(202);
+                restResult.setSuccess(false);
+                restResult.setMsg("指定的用户id 不存在2");
+                return restResult;
+            }
+
+            System.out.print("修改设备getUserName = " + qu.getUsername());
+            machineInfo.setUserName(qu.getUsername());
             int result = service.updateByPrimaryKeySelective(machineInfo);
-            restResult.setCode(200);
+
             if(result == 1){
+                restResult.setCode(200);
                 restResult.setSuccess(true);
-                restResult.setMsg("更新设备信息成功");
+                restResult.setMsg("更新设备信息成功,更新记录表");
+
+                WorkRecords workRecords = new WorkRecords();
+                workRecords.setMachineId(machineInfo.getId());
+                workRecords.setUsedDuration(machineInfo.getUsedDuration());
+                workRecordsService.updateByPrimaryKey(workRecords);
             }else {
+                restResult.setCode(202);
                 restResult.setSuccess(false);
                 restResult.setMsg("更新设备信息失败");
             }
@@ -173,7 +213,7 @@ public class MachineOperateController extends BaseController {
         RestResult restResult = new RestResult();
         HttpServletRequest httpServletRequest = RequestUtils.getHttpRequest();
         if(null == request || null == httpServletRequest){
-            restResult.setCode(200);
+            restResult.setCode(202);
             restResult.setData("no data");
             restResult.setMsg("查询不到有效数据");
             restResult.setSuccess(false);
@@ -182,9 +222,9 @@ public class MachineOperateController extends BaseController {
 
         String token =  httpServletRequest.getHeader("token");
         if(StringUtils.isEmpty(token)){
-            restResult.setCode(200);
+            restResult.setCode(202);
             restResult.setData("no data");
-            restResult.setMsg("查询不到有效数据");
+            restResult.setMsg("请求token为空");
             restResult.setSuccess(false);
             return restResult;
         }
@@ -209,11 +249,34 @@ public class MachineOperateController extends BaseController {
 
         machineList = service.selectCommon(machineRequestAfter);
 
-        restResult.setCode(200);
-        restResult.setData(machineList);
-        restResult.setMsg("查询设备数据");
-        restResult.setSuccess(true);
-        return restResult;
+        System.out.print("设置 设备id machineList :" +machineList.toString() );
+
+        if(null != machineList && machineList.size() > 0){
+
+            for (MachineInfo machineInfo : machineList){
+                if(null == workRecordsService.sumRecordsById(machineInfo.getId())){
+                    machineInfo.setUsedDuration(0);
+                }else{
+                    machineInfo.setUsedDuration(workRecordsService.sumRecordsById(machineInfo.getId()));
+                }
+
+                System.out.print("设置 设备id 时长getUsedDuration :" +machineInfo.getUsedDuration() );
+            }
+
+            restResult.setCode(200);
+            restResult.setData(machineList);
+            restResult.setMsg("查询设备数据");
+            restResult.setSuccess(true);
+            return restResult;
+        }else {
+            restResult.setCode(200);
+            restResult.setData(machineList);
+            restResult.setMsg("查询0条设备数据");
+            restResult.setSuccess(true);
+            return restResult;
+        }
+
+
     }
 
 
@@ -226,7 +289,7 @@ public class MachineOperateController extends BaseController {
 
         HttpServletRequest httpServletRequest = RequestUtils.getHttpRequest();
         if(null == httpServletRequest){
-            restResult.setCode(200);
+            restResult.setCode(202);
             restResult.setData("no data");
             restResult.setMsg("查询不到有效数据1");
             restResult.setSuccess(false);
@@ -236,9 +299,9 @@ public class MachineOperateController extends BaseController {
 
         List<MachineInfo> machineList;
         if(StringUtils.isEmpty(token)){
-            restResult.setCode(200);
+            restResult.setCode(202);
             restResult.setData("no data");
-            restResult.setMsg("查询不到有效数据");
+            restResult.setMsg("token 为空");
             restResult.setSuccess(false);
             return restResult;
         }
@@ -262,7 +325,7 @@ public class MachineOperateController extends BaseController {
         }
 
 
-        if(checkValue(request.getMachineType())){
+        if(checkValue(request.getMachineBrand())){
             if(checkValue(request.getMachineProviceId())){
                 if(checkValue(request.getMachineCityId())){
                     //TODO  根据名称， 省，市来综合查询
@@ -318,12 +381,14 @@ public class MachineOperateController extends BaseController {
         RestResult restResult = new RestResult();
         System.out.print("管理员查询所有设备信息");
         List<MachineInfo> machineList = service.selectAllByAdmin();
-        restResult.setCode(200);
+
         if(machineList != null){
+            restResult.setCode(200);
             restResult.setSuccess(true);
             restResult.setMsg("管理员查询设备成功");
             restResult.setData(machineList);
         }else {
+            restResult.setCode(202);
             restResult.setSuccess(false);
             restResult.setMsg("管理员查询设备为空");
             restResult.setData(null);
@@ -342,12 +407,14 @@ public class MachineOperateController extends BaseController {
         RestResult restResult = new RestResult();
         System.out.print("经销商查询所有设备信息 " + id);
         List<MachineInfo> machineList = service.selectAllByNormal(id);
-        restResult.setCode(200);
+
         if(machineList != null){
+            restResult.setCode(200);
             restResult.setSuccess(true);
             restResult.setMsg("normal查询设备成功");
             restResult.setData(machineList);
         }else {
+            restResult.setCode(202);
             restResult.setSuccess(false);
             restResult.setMsg("normal查询设备为空");
             restResult.setData(null);
@@ -362,13 +429,15 @@ public class MachineOperateController extends BaseController {
 
         RestResult restResult = new RestResult();
         System.out.print("经销商查询所有设备信息 " + machineRequestAfter.toString());
-        List<MachineInfo> machineList = service.selectByType(machineRequestAfter);
-        restResult.setCode(200);
+        List<MachineInfo> machineList = service.selectByBrand(machineRequestAfter);
+
         if(machineList != null){
+            restResult.setCode(200);
             restResult.setSuccess(true);
             restResult.setMsg("根据设备名称查询设备成功");
             restResult.setData(machineList);
         }else {
+            restResult.setCode(202);
             restResult.setSuccess(false);
             restResult.setMsg("根据设备名称查询设备为空");
             restResult.setData(null);
