@@ -38,6 +38,11 @@ public class WorkRecordsServiceImpl implements WorkRecordsService {
     }
 
     @Override
+    public int deleteByDeviceId(Integer id) {
+        return workRecordsDao.deleteByDeviceId(id);
+    }
+
+    @Override
     public int updateByPrimaryKey(WorkRecords record) {
         return workRecordsDao.updateByPrimaryKey(record);
     }
@@ -46,6 +51,7 @@ public class WorkRecordsServiceImpl implements WorkRecordsService {
     public List<WorkRecords> getMachineRecordsAll() {
         return workRecordsDao.getMachineRecordsAll();
     }
+
 
 
     @Override

@@ -113,4 +113,11 @@ public class MachineServiceImpl implements MachineService {
     public List<MachineInfo> selectCommon(MachineRequestAfter request) {
         return machineInfoDao.selectCommon(request);
     }
+
+    @Override
+    public List<MachineInfo> selectByUserId(Integer userId) {
+        return machineInfoDao.selectByUserId(userId);
+    }
+
+
 }

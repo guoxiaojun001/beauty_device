@@ -12,6 +12,7 @@ public class RestResult {
     private int code;
     private Object data;
 
+
     private boolean success;
 
 
@@ -19,7 +20,7 @@ public class RestResult {
 
     }
 
-    public RestResult(String msg, int code, Object data,boolean success) {
+    public RestResult(String msg, int code, Object data ,boolean success) {
         this.msg = msg;
         this.code = code;
         this.data = data;
@@ -60,6 +61,7 @@ public class RestResult {
     public void setData(Object data) {
         this.data = data;
     }
+
 
     public boolean isSuccess() {
         return success;

@@ -14,8 +14,18 @@ public class MachineRequestAfter {
 
     public MachineRequestAfter(){}
 
+    public MachineRequestAfter(MixRequest request) {
+        this.ownerName = request.getKeywords();
+        this.ownerPhone = request.getKeywords();
+        this.machineType = request.getKeywords();
+        this.machineProviceId = request.getMachineProviceId();
+        this.machineCityId = request.getMachineCityId();
+        this.curPage = request.getCurPage();
+        this.pageSize = request.getPageSize();
+    }
+
     public MachineRequestAfter(MachineRequest request) {
-        this.machineBrand = request.getMachineBrand();
+        this.machineType = request.getMachineType();
         this.machineProviceId = request.getMachineProviceId();
         this.machineCityId = request.getMachineCityId();
         this.curPage = request.getCurPage();
@@ -27,7 +37,7 @@ public class MachineRequestAfter {
         return "MachineRequestAfter{" +
                 "role='" + role + '\'' +
                 ", userId=" + userId +
-                ", machineBrand='" + machineBrand + '\'' +
+                ", machineType='" + machineType + '\'' +
                 ", machineProviceId='" + machineProviceId + '\'' +
                 ", machineCityId='" + machineCityId + '\'' +
                 ", curPage=" + curPage +
@@ -41,8 +51,11 @@ public class MachineRequestAfter {
     @ApiModelProperty("用户id")
     private Integer userId;
 
-    @ApiModelProperty("设备名称")
-    private String machineBrand;
+//    @ApiModelProperty("设备名称")
+//    private String machineBrand;
+
+    @ApiModelProperty("设备类型")
+    private String machineType;
 
     @ApiModelProperty("设备省")
     private String machineProviceId;
@@ -55,4 +68,10 @@ public class MachineRequestAfter {
 
     @ApiModelProperty("一页多少条")
     private int pageSize;
+
+    @ApiModelProperty("所有者电话")
+    private String ownerPhone;
+
+    @ApiModelProperty("所有者名称")
+    private String ownerName;
 }

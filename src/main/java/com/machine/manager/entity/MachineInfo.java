@@ -1,6 +1,7 @@
 package com.machine.manager.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -50,11 +51,7 @@ public class MachineInfo implements Serializable {
     @Column(name = "machine_brand")
     private String machineBrand;
 
-    @Column(name = "user_name")
-    private String userName;
 
-    @Column(name = "telephone")
-    private String telephone;
     /**
      * 设备状态
      */
@@ -80,6 +77,13 @@ public class MachineInfo implements Serializable {
     private String machineCity;
 
 
+    @Column(name = "create_time")
+    private Date createTime;
+
+    @Column(name = "cooperation_mode")
+    private String cooperationMode;
+
+
     private static final long serialVersionUID = 1L;
 
     @Override
@@ -93,8 +97,8 @@ public class MachineInfo implements Serializable {
                 ", userId=" + userId +
                 ", usedDuration=" + usedDuration +
                 ", machineBrand='" + machineBrand + '\'' +
-                ", userName='" + userName + '\'' +
-                ", telephone='" + telephone + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", cooperationMode='" + cooperationMode + '\'' +
                 ", machineStatus='" + machineStatus + '\'' +
                 ", machineWorkTimeOnce=" + machineWorkTimeOnce +
                 ", machineProviceId='" + machineProviceId + '\'' +

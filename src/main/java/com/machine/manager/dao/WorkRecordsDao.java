@@ -12,6 +12,8 @@ import java.util.List;
 public interface WorkRecordsDao {
     int deleteByPrimaryKey(Integer id);
 
+    int deleteByDeviceId(Integer id);
+
     int insert(WorkRecords record);
 
     int insertSelective(WorkRecords record);
@@ -24,6 +26,7 @@ public interface WorkRecordsDao {
     List<WorkRecords> getMachineRecordsByMachineId(Integer machineId);
 
     List<WorkRecords> getMachineRecordsAll();
+
 
     Integer sumRecordsById(Integer machineId);
 

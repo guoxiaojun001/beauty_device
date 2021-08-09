@@ -126,5 +126,5 @@ public interface MachineService {
 
     List<MachineInfo> selectCommon ( MachineRequestAfter request);
 
-
+    List<MachineInfo> selectByUserId ( Integer userId);
 }

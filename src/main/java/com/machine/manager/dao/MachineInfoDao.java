@@ -45,4 +45,8 @@ public interface MachineInfoDao {
 
     public List<MachineInfo> selectCommon(MachineRequestAfter request) ;
 
+
+    public List<MachineInfo> selectByUserId(Integer userId) ;
+
+
 }

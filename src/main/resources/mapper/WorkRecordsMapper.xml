@@ -19,6 +19,12 @@
     delete from work_records
     where id = #{id,jdbcType=INTEGER}
   </delete>
+
+  <delete id="deleteByDeviceId" parameterType="java.lang.Integer">
+    delete from work_records
+    where machine_id = #{machineId,jdbcType=INTEGER}
+  </delete>
+
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.machine.manager.entity.WorkRecords" useGeneratedKeys="true">
     insert into work_records (
       machine_id, used_duration

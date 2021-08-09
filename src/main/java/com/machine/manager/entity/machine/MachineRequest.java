@@ -18,8 +18,12 @@ public class MachineRequest {
 //    @ApiModelProperty("用户id")
 //    private Integer userId;
 
-    @ApiModelProperty("设备品牌")
-    private String machineBrand;
+
+//    @ApiModelProperty("设备品牌")
+//    private String machineBrand;
+
+    @ApiModelProperty("设备类型")
+    private String machineType;
 
     @ApiModelProperty("设备省")
     private String machineProviceId;

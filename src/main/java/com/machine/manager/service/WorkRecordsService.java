@@ -21,9 +21,12 @@ public interface WorkRecordsService {
 
     int deleteByPrimaryKey(Integer id);
 
+    int deleteByDeviceId(Integer id);
+
     int updateByPrimaryKey(WorkRecords record);
 
     List<WorkRecords> getMachineRecordsAll();
+
 
     List<WorkRecords> getMachineRecordsByMachineId( Integer machineId);
 
