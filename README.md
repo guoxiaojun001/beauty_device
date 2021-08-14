@@ -77,3 +77,11 @@ mysql -u用户名 -p密码 数据库名 < 数据库名.sql
 
 7. cd my-project-first/
    cnpm run dev
+   
+   
+   
+   
+   
+   
+   数据库连接问题
+   mysql -uroot -h 127.0.0.1 -p 
