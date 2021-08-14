@@ -4,6 +4,7 @@ import com.machine.manager.entity.MachineInfo;
 import com.machine.manager.entity.UserInfo;
 import com.machine.manager.entity.machine.MachineRequest;
 import com.machine.manager.entity.machine.MachineRequestAfter;
+import com.machine.manager.entity.machine.MachintCount;
 
 import java.util.List;
 
@@ -127,4 +128,8 @@ public interface MachineService {
     List<MachineInfo> selectCommon ( MachineRequestAfter request);
 
     List<MachineInfo> selectByUserId ( Integer userId);
+
+
+    List<MachintCount> selectByDevType ();
+    List<MachintCount> selectByDevLocation ();
 }

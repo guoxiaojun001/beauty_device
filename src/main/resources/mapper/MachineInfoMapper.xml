@@ -333,8 +333,12 @@
     </if>
 
     <if test="machineType != null and machineType != '' ">
-        AND t.machine_type=#{machineType}
+        AND (t.machine_type=#{machineType} OR t.machine_brand=#{machineType})
     </if>
+
+<!--    <if test="machineBrand != null and machineBrand != '' ">-->
+<!--      OR t.machine_brand=#{machineBrand}-->
+<!--    </if>-->
 
 
   </select>
@@ -345,5 +349,15 @@
 
   </select>
 
+
+  <select id="selectByDevType" resultType="com.machine.manager.entity.machine.MachintCount">
+    select machine_type ,count(*) as counts from machine_info GROUP BY machine_type
+
+  </select>
+
+  <select id="selectByDevLocation" resultType="com.machine.manager.entity.machine.MachintCount">
+    select machine_provice ,count(*) as counts from machine_info GROUP BY machine_provice
+
+  </select>
 
 </mapper>

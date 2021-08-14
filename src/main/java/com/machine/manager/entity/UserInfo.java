@@ -30,6 +30,20 @@ import java.util.Objects;
 @AllArgsConstructor
 public class UserInfo implements Serializable, UserDetails {
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserInfo)) return false;
+        UserInfo userInfo = (UserInfo) o;
+        return Objects.equals(id, userInfo.id)
+                && Objects.equals(roleId, userInfo.roleId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id,   roleId);
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

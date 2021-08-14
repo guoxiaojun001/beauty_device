@@ -26,7 +26,7 @@ public class MachineRequestAfter {
 
     public MachineRequestAfter(MachineRequest request) {
         this.machineType = request.getMachineType();
-        this.machineProviceId = request.getMachineProviceId();
+//        this.machineBrand = request.getMachineBrand();
         this.machineCityId = request.getMachineCityId();
         this.curPage = request.getCurPage();
         this.pageSize = request.getPageSize();

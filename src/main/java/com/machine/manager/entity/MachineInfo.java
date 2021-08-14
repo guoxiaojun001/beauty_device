@@ -2,6 +2,7 @@ package com.machine.manager.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -106,5 +107,18 @@ public class MachineInfo implements Serializable {
                 ", machineCityId='" + machineCityId + '\'' +
                 ", machineCity='" + machineCity + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof MachineInfo)) return false;
+        MachineInfo info = (MachineInfo) o;
+        return Objects.equals(id, info.id) && Objects.equals(userId, info.userId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, userId);
     }
 }

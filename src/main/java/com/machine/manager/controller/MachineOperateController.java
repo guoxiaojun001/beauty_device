@@ -9,6 +9,7 @@ import com.machine.manager.entity.WebData;
 import com.machine.manager.entity.WorkRecords;
 import com.machine.manager.entity.machine.MachineRequest;
 import com.machine.manager.entity.machine.MachineRequestAfter;
+import com.machine.manager.entity.machine.MachintCount;
 import com.machine.manager.entity.machine.MixRequest;
 import com.machine.manager.jwt.JwtTokenUtil222;
 import com.machine.manager.jwt.RestResult;
@@ -32,7 +33,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.machine.manager.controller.UserOperateController.checkValue;
 
@@ -371,7 +374,14 @@ public class MachineOperateController extends BaseController {
         }
 
         if(null != userPhoneList && !userPhoneList.isEmpty()){
-            otherList.addAll(userPhoneList);
+            for(UserInfo p : userPhoneList){
+                if(otherList.contains(p)){
+                    System.out.print("根据 已经包含，不用添加:" + p.toString());
+                }else {
+                    otherList.add(p);
+                    System.out.print("根据 没有包含，添加:" + p.toString());
+                }
+            }
         }
 
 
@@ -381,9 +391,7 @@ public class MachineOperateController extends BaseController {
             WebData webData = new WebData();
             for (UserInfo uInfo : otherList){
                 List<MachineInfo> machineInfos = service.selectByUserId(uInfo.getId());
-
                 for(MachineInfo info : machineInfos){
-
                     if(null == workRecordsService.sumRecordsById(info.getId())){
                         info.setUsedDuration(0);
                     }else{
@@ -395,15 +403,19 @@ public class MachineOperateController extends BaseController {
                         webData.setUserInfo(uInfo);
                     }
 
-                    webDataList.add(webData);
+                    if(!webDataList.contains(webData)){
+                        System.out.print("不包含此数据 = " + webData);
+                        webDataList.add(webData);
+                    }
                     System.out.print("XXXX uInfo = " + uInfo);
                 }
             }
 
         }
 
+
+        System.out.print("根据   webDataList:" + webDataList);
         machineList = service.selectCommon(machineRequestAfter);
-        System.out.print("设置 设备id machineList :" +machineList  );
         System.out.print("根据 设备名称查询 machineList:" + machineList);
 
         if(null != machineList && machineList.size() > 0){
@@ -423,7 +435,13 @@ public class MachineOperateController extends BaseController {
                     webData.setUserInfo(userInfo);
                 }
 
-                webDataList.add(webData);
+                if(webDataList.contains(webData)){
+                    System.out.print("已经包含这数据:" + webData.toString() );
+
+                }else {
+                    System.out.print("不包含 webData:" + webData );
+                    webDataList.add(webData);
+                }
                 System.out.print("设置 设备id 时长getUsedDuration :" +machineInfo.getUsedDuration() );
             }
 
@@ -532,6 +550,35 @@ public class MachineOperateController extends BaseController {
         restResult.setCode(200);
         restResult.setData(machineList);
         restResult.setMsg("查询设备数据");
+        restResult.setSuccess(true);
+        return restResult;
+
+    }
+
+
+    @ApiOperation("设备类型排名")
+    @PostMapping("/deviceRanking")
+    public RestResult deviceRanking(String devType) {
+        RestResult restResult = new RestResult();
+
+        List<MachintCount> machineList = service.selectByDevType();
+
+        restResult.setCode(200);
+        restResult.setData(machineList);
+        restResult.setSuccess(true);
+        return restResult;
+    }
+
+
+    @ApiOperation("设备位置地图显示")
+    @PostMapping("/deviceMapDisplay")
+    public RestResult deviceMapDisplay() {
+        RestResult restResult = new RestResult();
+
+        List<MachintCount> machineList = service.selectByDevLocation();
+
+        restResult.setCode(200);
+        restResult.setData(machineList);
         restResult.setSuccess(true);
         return restResult;
 

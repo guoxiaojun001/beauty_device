@@ -3,6 +3,7 @@ package com.machine.manager.dao;
 import com.machine.manager.entity.MachineInfo;
 import com.machine.manager.entity.machine.MachineRequest;
 import com.machine.manager.entity.machine.MachineRequestAfter;
+import com.machine.manager.entity.machine.MachintCount;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -48,5 +49,8 @@ public interface MachineInfoDao {
 
     public List<MachineInfo> selectByUserId(Integer userId) ;
 
+
+    public List<MachintCount> selectByDevType ();
+    public List<MachintCount> selectByDevLocation ();
 
 }

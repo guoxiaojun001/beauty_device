@@ -5,6 +5,7 @@ import com.machine.manager.dao.MachineInfoDao;
 import com.machine.manager.entity.MachineInfo;
 import com.machine.manager.entity.machine.MachineRequest;
 import com.machine.manager.entity.machine.MachineRequestAfter;
+import com.machine.manager.entity.machine.MachintCount;
 import com.machine.manager.service.MachineService;
 import org.springframework.stereotype.Service;
 
@@ -119,5 +120,14 @@ public class MachineServiceImpl implements MachineService {
         return machineInfoDao.selectByUserId(userId);
     }
 
+    @Override
+    public List<MachintCount> selectByDevType() {
+        return machineInfoDao.selectByDevType();
+    }
+
+    @Override
+    public List<MachintCount> selectByDevLocation() {
+        return machineInfoDao.selectByDevLocation();
+    }
 
 }
