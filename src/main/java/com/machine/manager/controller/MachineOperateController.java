@@ -191,20 +191,24 @@ public class MachineOperateController extends BaseController {
 //            machineInfo.setUserName(qu.getUsername());
 
             //TODO 使用时长暂时不提供修改 只有重置0
-            int result = service.updateByPrimaryKeySelective(machineInfo);
-            if(machineInfo.getUsedDuration() == -1){
+            if(machineInfo.getUsedDuration() == -1) {
                 System.out.print("如果指定了 使用时长为-1，那么就重置为0");
-                List<WorkRecords> workRecordsList = workRecordsService.getMachineRecordsByMachineId(machineInfo.getId());
-                System.out.print("记录信息 workRecordsList = " + workRecordsList);
-                if(null != workRecordsList && !workRecordsList.isEmpty()){
-                    for(WorkRecords workRecords : workRecordsList){
-                        if(workRecords.getMachineId() == machineInfo.getId()){
-                            workRecordsService.deleteByDeviceId(workRecords.getMachineId());
-                            System.out.print("删除此条记录信息 workRecords = " + workRecords);
-                        }
-                    }
-                }
+                machineInfo.setUsedDuration(0);
             }
+            int result = service.updateByPrimaryKey(machineInfo);
+//            if(machineInfo.getUsedDuration() == -1){
+//                System.out.print("如果指定了 使用时长为-1，那么就重置为0");
+//                List<WorkRecords> workRecordsList = workRecordsService.getMachineRecordsByMachineId(machineInfo.getId());
+//                System.out.print("记录信息 workRecordsList = " + workRecordsList);
+//                if(null != workRecordsList && !workRecordsList.isEmpty()){
+//                    for(WorkRecords workRecords : workRecordsList){
+//                        if(workRecords.getMachineId() == machineInfo.getId()){
+//                            workRecordsService.deleteByDeviceId(workRecords.getMachineId());
+//                            System.out.print("删除此条记录信息 workRecords = " + workRecords);
+//                        }
+//                    }
+//                }
+//            }
 
             if(result == 1){
                 restResult.setCode(200);
@@ -461,6 +465,66 @@ public class MachineOperateController extends BaseController {
     }
 
 
+    @ApiOperation("更新设备使用时长")
+    @PostMapping("/updateUsedTime")
+    public RestResult updateUsedTime( int duration){
+        RestResult restResult = new RestResult();
+        System.out.print("duration==>" + duration);
+        HttpServletRequest httpServletRequest = RequestUtils.getHttpRequest();
+        if(null == httpServletRequest ){
+            restResult.setCode(202);
+            restResult.setData("no data");
+            restResult.setMsg("请求参数异常3");
+            restResult.setSuccess(false);
+            return restResult;
+        }
+
+        String machineParam = httpServletRequest.getHeader("blackId");
+        System.out.print("machineParam==>" + machineParam);
+        if(null == machineParam || "".equals(machineParam)){
+            restResult.setCode(202);
+            restResult.setSuccess(false);
+            restResult.setMsg("请求blackId为空");
+            return restResult;
+        }else {
+            //TODO 所有者id  通过选择添加，不能手动输入
+//            MachineInfo xx = service.selectDeviceId("12324");
+//            System.out.print("qu1==>" + xx);
+            MachineInfo qu = service.selectDeviceId(machineParam);
+            System.out.print("qu==>" + qu);
+            if(null == qu ){
+                System.out.print("指定的设备id 不存在2");
+                restResult.setCode(202);
+                restResult.setSuccess(false);
+                restResult.setMsg("指定的设备id 不存在2");
+                return restResult;
+            }
+
+            int dura = qu.getUsedDuration();
+            System.out.println("已经使用时长 dura = " + dura);
+            qu.setUsedDuration(duration + dura);
+            System.out.println("已经使用时长 最新 = " + qu.getUsedDuration());
+
+            //TODO 使用时长暂时不提供修改 只有重置0
+            int result = service.updateByPrimaryKeySelective(qu);
+            System.out.println(" 最新 result= " + result);
+
+            if(result == 1){
+                restResult.setCode(200);
+                restResult.setSuccess(true);
+                restResult.setMsg("更新设备时长信息成功,更新记录表");
+
+            }else {
+                restResult.setCode(202);
+                restResult.setSuccess(false);
+                restResult.setMsg("更新设备时长信息失败");
+            }
+
+            return restResult;
+        }
+
+    }
+
 
     @ApiOperation("查询所有设备信息,管理员传id+admin，普通用户user+id,名称 省市 可选参数")
     @UserLoginToken
@@ -558,7 +622,7 @@ public class MachineOperateController extends BaseController {
 
     @ApiOperation("设备类型排名")
     @PostMapping("/deviceRanking")
-    public RestResult deviceRanking(String devType) {
+    public RestResult deviceRanking() {
         RestResult restResult = new RestResult();
 
         List<MachintCount> machineList = service.selectByDevType();

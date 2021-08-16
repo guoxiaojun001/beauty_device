@@ -222,7 +222,7 @@
 
   <select id="selectDeviceId" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
-    from machine_info t where t.create_time=#{createTime}
+    from machine_info t where t.machine_param=#{machineParam}
   </select>
 
   <select id="getMachineInfoByNormal" resultMap="BaseResultMap">
