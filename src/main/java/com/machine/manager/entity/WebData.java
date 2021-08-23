@@ -55,11 +55,33 @@ public class WebData implements Serializable {
         if (this == o) return true;
         if (!(o instanceof WebData)) return false;
         WebData webData = (WebData) o;
-        return Objects.equals(machineInfo.hashCode(), webData.machineInfo.hashCode()) && Objects.equals(userInfo.hashCode(), webData.userInfo.hashCode());
+
+
+        return machineInfo.getId() == webData.getMachineInfo().getId()
+                && userInfo.getId() == webData.getUserInfo().getId();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(machineInfo.hashCode(), userInfo.hashCode());
+        return Objects.hash(machineInfo, userInfo);
     }
+
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (!(o instanceof WebData)) return false;
+//        WebData webData = (WebData) o;
+//
+//
+//        return Objects.equals(machineInfo.getId().hashCode(), webData.machineInfo.getId().hashCode())
+//                && Objects.equals(userInfo.getId().hashCode(), webData.userInfo.getId().hashCode()
+//
+//
+//        );
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(machineInfo.getId().hashCode(), userInfo.getId().hashCode());
+//    }
 }

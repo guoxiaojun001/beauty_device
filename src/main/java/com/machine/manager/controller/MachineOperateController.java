@@ -191,11 +191,11 @@ public class MachineOperateController extends BaseController {
 //            machineInfo.setUserName(qu.getUsername());
 
             //TODO 使用时长暂时不提供修改 只有重置0
-            if(machineInfo.getUsedDuration() == -1) {
-                System.out.print("如果指定了 使用时长为-1，那么就重置为0");
+            if(machineInfo.getUsedDuration() == 0) {
+                System.out.print("如果指定了 使用时长为0，那么就重置为0");
                 machineInfo.setUsedDuration(0);
             }
-            int result = service.updateByPrimaryKey(machineInfo);
+            int result = service.updateByPrimaryKeySelective(machineInfo);
 //            if(machineInfo.getUsedDuration() == -1){
 //                System.out.print("如果指定了 使用时长为-1，那么就重置为0");
 //                List<WorkRecords> workRecordsList = workRecordsService.getMachineRecordsByMachineId(machineInfo.getId());
@@ -232,89 +232,89 @@ public class MachineOperateController extends BaseController {
 
 
 
-    @ApiOperation("查询所有设备信息,用户id， 名称 省市 可选参数")
-    @UserLoginToken
-    @PostMapping("/selectAllMachineList")
-    public RestResult machineInfoDao(@RequestBody MachineRequest request) {
-
-        List<WebData> webDataList = new ArrayList<>();
-        List<MachineInfo> machineList;
-        RestResult restResult = new RestResult();
-        HttpServletRequest httpServletRequest = RequestUtils.getHttpRequest();
-        if(null == request || null == httpServletRequest){
-            restResult.setCode(202);
-            restResult.setData("no data");
-            restResult.setMsg("查询不到有效数据");
-            restResult.setSuccess(false);
-            return restResult;
-        }
-
-        String token =  httpServletRequest.getHeader("token");
-        if(StringUtils.isEmpty(token)){
-            restResult.setCode(202);
-            restResult.setData("no data");
-            restResult.setMsg("请求token为空");
-            restResult.setSuccess(false);
-            return restResult;
-        }
-
-        System.out.print("查询 设备信息:" + request );
-        MachineRequestAfter machineRequestAfter = new MachineRequestAfter(request);
-        try {
-            DecodedJWT decodedJWT = JwtTokenUtil222 .getTokenInfo(token);
-            int userId = decodedJWT.getClaim("userId").asInt();
-            String userName = decodedJWT.getClaim("userName").asString();
-            String userType = decodedJWT.getClaim("userType").asString();
-
-            machineRequestAfter.setRole(userType);
-            machineRequestAfter.setUserId(userId);
-
-            System.out.print("查询 machineRequestAfter:" + machineRequestAfter.toString() );
-
-        } catch ( Exception e) {
-            machineRequestAfter.setRole("");
-            machineRequestAfter.setUserId(-1);
-        }
-
-        machineList = service.selectCommon(machineRequestAfter);
-
-        System.out.print("设置 设备id machineList :" +machineList  );
-        webDataList.clear();
-        if(null != machineList && machineList.size() > 0){
-            WebData webData = new WebData();
-            for (MachineInfo machineInfo : machineList){
-
-                if(null == workRecordsService.sumRecordsById(machineInfo.getId())){
-                    machineInfo.setUsedDuration(0);
-                }else{
-                    machineInfo.setUsedDuration(workRecordsService.sumRecordsById(machineInfo.getId()));
-                }
-
-                webData.setMachineInfo(machineInfo);
-                if(null != machineInfo.getUserId() && -1 != machineInfo.getUserId()){
-                    UserInfo userInfo = userService.selectByPrimaryKey(machineInfo.getUserId());
-                    System.out.print("根据设备中的用户id 查询到的用户信息:" + userInfo );
-                    webData.setUserInfo(userInfo);
-                }
-
-                webDataList.add(webData);
-                System.out.print("设置 设备id 时长getUsedDuration :" +machineInfo.getUsedDuration() );
-            }
-
-            restResult.setCode(200);
-            restResult.setData(webDataList);
-            restResult.setMsg("查询设备数据");
-            restResult.setSuccess(true);
-            return restResult;
-        }else {
-            restResult.setCode(200);
-            restResult.setData(webDataList);
-            restResult.setMsg("查询0条设备数据");
-            restResult.setSuccess(true);
-            return restResult;
-        }
-
-    }
+//    @ApiOperation("查询所有设备信息,用户id， 名称 省市 可选参数")
+//    @UserLoginToken
+//    @PostMapping("/selectAllMachineList")
+//    public RestResult machineInfoDao(@RequestBody MachineRequest request) {
+//
+//        List<WebData> webDataList = new ArrayList<>();
+//        List<MachineInfo> machineList;
+//        RestResult restResult = new RestResult();
+//        HttpServletRequest httpServletRequest = RequestUtils.getHttpRequest();
+//        if(null == request || null == httpServletRequest){
+//            restResult.setCode(202);
+//            restResult.setData("no data");
+//            restResult.setMsg("查询不到有效数据");
+//            restResult.setSuccess(false);
+//            return restResult;
+//        }
+//
+//        String token =  httpServletRequest.getHeader("token");
+//        if(StringUtils.isEmpty(token)){
+//            restResult.setCode(202);
+//            restResult.setData("no data");
+//            restResult.setMsg("请求token为空");
+//            restResult.setSuccess(false);
+//            return restResult;
+//        }
+//
+//        System.out.print("查询 设备信息:" + request );
+//        MachineRequestAfter machineRequestAfter = new MachineRequestAfter(request);
+//        try {
+//            DecodedJWT decodedJWT = JwtTokenUtil222 .getTokenInfo(token);
+//            int userId = decodedJWT.getClaim("userId").asInt();
+//            String userName = decodedJWT.getClaim("userName").asString();
+//            String userType = decodedJWT.getClaim("userType").asString();
+//
+//            machineRequestAfter.setRole(userType);
+//            machineRequestAfter.setUserId(userId);
+//
+//            System.out.print("查询 machineRequestAfter:" + machineRequestAfter.toString() );
+//
+//        } catch ( Exception e) {
+//            machineRequestAfter.setRole("");
+//            machineRequestAfter.setUserId(-1);
+//        }
+//
+//        machineList = service.selectCommon(machineRequestAfter);
+//
+//        System.out.print("设置 设备id machineList :" +machineList  );
+//        webDataList.clear();
+//        if(null != machineList && machineList.size() > 0){
+//            WebData webData = new WebData();
+//            for (MachineInfo machineInfo : machineList){
+//
+//                if(null == workRecordsService.sumRecordsById(machineInfo.getId())){
+//                    machineInfo.setUsedDuration(0);
+//                }else{
+//                    machineInfo.setUsedDuration(workRecordsService.sumRecordsById(machineInfo.getId()));
+//                }
+//
+//                webData.setMachineInfo(machineInfo);
+//                if(null != machineInfo.getUserId() && -1 != machineInfo.getUserId()){
+//                    UserInfo userInfo = userService.selectByPrimaryKey(machineInfo.getUserId());
+//                    System.out.print("根据设备中的用户id 查询到的用户信息:" + userInfo );
+//                    webData.setUserInfo(userInfo);
+//                }
+//
+//                webDataList.add(webData);
+//                System.out.print("设置 设备id 时长getUsedDuration :" +machineInfo.getUsedDuration() );
+//            }
+//
+//            restResult.setCode(200);
+//            restResult.setData(webDataList);
+//            restResult.setMsg("查询设备数据");
+//            restResult.setSuccess(true);
+//            return restResult;
+//        }else {
+//            restResult.setCode(200);
+//            restResult.setData(webDataList);
+//            restResult.setMsg("查询0条设备数据");
+//            restResult.setSuccess(true);
+//            return restResult;
+//        }
+//
+//    }
 
 
 
@@ -367,28 +367,37 @@ public class MachineOperateController extends BaseController {
 
 
         //根据 姓名查询到用户信息
-        List<UserInfo> userNameList  = userService.selectByName(request.getKeywords());
-        System.out.print("根据 姓名查询 userNameList:" + userNameList);
-        List<UserInfo> userPhoneList  = userService.selectByPhone(request.getKeywords());
-        System.out.print("根据 手机号查询 userPhoneList:" + userPhoneList);
-        List<UserInfo> otherList = new ArrayList<>();
+        List<UserInfo> userNameList = null;
+        List<UserInfo> userPhoneList = null;
+        List<UserInfo> otherList = null;
+        if(null == request.getKeywords() || "".equals(request.getKeywords().replace(" ",""))){
+            System.out.print("无条件查询==>" );
+        }else {
+            userNameList  = userService.selectByName(request.getKeywords());
+            System.out.print("根据 姓名查询 userNameList:" + userNameList);
+            userPhoneList  = userService.selectByPhone(request.getKeywords());
+            System.out.print("根据 手机号查询 userPhoneList:" + userPhoneList);
 
-        if(null != userNameList && !userNameList.isEmpty()){
-            otherList.addAll(userNameList);
-        }
+            otherList = new ArrayList<>();
 
-        if(null != userPhoneList && !userPhoneList.isEmpty()){
-            for(UserInfo p : userPhoneList){
-                if(otherList.contains(p)){
-                    System.out.print("根据 已经包含，不用添加:" + p.toString());
-                }else {
-                    otherList.add(p);
-                    System.out.print("根据 没有包含，添加:" + p.toString());
+            if(null != userNameList && !userNameList.isEmpty()){
+                otherList.addAll(userNameList);
+            }
+
+            if(null != userPhoneList && !userPhoneList.isEmpty()){
+                for(UserInfo p : userPhoneList){
+                    if(otherList.contains(p)){
+                        System.out.print("------------------------根据 已经包含，不用添加:" + p.toString());
+                    }else {
+                        otherList.add(p);
+                        System.out.print("--------------------根据 没有包含，添加:" + p.toString());
+                    }
                 }
             }
         }
 
 
+        System.out.print("-=------------根据 otherList ===>" + otherList);
         webDataList.clear();
 
         if(null != otherList && otherList.size() > 0){
@@ -404,27 +413,28 @@ public class MachineOperateController extends BaseController {
 
                     webData.setMachineInfo(info);
                     if(null != info.getUserId() && -1 != info.getUserId()){
+                        System.out.print("---------------设置用户数据 = " + uInfo);
                         webData.setUserInfo(uInfo);
                     }
 
                     if(!webDataList.contains(webData)){
-                        System.out.print("不包含此数据 = " + webData);
+                        System.out.print("---------------不包含此数据 = " + webData);
                         webDataList.add(webData);
                     }
                     System.out.print("XXXX uInfo = " + uInfo);
                 }
             }
-
         }
 
+        System.out.print("==================根据   webDataList:" + webDataList);
 
-        System.out.print("根据   webDataList:" + webDataList);
         machineList = service.selectCommon(machineRequestAfter);
-        System.out.print("根据 设备名称查询 machineList:" + machineList);
+        System.out.print("==============根据 设备名称查询 machineList:" + machineList);
 
         if(null != machineList && machineList.size() > 0){
-            WebData webData = new WebData();
+
             for (MachineInfo machineInfo : machineList){
+                WebData webData = new WebData();
 
                 if(null == workRecordsService.sumRecordsById(machineInfo.getId())){
                     machineInfo.setUsedDuration(0);
@@ -432,18 +442,22 @@ public class MachineOperateController extends BaseController {
                     machineInfo.setUsedDuration(workRecordsService.sumRecordsById(machineInfo.getId()));
                 }
 
+
+                System.out.print("================数据machineInfo:" + machineInfo.toString() );
+
                 webData.setMachineInfo(machineInfo);
+
                 if(null != machineInfo.getUserId() && -1 != machineInfo.getUserId()){
                     UserInfo userInfo = userService.selectByPrimaryKey(machineInfo.getUserId());
                     System.out.print("根据设备中的用户id 查询到的用户信息:" + userInfo );
                     webData.setUserInfo(userInfo);
                 }
 
-                if(webDataList.contains(webData)){
-                    System.out.print("已经包含这数据:" + webData.toString() );
 
+                if(webDataList.contains(webData)){
+                    System.out.print("======AAAA========================已经包含这数据:" + webData.toString() );
                 }else {
-                    System.out.print("不包含 webData:" + webData );
+                    System.out.print("=======BBBBB==============不包含 webData:" + webData );
                     webDataList.add(webData);
                 }
                 System.out.print("设置 设备id 时长getUsedDuration :" +machineInfo.getUsedDuration() );

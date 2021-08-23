@@ -6,8 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="e5b7c9d0-bd3b-4daf-a8aa-a123ed446911" name="Default" comment="Merge branch 'master' of github.com:guoxiaojun001/beauty_device&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/machine/manager/controller/LoginController.java&#10;#&#9;src/main/java/com/machine/manager/service/UserService.java&#10;#&#9;src/main/java/com/machine/manager/service/impl/UserServiceImpl.java">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/MachineOperateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/MachineOperateController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/MachineInfoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/MachineInfoMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/WebData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/WebData.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -387,7 +388,7 @@
       <recent name="com.machine.manager.entity" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.SecurityConfig">
+  <component name="RunManager" selected="Application.Test">
     <configuration default="true" type="tests" factoryName="Nosetests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -512,8 +513,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.SecurityConfig" />
         <item itemvalue="Application.Test" />
+        <item itemvalue="Application.SecurityConfig" />
       </list>
     </recent_temporary>
   </component>
