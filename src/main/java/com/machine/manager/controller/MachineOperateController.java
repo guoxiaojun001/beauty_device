@@ -405,11 +405,11 @@ public class MachineOperateController extends BaseController {
             for (UserInfo uInfo : otherList){
                 List<MachineInfo> machineInfos = service.selectByUserId(uInfo.getId());
                 for(MachineInfo info : machineInfos){
-                    if(null == workRecordsService.sumRecordsById(info.getId())){
-                        info.setUsedDuration(0);
-                    }else{
-                        info.setUsedDuration(workRecordsService.sumRecordsById(info.getId()));
-                    }
+//                    if(null == workRecordsService.sumRecordsById(info.getId())){
+//                        info.setUsedDuration(0);
+//                    }else{
+//                        info.setUsedDuration(workRecordsService.sumRecordsById(info.getId()));
+//                    }
 
                     webData.setMachineInfo(info);
                     if(null != info.getUserId() && -1 != info.getUserId()){
@@ -436,11 +436,11 @@ public class MachineOperateController extends BaseController {
             for (MachineInfo machineInfo : machineList){
                 WebData webData = new WebData();
 
-                if(null == workRecordsService.sumRecordsById(machineInfo.getId())){
-                    machineInfo.setUsedDuration(0);
-                }else{
-                    machineInfo.setUsedDuration(workRecordsService.sumRecordsById(machineInfo.getId()));
-                }
+//                if(null == workRecordsService.sumRecordsById(machineInfo.getId())){
+//                    machineInfo.setUsedDuration(0);
+//                }else{
+//                    machineInfo.setUsedDuration(workRecordsService.sumRecordsById(machineInfo.getId()));
+//                }
 
 
                 System.out.print("================数据machineInfo:" + machineInfo.toString() );
@@ -480,7 +480,9 @@ public class MachineOperateController extends BaseController {
 
 
     @ApiOperation("更新设备使用时长")
-    @PostMapping("/updateUsedTime")
+//    @PostMapping("/updateUsedTime")
+    @RequestMapping(value = "/updateUsedTime", method = {RequestMethod.GET,RequestMethod.POST})
+//    @ResponseBody
     public RestResult updateUsedTime( int duration){
         RestResult restResult = new RestResult();
         System.out.print("duration==>" + duration);
