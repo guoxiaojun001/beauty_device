@@ -13,6 +13,7 @@ import com.machine.manager.reject.PassToken;
 import com.machine.manager.reject.UserLoginToken;
 import com.machine.manager.service.UserService;
 import io.swagger.models.auth.In;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -31,6 +32,7 @@ import java.util.List;
 /**
  * 后台系统身份验证拦截器
  */
+@Slf4j
 @Component
 public class AdminLoginInterceptor implements HandlerInterceptor {
 
@@ -41,7 +43,7 @@ public class AdminLoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object object)
             throws Exception {
 
-
+        log.info("---------preHandle-----------");
         String token = request.getHeader("token");// 从 http 请求头中取出 token
         String blackId = request.getHeader("blackId");// android设备用
         System.out.println("method blackId = " + blackId);

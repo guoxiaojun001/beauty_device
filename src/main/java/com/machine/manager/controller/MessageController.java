@@ -28,7 +28,7 @@ public class MessageController extends BaseController {
     @ResponseBody
     @UserLoginToken
     @PostMapping("/sendMqttMessage")
-    public RestResult sendMqttMessage(String message, String topic) {
+    public RestResult sendMqttMessage( String message, String topic) {
         RestResult pre = preCheck("sendMqttMessage",MessageController.class);
         if(null != pre){
             System.out.print("提前判断权限，权限失败");
@@ -54,7 +54,7 @@ public class MessageController extends BaseController {
             System.out.print("提前判断权限，权限失败");
             return pre;
         }else {
-            mqttGateway.sendToMqtt(data, "topic");
+            mqttGateway.sendToMqtt(data, "topic_req");
 
             RestResult restResult = new RestResult();
             restResult.setCode(200);

@@ -39,10 +39,15 @@ public class SwaggerWebMvcConfig implements WebMvcConfigurer {
 //                //excludePat路径hPatterns 不需要拦截的
 //                 excludePathPatterns("/login/userLogin");
 
-        registry.addInterceptor(authenticationInterceptor()).
-//                addPathPatterns("/**").
-                //excludePat路径hPatterns 不需要拦截的
-                        excludePathPatterns("/login/userLogin");
+//        registry.addInterceptor(authenticationInterceptor()).
+////                addPathPatterns("/**").
+//                //excludePat路径hPatterns 不需要拦截的
+//                        excludePathPatterns("/login/userLogin");
+
+        registry.addInterceptor( authenticationInterceptor())
+                .addPathPatterns("/**")  //所有请求都被拦截包括静态资源
+                .excludePathPatterns("/","/login","/css/**","/fonts/**","/images/**","/login/userLogin",
+                        "/swagger-ui","/js/**","/aa/**"); //放行的请求
     }
 
     @Bean
