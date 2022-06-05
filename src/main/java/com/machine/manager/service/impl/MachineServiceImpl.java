@@ -62,7 +62,7 @@ public class MachineServiceImpl implements MachineService {
 
     @Override
     public int updateByPrimaryKey(MachineInfo record) {
-        return 0;
+        return machineInfoDao.updateByPrimaryKeySelective(record);
     }
 
     @Override

@@ -1,142 +1,225 @@
 package com.machine.manager;
 
-
-import com.machine.manager.json.JsonRootBean;
-
-import java.util.ArrayList;
-import java.util.Date;
+import cn.hutool.json.JSONObject;
+import sun.misc.BASE64Encoder;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
-import java.util.Objects;
 
 /**
- * <pre>
- *     author : guoxiaojun5
- *     e-mail : guoxiaojun5@jd.com
- *     time   : 2021/07/23
- *     desc   :
- *     version: 1.0
- * </pre>
- */
+ * @ClassName Test
+ * @Author 养仓鼠的程序员
+ * @Date 2019/12/13 0013 上午 9:12
+ * @Version 1.0
+ **/
 public class Test {
-    public static int maxDepth(String s) {
-        char[] cs = s.toCharArray();
-        //定义嵌套深度和最大嵌套深度
-        int depth = 0, maxDepth = 0;
-        //遍历
-        for(char c: cs){
-            //左括号，嵌套深度加一并和最大值比较，大于最大值则替换最大值
-            if(c == '('){
-                depth++;
-                if(depth > maxDepth){
-                    maxDepth = depth;
-                }
-            }
-            //右括号，嵌套深度减一
-            if(c == ')'){
-                depth--;
-            }
-        }
-        return maxDepth;
+    //用户名
+    private static String username = "admin";
+    //登录密码
+    private static String password = "public";
+    //服务器地址
+    private static String serverPath = "http://39.98.108.64:18083";
+    //当前页
+    private static int pageIndex = 1;
+    //页大小
+    private static int pageSize = 100;
+
+    public static void main(String[] args) throws Exception {
+        //账号密码Base64加密
+        String authorization = getBase64(username, password);
+   
+        //查询
+        String json = query (serverPath,authorization,pageIndex, pageSize);
+
+//        System.out.println ("===========>" + json);
+
+        JSONObject jsonObject = new JSONObject(json);
+
+        //更新设备状态
+        String  clientid = jsonObject.getJSONArray("data").getJSONObject(0).getStr("clientid");
+
+        System.out.println ("=========clientid==>" + clientid);
+
     }
 
-    public static void main(String[] args) {
+    private static String query(String serverPath, String authorization, int pageIndex, int pageSize) throws Exception {
+        //拼接查询参数
+        String param = "_page=" + pageIndex + "&" + "_limit=" + pageSize;
+        String queryPath = "/api/v4/nodes/emqx@127.0.0.1/clients?"+param;
 
-        String sq = "(1+(2*3)+((8)/4))+1";
-        maxDepth(sq);
-//        List<Stu> list = new ArrayList<>();
-//
-//        Stu stu = new Stu();
-//        stu.setName("za1");
-//        stu.setAge(1);
-//        stu.setSex("m");
-//        list.add(stu);
-//
-//        System.out.println("stu== " + stu.toString());
-//
-//        for(int a = 0; a< 5; a++){
-//            Stu d = new Stu();
-//            d.setSex("m");
-//            d.setAge(a);
-//            d.setName("za"+1);
-//            System.out.println("d== " + d.toString());
-//            if(!list.contains(d)){
-//                list.add(d);
-//            }
-//
-//        }
-//        System.out.println("list== " + list.size());
+        URL url = new URL(serverPath+queryPath);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        //连接认证信息放在头里,注意,base64可以反编码,有安全隐患
+        conn.setRequestProperty("authorization", "Basic "+authorization);
+        conn.setRequestMethod("GET");
+        // 开始连接
+        conn.connect();
 
+        String resule = null ;
+        if (conn.getResponseCode() == 200) {
+            // 请求返回的数据
+            InputStream in = conn.getInputStream();
+            try {
+                byte[] data1 = new byte[in.available()];
+                in.read(data1);
+                // 转成字符串
+                resule = new String(data1);
+            } catch (Exception e) {
+                e.printStackTrace ();
+            }
+        } else {
+            throw new Exception ("获取客户端信息失败");
+        }
 
-        FixSizeLinkedList<String> list = new FixSizeLinkedList<>(4);
+        return resule;
+    }
 
-        System.out.println("集合大小：" + list.size());
+    private static String getBase64(String admin, String aPublic) throws UnsupportedEncodingException {
+        final String text = admin+":"+aPublic;
+        final BASE64Encoder encoder = new BASE64Encoder();
+        final byte[] textByte = text.getBytes("UTF-8");
+        return  encoder.encode(textByte);
+    }
 
-        list.add("12345");
-        list.add( "1234");
+    class QueryResult {
+        private int code;
+        private List<ClientInfo> data;
 
-        System.out.println("2集合大小：" + list.size());
+        public int getCode() {
+            return code;
+        }
 
-        list.add( "123");
-        list.add( "12");
-        list.add( "1");
-        list.add( "0");
+        public void setCode(int code) {
+            this.code = code;
+        }
 
+        public List<ClientInfo> getData() {
+            return data;
+        }
 
-        for (String s : list) {
-            System.out.println(s);
+        public void setData(List<ClientInfo> data) {
+            this.data = data;
         }
     }
 
+    class ClientInfo{
+        private boolean clean_start;
+        private String client_id;
+        private String conn_mod;
+        private String connected_at;
+        private String ipaddress;
+        private boolean is_bridge;
+        private int keepalive;
+        private String node;
+        private String peercert;
+        private int port;
+        private String proto_name;
 
-    static class Stu{
-        int age;
-        String name;
-        String sex;
-
-        public int getAge() {
-            return age;
+        public boolean isClean_start() {
+            return clean_start;
         }
 
-        public void setAge(int age) {
-            this.age = age;
+        public void setClean_start(boolean clean_start) {
+            this.clean_start = clean_start;
         }
 
-        public String getName() {
-            return name;
+        public String getClient_id() {
+            return client_id;
         }
 
-        public void setName(String name) {
-            this.name = name;
+        public void setClient_id(String client_id) {
+            this.client_id = client_id;
         }
 
-        public String getSex() {
-            return sex;
+        public String getConn_mod() {
+            return conn_mod;
         }
 
-        public void setSex(String sex) {
-            this.sex = sex;
+        public void setConn_mod(String conn_mod) {
+            this.conn_mod = conn_mod;
         }
 
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (!(o instanceof Stu)) return false;
-            Stu stu = (Stu) o;
-            return age == stu.age && name.equals(stu.name) && sex.equals(stu.sex);
+        public String getConnected_at() {
+            return connected_at;
         }
 
-        @Override
-        public int hashCode() {
-            return Objects.hash(age, name, sex);
+        public void setConnected_at(String connected_at) {
+            this.connected_at = connected_at;
+        }
+
+        public String getIpaddress() {
+            return ipaddress;
+        }
+
+        public void setIpaddress(String ipaddress) {
+            this.ipaddress = ipaddress;
+        }
+
+        public boolean isIs_bridge() {
+            return is_bridge;
+        }
+
+        public void setIs_bridge(boolean is_bridge) {
+            this.is_bridge = is_bridge;
+        }
+
+        public int getKeepalive() {
+            return keepalive;
+        }
+
+        public void setKeepalive(int keepalive) {
+            this.keepalive = keepalive;
+        }
+
+        public String getNode() {
+            return node;
+        }
+
+        public void setNode(String node) {
+            this.node = node;
+        }
+
+        public String getPeercert() {
+            return peercert;
+        }
+
+        public void setPeercert(String peercert) {
+            this.peercert = peercert;
+        }
+
+        public int getPort() {
+            return port;
+        }
+
+        public void setPort(int port) {
+            this.port = port;
+        }
+
+        public String getProto_name() {
+            return proto_name;
+        }
+
+        public void setProto_name(String proto_name) {
+            this.proto_name = proto_name;
         }
 
         @Override
         public String toString() {
-            return "Stu{" +
-                    "age=" + age +
-                    ", name='" + name + '\'' +
-                    ", sex='" + sex + '\'' +
+            return "ClientInfo{" +
+                    "clean_start=" + clean_start +
+                    ", client_id='" + client_id + '\'' +
+                    ", conn_mod='" + conn_mod + '\'' +
+                    ", connected_at='" + connected_at + '\'' +
+                    ", ipaddress='" + ipaddress + '\'' +
+                    ", is_bridge=" + is_bridge +
+                    ", keepalive=" + keepalive +
+                    ", node='" + node + '\'' +
+                    ", peercert='" + peercert + '\'' +
+                    ", port=" + port +
+                    ", proto_name='" + proto_name + '\'' +
                     '}';
         }
     }

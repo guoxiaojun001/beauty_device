@@ -126,6 +126,8 @@
             <artifactId>spring-integration-mqtt</artifactId>
         </dependency>
 
+
+
         <!-- https://mvnrepository.com/artifact/org.springframework.security.oauth/spring-security-oauth2 -->
         <dependency>
             <groupId>org.springframework.security.oauth</groupId>

@@ -79,11 +79,24 @@ public class MachineInfo implements Serializable {
 
 
     @Column(name = "create_time")
-    private Date createTime;
+    private String createTime;
 
     @Column(name = "cooperation_mode")
     private String cooperationMode;
 
+
+
+    @Column(name = "online_status")
+    private Integer onlineStatus;
+
+    @Column(name = "lastlogin_time")
+    private String lastloginTime;
+
+    @Column(name = "lock_status")
+    private Integer lockStatus;
+
+    @Column(name = "other_parm")
+    private String otherParm;
 
     private static final long serialVersionUID = 1L;
 
@@ -98,14 +111,18 @@ public class MachineInfo implements Serializable {
                 ", userId=" + userId +
                 ", usedDuration=" + usedDuration +
                 ", machineBrand='" + machineBrand + '\'' +
-                ", createTime='" + createTime + '\'' +
-                ", cooperationMode='" + cooperationMode + '\'' +
                 ", machineStatus='" + machineStatus + '\'' +
                 ", machineWorkTimeOnce=" + machineWorkTimeOnce +
                 ", machineProviceId='" + machineProviceId + '\'' +
                 ", machineProvice='" + machineProvice + '\'' +
                 ", machineCityId='" + machineCityId + '\'' +
                 ", machineCity='" + machineCity + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", cooperationMode='" + cooperationMode + '\'' +
+                ", onlineStatus=" + onlineStatus +
+                ", lastloginTime='" + lastloginTime + '\'' +
+                ", lockStatus=" + lockStatus +
+                ", other_parm='" + otherParm + '\'' +
                 '}';
     }
 

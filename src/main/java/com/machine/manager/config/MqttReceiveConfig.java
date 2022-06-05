@@ -1,7 +1,14 @@
 package com.machine.manager.config;
 
+import cn.hutool.json.JSONObject;
+import com.machine.manager.entity.MachineInfo;
+import com.machine.manager.entity.UserInfo;
+import com.machine.manager.mqtt.MqttGateway;
+import com.machine.manager.service.MachineService;
+import com.machine.manager.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +24,10 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
 import org.springframework.messaging.MessagingException;
+
+import java.util.List;
+
+import static com.machine.manager.entity.TopicType.TList;
 
 /**
  * @author guoxi_789@126.com
@@ -46,6 +57,15 @@ public class MqttReceiveConfig {
     private int completionTimeout;   //连接超时
 
 
+    @Autowired
+    private MachineService service;
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    MqttGateway mqttGateway;
+
     @Bean
     public MqttConnectOptions getMqttConnectOptions() {
         MqttConnectOptions mqttConnectOptions = new MqttConnectOptions();
@@ -74,10 +94,10 @@ public class MqttReceiveConfig {
     public MessageProducer inbound() {
         MqttPahoMessageDrivenChannelAdapter adapter =
                 new MqttPahoMessageDrivenChannelAdapter(clientId + "_inbound", mqttClientFactory(),
-                        "topic_req");
+                        TList);
         adapter.setCompletionTimeout(completionTimeout);
         adapter.setConverter(new DefaultPahoMessageConverter());
-        adapter.setQos(1);
+        adapter.setQos(2);
         adapter.setOutputChannel(mqttInputChannel());
         return adapter;
     }
@@ -91,6 +111,47 @@ public class MqttReceiveConfig {
             public void handleMessage(Message<?> message) throws MessagingException {
                 String payload = (String) message.getPayload();
                 log.info("主题：{}，消息接收到的数据：{}", message.getHeaders().get("mqtt_receivedTopic"), payload);
+
+                JSONObject jsonObject = new JSONObject(payload);
+                String messsageType = jsonObject.getStr("messsageType","");
+                String machineParam = jsonObject.getStr("machineParam");
+                switch (messsageType){
+                    case "vue_lock":
+                        MachineInfo machineInfo =  service.selectDeviceId(machineParam);
+                        if(null != machineInfo){
+                            machineInfo.setLockStatus(jsonObject.getInt("lockStatus"));
+                            int xa = service.updateByPrimaryKeySelective(machineInfo);
+                            log.info(xa +"===============更新锁定状态刷新==>" + machineInfo );
+                        }
+
+                        Integer userId = jsonObject.getInt("userId");
+                        JSONObject js = new JSONObject();
+                        List<MachineInfo> machineInfoList;
+                        UserInfo userInfo = userService.selectByPrimaryKey(userId);
+                        if(userInfo.getUserType().equals("admin")){
+                            //需要区分出 用户类型，防止查找的数据太多
+                            machineInfoList = service.selectAllByAdmin();
+                            js.put("data",machineInfoList);
+                            js.putByPath("messsageType","web_device_status");
+                            mqttGateway.sendToMqtt(js.toString(),"/admin/device_status");
+
+                            log.info("===============通知管理员后台刷新==>" + js.toString());
+                        }else {
+                            machineInfoList = service.selectAllByNormal(userId);
+                            js.put("data",machineInfoList);
+                            js.putByPath("messsageType","web_device_status");
+                            mqttGateway.sendToMqtt(js.toString(),"/"  + userId + "/device_status");
+
+                            log.info("===============通知经销商后台刷新==>" + js.toString());
+                        }
+
+                        break;
+
+                    case "vue_notice":
+                        //直接手机端接收，后端不处理
+                        break;
+                }
+
             }
         };
     }
