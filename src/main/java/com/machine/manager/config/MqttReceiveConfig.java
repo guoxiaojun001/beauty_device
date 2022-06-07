@@ -133,14 +133,18 @@ public class MqttReceiveConfig {
                             machineInfoList = service.selectAllByAdmin();
                             js.put("data",machineInfoList);
                             js.putByPath("messsageType","web_device_status");
-                            mqttGateway.sendToMqtt(js.toString(),"/admin/device_status");
+//                            mqttGateway.sendToMqtt(js.toString(),"/admin/device_status");
+
+                            mqttGateway.sendToMqtt("{'messsageType':'update'}","/device_list/device_status");
 
                             log.info("===============通知管理员后台刷新==>" + js.toString());
                         }else {
                             machineInfoList = service.selectAllByNormal(userId);
                             js.put("data",machineInfoList);
                             js.putByPath("messsageType","web_device_status");
-                            mqttGateway.sendToMqtt(js.toString(),"/"  + userId + "/device_status");
+//                            mqttGateway.sendToMqtt(js.toString(),"/"  + userId + "/device_status");
+
+                            mqttGateway.sendToMqtt("{'messsageType':'update'}","/device_list/device_status");
 
                             log.info("===============通知经销商后台刷新==>" + js.toString());
                         }

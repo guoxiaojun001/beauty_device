@@ -48,7 +48,7 @@ public class Test {
     private static String query(String serverPath, String authorization, int pageIndex, int pageSize) throws Exception {
         //拼接查询参数
         String param = "_page=" + pageIndex + "&" + "_limit=" + pageSize;
-        String queryPath = "/api/v4/nodes/emqx@127.0.0.1/clients?"+param;
+        String queryPath = "/api/v4/clients?"+param;
 
         URL url = new URL(serverPath+queryPath);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
