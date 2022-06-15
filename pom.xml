@@ -19,6 +19,8 @@
         <java.version>1.8</java.version>
         <jjwt.version>0.11.1</jjwt.version>
         <jna.version>5.5.0</jna.version>
+
+        <docker.image.prefix>registry.aliyuncs.com/linhuatest</docker.image.prefix>
     </properties>
 
     <dependencies>
@@ -204,6 +206,27 @@
                     <mainClass>com.machine.manager.ManagerApplication</mainClass>
                 </configuration>
             </plugin>
+
+
+            <!-- docker插件 -->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                    <!--docker文件所在的目录-->
+                    <dockerDirectory>src/main/docker</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+
         </plugins>
 
     </build>

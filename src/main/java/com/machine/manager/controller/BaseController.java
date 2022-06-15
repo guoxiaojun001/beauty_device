@@ -35,6 +35,7 @@ public abstract class BaseController {
     @Autowired
     protected BCryptPasswordEncoder bCryptPasswordEncoder;
 
+
     /**
      * 获取用户所拥有的权限列表
      * @return

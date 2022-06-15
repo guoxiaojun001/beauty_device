@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.machine.manager.dao.OrderDao">
+  <resultMap id="BaseResultMap" type="com.machine.manager.entity.Order">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="order_content" jdbcType="VARCHAR" property="orderContent" />
+    <result column="price" jdbcType="INTEGER" property="price" />
+    <result column="pay_status" jdbcType="INTEGER" property="payStatus" />
+    <result column="order_status" jdbcType="INTEGER" property="orderStatus" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="operation_time" jdbcType="INTEGER" property="operationTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, order_no, order_content, price, pay_status, order_status, create_time, operation_time
+  </sql>
+  <select id="selectByExample" parameterType="com.machine.manager.entity.Order" resultMap="BaseResultMap">
+    select
+
+    <include refid="Base_Column_List" />
+    from order
+    <if test="_parameter != null">
+      <include refid="Base_Column_List" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.machine.manager.entity.Order">
+    delete from order
+    <if test="_parameter != null">
+      <include refid="Base_Column_List" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.machine.manager.entity.Order" useGeneratedKeys="true">
+    insert into order (order_no, order_content, price, 
+      pay_status, order_status, create_time, 
+      operation_time)
+    values (#{orderNo,jdbcType=VARCHAR}, #{orderContent,jdbcType=VARCHAR}, #{price,jdbcType=INTEGER}, 
+      #{payStatus,jdbcType=INTEGER}, #{orderStatus,jdbcType=INTEGER}, #{createTime,jdbcType=VARCHAR}, 
+      #{operationTime,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.machine.manager.entity.Order" useGeneratedKeys="true">
+    insert into order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="orderContent != null">
+        order_content,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="payStatus != null">
+        pay_status,
+      </if>
+      <if test="orderStatus != null">
+        order_status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="operationTime != null">
+        operation_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderContent != null">
+        #{orderContent,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=INTEGER},
+      </if>
+      <if test="payStatus != null">
+        #{payStatus,jdbcType=INTEGER},
+      </if>
+      <if test="orderStatus != null">
+        #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="operationTime != null">
+        #{operationTime,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.machine.manager.entity.Order" resultType="java.lang.Long">
+    select count(*) from order
+    <if test="_parameter != null">
+      <include refid="Base_Column_List" />
+    </if>
+  </select>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.machine.manager.entity.Order">
+    update order
+    <set>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderContent != null">
+        order_content = #{orderContent,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=INTEGER},
+      </if>
+      <if test="payStatus != null">
+        pay_status = #{payStatus,jdbcType=INTEGER},
+      </if>
+      <if test="orderStatus != null">
+        order_status = #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="operationTime != null">
+        operation_time = #{operationTime,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.machine.manager.entity.Order">
+    update order
+    set order_no = #{orderNo,jdbcType=VARCHAR},
+      order_content = #{orderContent,jdbcType=VARCHAR},
+      price = #{price,jdbcType=INTEGER},
+      pay_status = #{payStatus,jdbcType=INTEGER},
+      order_status = #{orderStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      operation_time = #{operationTime,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

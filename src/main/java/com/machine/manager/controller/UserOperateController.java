@@ -32,8 +32,6 @@ public class UserOperateController  extends  BaseController{
     @Autowired
     private UserService userService;
 
-    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-
 
     @ApiOperation("新增用户")
     @UserLoginToken
