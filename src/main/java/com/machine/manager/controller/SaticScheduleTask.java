@@ -26,7 +26,7 @@ public class SaticScheduleTask {
     //用户名
     private static String username = "admin";
     //登录密码
-    private static String password = "public";
+    private static String password = "qunimabi#123$456";
     //服务器地址
     private static String serverPath = "http://39.98.108.64:18083";
     //当前页
@@ -45,7 +45,7 @@ public class SaticScheduleTask {
     //3.添加定时任务
 //    @Scheduled(cron = "0/30 * * * * ?")
     //或直接指定时间间隔，例如：30秒
-//    @Scheduled(fixedRate=40000)
+    @Scheduled(fixedRate=40000)
     private void configureTasks() {
         System.err.println("执行静态定时任务时间: " + LocalDateTime.now());
         //账号密码Base64加密

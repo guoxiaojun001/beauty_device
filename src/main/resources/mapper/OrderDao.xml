@@ -36,7 +36,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from order
     where id = #{id,jdbcType=INTEGER}
@@ -52,11 +52,11 @@
     </if>
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.machine.manager.entity.Order" useGeneratedKeys="true">
-    insert into order (order_no, order_content, price, 
-      pay_status, order_status, create_time, 
+    insert into order (order_no, order_content, price,
+      pay_status, order_status, create_time,
       operation_time)
-    values (#{orderNo,jdbcType=VARCHAR}, #{orderContent,jdbcType=VARCHAR}, #{price,jdbcType=INTEGER}, 
-      #{payStatus,jdbcType=INTEGER}, #{orderStatus,jdbcType=INTEGER}, #{createTime,jdbcType=VARCHAR}, 
+    values (#{orderNo,jdbcType=VARCHAR}, #{orderContent,jdbcType=VARCHAR}, #{price,jdbcType=INTEGER},
+      #{payStatus,jdbcType=INTEGER}, #{orderStatus,jdbcType=INTEGER}, #{createTime,jdbcType=VARCHAR},
       #{operationTime,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.machine.manager.entity.Order" useGeneratedKeys="true">

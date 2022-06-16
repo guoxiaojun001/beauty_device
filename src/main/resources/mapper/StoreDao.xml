@@ -15,12 +15,12 @@
 
 
   <sql id="Base_Column_List">
-    id, code, address, contact_person, agent_id, device_count, create_time, version, 
+    id, code, address, contact_person, agent_id, device_count, create_time, version,
     store_name
   </sql>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from store
     where id = #{id,jdbcType=INTEGER}

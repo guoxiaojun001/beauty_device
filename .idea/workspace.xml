@@ -5,24 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5b7c9d0-bd3b-4daf-a8aa-a123ed446911" name="Default" comment="Merge branch 'master' of github.com:guoxiaojun001/beauty_device&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/machine/manager/controller/LoginController.java&#10;#&#9;src/main/java/com/machine/manager/service/UserService.java&#10;#&#9;src/main/java/com/machine/manager/service/impl/UserServiceImpl.java">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/StoreController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/OrderService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/StoreService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/impl/OrderServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/impl/StoreServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/manager.iml" beforeDir="false" afterPath="$PROJECT_DIR$/manager.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/BaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/BaseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/MachineListController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/MqttController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/SaticScheduleTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/SaticScheduleTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/StatisticsDurationController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/UserListController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/UserOperateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/UserOperateController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/MachineInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/MachineInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/Store.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/Store.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/UserInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/UserInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/WorkRecords.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/WorkRecords.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/MachineInfoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/MachineInfoMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/OrderDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/OrderDao.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/StoreDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/StoreDao.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -330,7 +327,7 @@
     <property name="project.structure.last.edited" value="Facets" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.55568314" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="File.Encoding" />
   </component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
@@ -496,8 +493,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Test" />
-        <item itemvalue="Application.TestOld" />
         <item itemvalue="Application.SecurityConfig" />
+        <item itemvalue="Application.TestOld" />
       </list>
     </recent_temporary>
   </component>
@@ -518,7 +515,10 @@
       <workItem from="1613907534445" duration="3062000" />
       <workItem from="1614435448336" duration="105939000" />
       <workItem from="1623592914270" duration="3735000" />
-      <workItem from="1655271858598" duration="19407000" />
+      <workItem from="1655271858598" duration="29324000" />
+      <workItem from="1655363341112" duration="7000" />
+      <workItem from="1655363598652" duration="9194000" />
+      <workItem from="1655376338222" duration="3065000" />
     </task>
     <servers />
   </component>
@@ -572,12 +572,13 @@
     <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.History.Properties">
-    <option name="COLUMN_ORDER">
+    <option name="COLUMN_ID_ORDER">
       <list>
-        <option value="0" />
-        <option value="2" />
-        <option value="3" />
-        <option value="1" />
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
       </list>
     </option>
   </component>
@@ -616,11 +617,6 @@
         </entry>
       </map>
     </option>
-    <option name="OPEN_GENERIC_TABS">
-      <map>
-        <entry key="1" value="TOOL_WINDOW" />
-      </map>
-    </option>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -632,32 +628,32 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/machine/manager/controller/BaseController.java</url>
-          <line>59</line>
+          <line>60</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/machine/manager/controller/BaseController.java</url>
-          <line>58</line>
+          <line>59</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/machine/manager/controller/BaseController.java</url>
-          <line>80</line>
+          <line>81</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/machine/manager/controller/BaseController.java</url>
-          <line>79</line>
+          <line>80</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/machine/manager/controller/BaseController.java</url>
-          <line>66</line>
+          <line>67</line>
           <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/machine/manager/controller/BaseController.java</url>
-          <line>54</line>
+          <line>55</line>
           <option name="timeStamp" value="21" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -709,6 +705,11 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/machine/manager/controller/StoreController.java</url>
           <line>88</line>
           <option name="timeStamp" value="51" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/machine/manager/controller/LoginController.java</url>
+          <line>36</line>
+          <option name="timeStamp" value="52" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

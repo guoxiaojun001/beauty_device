@@ -34,7 +34,7 @@ public class Test {
         //查询
         String json = query (serverPath,authorization,pageIndex, pageSize);
 
-//        System.out.println ("===========>" + json);
+        System.out.println ("===========>" + json);
 
         JSONObject jsonObject = new JSONObject(json);
 

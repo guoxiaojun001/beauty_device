@@ -8,10 +8,10 @@ import java.io.Serializable;
 
 /**
  * store
- * @author 
+ * @author
  */
 @Entity
-@Table(name = "store")
+@Table(name = "stores")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
