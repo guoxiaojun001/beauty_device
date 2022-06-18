@@ -10,16 +10,18 @@
     <result column="order_status" jdbcType="INTEGER" property="orderStatus" />
     <result column="create_time" jdbcType="VARCHAR" property="createTime" />
     <result column="operation_time" jdbcType="INTEGER" property="operationTime" />
+    <result column="machine_param" jdbcType="VARCHAR" property="machineParam" />
+
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, order_no, order_content, price, pay_status, order_status, create_time, operation_time
+    id, order_no, order_content, price, pay_status, order_status, create_time, operation_time ,machine_param
   </sql>
   <select id="selectByExample" parameterType="com.machine.manager.entity.Order" resultMap="BaseResultMap">
     select
 
     <include refid="Base_Column_List" />
-    from order
+    from orders
     <if test="_parameter != null">
       <include refid="Base_Column_List" />
     </if>
@@ -38,29 +40,41 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from order
+    from orders
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+
+  <select id="selectAll"  resultType="com.machine.manager.entity.Order">
+    select <include refid="Base_Column_List"/> FROM orders
+  </select>
+
+  <select id="selectCurrentUser"  parameterType="java.lang.String" resultType="com.machine.manager.entity.Order">
+    select <include refid="Base_Column_List"/> FROM orders t where t.agent_id=#{agentId}
+  </select>
+
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from order
+    delete from orders
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.machine.manager.entity.Order">
-    delete from order
+    delete from orders
     <if test="_parameter != null">
       <include refid="Base_Column_List" />
     </if>
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.machine.manager.entity.Order" useGeneratedKeys="true">
-    insert into order (order_no, order_content, price,
+    insert into orders (order_no, order_content, price,
       pay_status, order_status, create_time,
-      operation_time)
+      operation_time,machine_param)
     values (#{orderNo,jdbcType=VARCHAR}, #{orderContent,jdbcType=VARCHAR}, #{price,jdbcType=INTEGER},
       #{payStatus,jdbcType=INTEGER}, #{orderStatus,jdbcType=INTEGER}, #{createTime,jdbcType=VARCHAR},
-      #{operationTime,jdbcType=INTEGER})
+      #{operationTime,jdbcType=INTEGER},#{machineParam,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.machine.manager.entity.Order" useGeneratedKeys="true">
-    insert into order
+    insert into orders
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="orderNo != null">
         order_no,
@@ -83,6 +97,11 @@
       <if test="operationTime != null">
         operation_time,
       </if>
+
+      <if test="machineParam != null">
+        machine_param,
+      </if>
+
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="orderNo != null">
@@ -106,17 +125,22 @@
       <if test="operationTime != null">
         #{operationTime,jdbcType=INTEGER},
       </if>
+
+      <if test="machineParam != null">
+        #{machineParam,jdbcType=INTEGER},
+      </if>
+
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.machine.manager.entity.Order" resultType="java.lang.Long">
-    select count(*) from order
+  <select id="countByExample" parameterType="java.lang.String" resultType="java.lang.Long">
+    select count(*) from orders t where t.agent_id=#{agentId}
     <if test="_parameter != null">
       <include refid="Base_Column_List" />
     </if>
   </select>
 
   <update id="updateByPrimaryKeySelective" parameterType="com.machine.manager.entity.Order">
-    update order
+    update orders
     <set>
       <if test="orderNo != null">
         order_no = #{orderNo,jdbcType=VARCHAR},
@@ -139,18 +163,23 @@
       <if test="operationTime != null">
         operation_time = #{operationTime,jdbcType=INTEGER},
       </if>
+
+      <if test="machineParam != null">
+        machine_param = #{machineParam,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.machine.manager.entity.Order">
-    update order
+    update orders
     set order_no = #{orderNo,jdbcType=VARCHAR},
       order_content = #{orderContent,jdbcType=VARCHAR},
       price = #{price,jdbcType=INTEGER},
       pay_status = #{payStatus,jdbcType=INTEGER},
       order_status = #{orderStatus,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=VARCHAR},
-      operation_time = #{operationTime,jdbcType=INTEGER}
+      operation_time = #{operationTime,jdbcType=INTEGER},
+      machine_param = #{machineParam,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

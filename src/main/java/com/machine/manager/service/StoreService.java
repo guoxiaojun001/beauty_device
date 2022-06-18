@@ -5,13 +5,8 @@ import com.machine.manager.entity.Store;
 import java.util.List;
 
 public interface StoreService {
-    long countByExample( Store  example);
-
-    int deleteByExample(Store example);
 
     int deleteByPrimaryKey(Integer id);
-
-//    int insert(Store record);
 
     int insertSelective(Store record);
 

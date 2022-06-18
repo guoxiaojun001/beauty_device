@@ -13,7 +13,6 @@ public interface OrderDao {
 
     int deleteByPrimaryKey(Integer id);
 
-    int insert(Order record);
 
     int insertSelective(Order record);
 
@@ -21,7 +20,9 @@ public interface OrderDao {
 
     Order selectByPrimaryKey(Integer id);
 
+    List<Order> selectAll();
 
+    List<Order> selectCurrentUser(String agentId);
 
     int updateByPrimaryKeySelective(Order record);
 

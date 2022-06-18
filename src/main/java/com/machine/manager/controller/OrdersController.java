@@ -1,30 +1,25 @@
 package com.machine.manager.controller;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.machine.manager.entity.Order;
 import com.machine.manager.entity.Store;
 import com.machine.manager.entity.UserInfo;
-import com.machine.manager.entity.user.request.UserQueryRequest;
-import com.machine.manager.entity.user.request.UserQueryRequestName;
-import com.machine.manager.entity.user.request.UserQueryRequestParm;
-import com.machine.manager.entity.user.request.UserQueryRequestPhone;
 import com.machine.manager.jwt.JwtTokenUtil222;
 import com.machine.manager.jwt.RestResult;
 import com.machine.manager.reject.AdminToken;
 import com.machine.manager.reject.UserLoginToken;
+import com.machine.manager.service.OrderService;
 import com.machine.manager.service.StoreService;
 import com.machine.manager.util.RequestUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -32,21 +27,19 @@ import java.util.List;
  *
  */
 @RestController
-@Api("门店操作")
-@RequestMapping("/store")
-public class StoreController extends  BaseController{
+@Api("订单操作")
+@RequestMapping("/order")
+public class OrdersController extends  BaseController{
     @Autowired
-    private StoreService storeService;
+    private OrderService orderService;
 
     @ApiOperation("新增门店")
-    @UserLoginToken
-    @AdminToken
-    @PostMapping("/addStore")
-    public RestResult addUser(@RequestBody Store store) {
+//    @UserLoginToken
+//    @AdminToken
+    @PostMapping("/addOrder")
+    public RestResult addUser(@RequestBody Order order) {
         RestResult restResult = new RestResult();
-//        List<Store> storeList = storeService .selectByExample(store);
-
-        int code = storeService.insertSelective(store);
+        int code = orderService.insertSelective(order);
         if(code == 1){
             restResult.setCode(200);
             restResult.setSuccess(true);
@@ -60,13 +53,13 @@ public class StoreController extends  BaseController{
         return restResult;
     }
 
-    @ApiOperation("删除门店")
-    @UserLoginToken
-    @AdminToken
-    @PostMapping("/deleteStore")
+    @ApiOperation("删除订单")
+//    @UserLoginToken
+//    @AdminToken
+    @PostMapping("/deleteOrder")
     public RestResult deleteUserById(Integer id) {
         RestResult restResult = new RestResult();
-        int code = storeService.deleteByPrimaryKey(id);
+        int code = orderService.deleteByPrimaryKey(id);
         if(code == 1){
             restResult.setCode(200);
             restResult.setSuccess(true);
@@ -76,18 +69,16 @@ public class StoreController extends  BaseController{
             restResult.setSuccess(false);
             restResult.setMsg("删除失败");
         }
-
         return restResult;
     }
 
-    @ApiOperation("修改门店")
-    @UserLoginToken
-    @PostMapping("/updateStore")
-    public RestResult updateStoreInfo(@RequestBody Store store) {
-//        List<Store> storeList = storeService .selectByExample(store);
-
+    @ApiOperation("修改订单")
+//    @UserLoginToken
+    //    @AdminToken
+    @PostMapping("/updateOrder")
+    public RestResult updateStoreInfo(@RequestBody Order order) {
         RestResult restResult = new RestResult();
-        int code = storeService.updateByPrimaryKeySelective(store);
+        int code = orderService.updateByPrimaryKeySelective(order);
         if(code == 1){
             restResult.setCode(200);
             restResult.setSuccess(true);
@@ -103,16 +94,15 @@ public class StoreController extends  BaseController{
 
 
     @ApiOperation("查询门店信息，返回列表，如果指定id查询，取列表中第一个")
-    @UserLoginToken
-    @AdminToken
-    @PostMapping("/queryByStoreId")
+//    @UserLoginToken
+//    @AdminToken
+    @PostMapping("/queryByOrderId")
     public RestResult queryStoreById(Integer id) {
-        List<UserInfo> list;
-        System.out.print("  queryStoreById :" + id);
+        System.out.print("  queryByOrderId :" + id);
         RestResult restResult = new RestResult();
-        Store store = storeService.selectByPrimaryKey(id);
+        Order order = orderService.selectByPrimaryKey(id);
         restResult.setCode(200);
-        restResult.setData(store);
+        restResult.setData(order);
         restResult.setMsg("查询成功");
         restResult.setSuccess(true);
 
@@ -120,10 +110,11 @@ public class StoreController extends  BaseController{
     }
 
     @ApiOperation("查询门店信息，返回列表 ")
-    @UserLoginToken
-    @AdminToken
-    @PostMapping("/queryAllStore")
+//    @UserLoginToken
+//    @AdminToken
+    @PostMapping("/queryAllOrder")
     public RestResult queryAllStore() {
+        //TODO 涉及多表关联查询
         RestResult restResult = new RestResult();
         HttpServletRequest httpServletRequest = RequestUtils.getHttpRequest();
         if(null == httpServletRequest ){
@@ -144,7 +135,7 @@ public class StoreController extends  BaseController{
 
         String userType = "user";
         int userId = -1;
-        List<Store> list ;
+        List<Order> list ;
 
         try {
             DecodedJWT decodedJWT = JwtTokenUtil222.getTokenInfo(token);
@@ -156,13 +147,13 @@ public class StoreController extends  BaseController{
         }
 
         if("admin".equals(userType)){
-            list = storeService.selectAll();
+            list = orderService.selectAll();
             restResult.setData(list);
             restResult.setCode(200);
             restResult.setSuccess(true);
             restResult.setMsg("查询成功");
         }else {
-            list = storeService.selectCurrentUser(userId+"");
+            list = orderService.selectCurrentUser(userId+"");
             restResult.setData(list);
             restResult.setCode(200);
             restResult.setSuccess(true);

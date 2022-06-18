@@ -7,9 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface StoreDao {
-    long countByExample(Store example);
+//    long countByExample(Store example);
 
-    int deleteByExample(Store example);
 
     int deleteByPrimaryKey(Integer id);
 

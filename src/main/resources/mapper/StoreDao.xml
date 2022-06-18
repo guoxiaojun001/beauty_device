@@ -22,7 +22,7 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from store
+    from stores
     where id = #{id,jdbcType=INTEGER}
   </select>
 
@@ -30,29 +30,24 @@
 
 
   <select id="selectAll"  resultType="com.machine.manager.entity.Store">
-    select <include refid="Base_Column_List"/> FROM store
+    select <include refid="Base_Column_List"/> FROM stores
   </select>
 
   <select id="selectCurrentUser"  parameterType="java.lang.String" resultType="com.machine.manager.entity.Store">
-    select <include refid="Base_Column_List"/> FROM store t where t.agent_id=#{agentId}
+    select <include refid="Base_Column_List"/> FROM stores t where t.agent_id=#{agentId}
   </select>
 
 
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from store
+    delete from stores
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.machine.manager.entity.Store">
-    delete from store
-    <if test="_parameter != null">
-      <include refid="Base_Column_List" />
-    </if>
-  </delete>
+
 
 
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.machine.manager.entity.Store" useGeneratedKeys="true">
-    insert into store
+    insert into stores
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="code != null">
         code,
@@ -108,16 +103,16 @@
   </insert>
 
 
-  <select id="countByExample" parameterType="com.machine.manager.entity.Store" resultType="java.lang.Long">
-    select count(*) from store
-    <if test="_parameter != null">
-      <include refid="Base_Column_List" />
-    </if>
-  </select>
+<!--  <select id="countByExample" parameterType="java.lang.Integer" resultType="java.lang.Long">-->
+<!--    select count(*) from stores t where t.agent_id=#{agentId}-->
+<!--    <if test="_parameter != null">-->
+<!--      <include refid="Base_Column_List" />-->
+<!--    </if>-->
+<!--  </select>-->
 
 
   <update id="updateByPrimaryKeySelective" parameterType="com.machine.manager.entity.Store">
-    update store
+    update stores
     <set>
       <if test="code != null">
         code = #{code,jdbcType=VARCHAR},
@@ -147,7 +142,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.machine.manager.entity.Store">
-    update store
+    update stores
     set code = #{code,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
       contact_person = #{contactPerson,jdbcType=VARCHAR},

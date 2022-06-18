@@ -1,7 +1,6 @@
 package com.machine.manager.service;
 
 import com.machine.manager.entity.Order;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -12,15 +11,15 @@ public interface OrderService {
 
     int deleteByPrimaryKey(Integer id);
 
-    int insert(Order record);
-
     int insertSelective(Order record);
 
     List<Order> selectByExample(Order example);
 
     Order selectByPrimaryKey(Integer id);
 
+    List<Order> selectAll();
 
+    List<Order> selectCurrentUser(String agentId);
 
     int updateByPrimaryKeySelective(Order record);
 

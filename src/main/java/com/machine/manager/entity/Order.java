@@ -57,6 +57,11 @@ public class Order implements Serializable {
      */
     private Integer operationTime;
 
+
+    private String machineParam;//设备id
+
+    private String store_id;//门店id
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {

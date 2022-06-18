@@ -33,10 +33,6 @@ public class OrderServiceImpl implements OrderService {
         return orderDao.deleteByPrimaryKey(id);
     }
 
-    @Override
-    public int insert(Order record) {
-        return orderDao.insert(record);
-    }
 
     @Override
     public int insertSelective(Order record) {
@@ -51,6 +47,16 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order selectByPrimaryKey(Integer id) {
         return orderDao.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public List<Order> selectAll() {
+        return orderDao.selectAll();
+    }
+
+    @Override
+    public List<Order> selectCurrentUser(String agentId) {
+        return orderDao.selectCurrentUser(agentId);
     }
 
 
