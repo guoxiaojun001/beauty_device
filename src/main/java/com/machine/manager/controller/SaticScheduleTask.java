@@ -26,7 +26,6 @@ public class SaticScheduleTask {
     //用户名
     private static String username = "admin";
     //登录密码
-//    private static String password = "qunimabi#123$456";
     private static String password = "public";
     //服务器地址
 //    private static String serverPath = "http://172.18.130.64:18083";

@@ -21,7 +21,7 @@ public class Test {
     //登录密码
     private static String password = "public";
     //服务器地址
-    private static String serverPath = "http://39.98.108.64:18083";
+    private static String serverPath = "http://localhost:18083";
     //当前页
     private static int pageIndex = 1;
     //页大小
