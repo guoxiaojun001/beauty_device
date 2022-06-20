@@ -23,11 +23,14 @@
     <result column="lastlogin_time" jdbcType="VARCHAR" property="lastloginTime" />
     <result column="lock_status" jdbcType="INTEGER" property="lockStatus" />
 
+    <result column="store_id" jdbcType="INTEGER" property="storeId" />
+    <result column="other_parm" jdbcType="VARCHAR" property="otherParm" />
+
   </resultMap>
   <sql id="Base_Column_List">
     id, machine_type, machine_function, machine_param, machine_attribute, user_id, used_duration,
     machine_brand, cooperation_mode,create_time, machine_status, machine_work_time_once, machine_provice_id,machine_provice,
-    machine_city_id,machine_city,online_status,lastlogin_time,lock_status
+    machine_city_id,machine_city,online_status,lastlogin_time,lock_status,store_id,other_parm
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -44,13 +47,13 @@
       machine_attribute, user_id, used_duration, 
       machine_brand, cooperation_mode,create_time, machine_status,
       machine_work_time_once, machine_provice_id,machine_provice, machine_city_id,machine_city
-      ,online_status,lastlogin_time,lock_status
+      ,online_status,lastlogin_time,lock_status,store_id,other_parm
       )
     values (#{machineType,jdbcType=VARCHAR}, #{machineFunction,jdbcType=VARCHAR}, #{machineParam,jdbcType=VARCHAR}, 
       #{machineAttribute,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{usedDuration,jdbcType=INTEGER}, 
       #{machineBrand,jdbcType=VARCHAR}, #{cooperationMode,jdbcType=VARCHAR}, #{createTime,  jdbcType=DATE}, #{machineStatus,jdbcType=VARCHAR},
       #{machineWorkTimeOnce,jdbcType=INTEGER}, #{machineProviceId,jdbcType=VARCHAR}, #{machineProvice,jdbcType=VARCHAR}, #{machineCityId,jdbcType=VARCHAR},#{machineCity,jdbcType=VARCHAR}
-      ,#{onlineStatus,jdbcType=INTEGER},#{lastloginTime,jdbcType=VARCHAR},#{lockStatus,jdbcType=INTEGER}
+      ,#{onlineStatus,jdbcType=INTEGER},#{lastloginTime,jdbcType=VARCHAR},#{lockStatus,jdbcType=INTEGER},#{storeId,jdbcType=INTEGER},#{otherParm,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.machine.manager.entity.MachineInfo" useGeneratedKeys="true">
@@ -114,6 +117,15 @@
         lock_status,
       </if>
 
+      <if test="storeId != null">
+        store_id,
+      </if>
+
+      <if test="otherParm != null">
+        other_parm,
+      </if>
+
+
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="machineType != null">
@@ -172,6 +184,14 @@
 
       <if test="lockStatus != null">
         #{lockStatus,jdbcType=INTEGER},
+      </if>
+
+      <if test="storeId != null">
+        #{storeId,jdbcType=INTEGER},
+      </if>
+
+      <if test="otherParm != null">
+        #{otherParm,jdbcType=VARCHAR},
       </if>
 
     </trim>
@@ -236,6 +256,15 @@
       <if test="lockStatus != null">
         lock_status = #{lockStatus,jdbcType=INTEGER},
       </if>
+
+      <if test="storeId != null">
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+
+      <if test="otherParm != null">
+        other_parm = #{otherParm,jdbcType=VARCHAR},
+      </if>
+
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -257,9 +286,12 @@
       machine_city_id = #{machineCityId,jdbcType=VARCHAR},
       machine_city = #{machineCity,jdbcType=VARCHAR},
 
-      online_status = #{onlineStatus,jdbcType=VARCHAR},
+      online_status = #{onlineStatus,jdbcType=INTEGER},
       lastlogin_time = #{lastloginTime,jdbcType=VARCHAR},
-      lock_status = #{lockStatus,jdbcType=VARCHAR}
+      lock_status = #{lockStatus,jdbcType=INTEGER},
+      store_id = #{storeId,jdbcType=INTEGER},
+      other_parm = #{otherParm,jdbcType=VARCHAR}
+
     where id = #{id,jdbcType=INTEGER}
   </update>
 

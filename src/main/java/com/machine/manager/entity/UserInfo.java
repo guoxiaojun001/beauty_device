@@ -7,6 +7,7 @@ import com.machine.manager.jwt.CustomAuthorityDeserializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Proxy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,6 +24,7 @@ import java.util.Objects;
  * user_info
  * @author 
  */
+@Proxy(lazy = false)
 @Entity
 @Table(name = "user_info")
 @Data

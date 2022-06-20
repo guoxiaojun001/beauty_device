@@ -7,6 +7,7 @@ import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 
@@ -14,6 +15,7 @@ import javax.persistence.*;
  * machine_info
  * @author 
  */
+@Proxy(lazy = false)
 @Entity
 @Table(name = "machine_info")
 @Data
@@ -95,6 +97,9 @@ public class MachineInfo implements Serializable {
     @Column(name = "lock_status")
     private Integer lockStatus;
 
+    @Column(name = "store_id")
+    private Integer storeId;
+
     @Column(name = "other_parm")
     private String otherParm;
 
@@ -122,6 +127,7 @@ public class MachineInfo implements Serializable {
                 ", onlineStatus=" + onlineStatus +
                 ", lastloginTime='" + lastloginTime + '\'' +
                 ", lockStatus=" + lockStatus +
+                ", otherParm=" + otherParm +
                 ", other_parm='" + otherParm + '\'' +
                 '}';
     }
