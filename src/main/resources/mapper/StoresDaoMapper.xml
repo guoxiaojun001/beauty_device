@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.machine.manager.dao.StoresDao">
+  <resultMap id="BaseResultMap" type="com.machine.manager.entity.store.StoresEntity">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="contact_person" jdbcType="VARCHAR" property="contactPerson" />
+    <result column="agent_id" jdbcType="VARCHAR" property="agentId" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="store_name" jdbcType="VARCHAR" property="storeName" />
+    <result column="device_count" jdbcType="INTEGER" property="deviceCount" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, code, address, contact_person, agent_id, create_time, store_name, device_count, 
+    version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from stores
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from stores
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.machine.manager.entity.store.StoresEntity">
+    insert into stores (id, code, address, 
+      contact_person, agent_id, create_time, 
+      store_name, device_count, version
+      )
+    values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{contactPerson,jdbcType=VARCHAR}, #{agentId,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{storeName,jdbcType=VARCHAR}, #{deviceCount,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.machine.manager.entity.store.StoresEntity">
+    insert into stores
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="contactPerson != null">
+        contact_person,
+      </if>
+      <if test="agentId != null">
+        agent_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="storeName != null">
+        store_name,
+      </if>
+      <if test="deviceCount != null">
+        device_count,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPerson != null">
+        #{contactPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="agentId != null">
+        #{agentId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="storeName != null">
+        #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceCount != null">
+        #{deviceCount,jdbcType=INTEGER},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.machine.manager.entity.store.StoresEntity">
+    update stores
+    <set>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPerson != null">
+        contact_person = #{contactPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="agentId != null">
+        agent_id = #{agentId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="storeName != null">
+        store_name = #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceCount != null">
+        device_count = #{deviceCount,jdbcType=INTEGER},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.machine.manager.entity.store.StoresEntity">
+    update stores
+    set code = #{code,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      contact_person = #{contactPerson,jdbcType=VARCHAR},
+      agent_id = #{agentId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      store_name = #{storeName,jdbcType=VARCHAR},
+      device_count = #{deviceCount,jdbcType=INTEGER},
+      version = #{version,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+  <resultMap id="StoresAndAgentResultMap" type="com.machine.manager.entity.AgentAndStoreEntity">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="roleId" jdbcType="VARCHAR" property="roleId" />
+    <result column="userType" jdbcType="INTEGER" property="userType" />
+    <result column="companyName" jdbcType="INTEGER" property="companyName" />
+    <collection  column="storesEntities" ofType="com.machine.manager.entity.store.StoresEntity" property="storesEntities" javaType="java.util.List">
+      <result column="id" property="id"/>
+      <result column="code" property="code"/>
+      <result column="address" property="address"/>
+      <result column="contactPerson" property="contactPerson"/>
+      <result column="agentId" property="agentId"/>
+      <result column="createTime" property="createTime"/>
+      <result column="storeName" property="storeName"/>
+      <result column="deviceCount" property="deviceCount"/>
+      <result column="version" property="version"/>
+    </collection>
+  </resultMap>
+
+  <!--查询门店下的代理商-->
+  <select id="queryStoresUnderAgent" resultMap="StoresAndAgentResultMap">
+    select * from user_info u left join stores s on u.id = s.agent_id where u.id=#{agentId}
+  </select>
+
+</mapper>
