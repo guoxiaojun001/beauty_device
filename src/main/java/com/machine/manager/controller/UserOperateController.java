@@ -1,5 +1,7 @@
 package com.machine.manager.controller;
 
+import com.machine.manager.dao.StoresDao;
+import com.machine.manager.entity.AgentAndStoreEntity;
 import com.machine.manager.entity.UserInfo;
 import com.machine.manager.entity.user.request.UserQueryRequest;
 import com.machine.manager.entity.user.request.UserQueryRequestName;
@@ -34,8 +36,8 @@ public class UserOperateController  extends  BaseController{
 
 
     @ApiOperation("新增用户")
-    @UserLoginToken
-    @AdminToken
+//    @UserLoginToken
+//    @AdminToken
     @PostMapping("/addUser")
     public RestResult addUser(@RequestBody UserInfo userInfo) {
         RestResult restResult = new RestResult();
@@ -282,6 +284,20 @@ public class UserOperateController  extends  BaseController{
         restResult.setCode(200);
         restResult.setData(list);
         restResult.setMsg("查询所有");
+        return restResult;
+    }
+
+    @Autowired
+    @SuppressWarnings("all")
+    private StoresDao storesDao;
+
+    @PostMapping("/storesUnderAgent")
+    public RestResult getStoresUnderAgent(Integer agentId){
+        List<AgentAndStoreEntity> agentAndStoreEntities = storesDao.queryStoresUnderAgent(agentId);
+        RestResult restResult= new RestResult();
+        restResult.setData(agentAndStoreEntities);
+        restResult.setSuccess(true);
+        restResult.setMsg("success");
         return restResult;
     }
 }
