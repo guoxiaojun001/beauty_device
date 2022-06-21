@@ -55,7 +55,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> selectCurrentUser(String agentId) {
+    public List<Order> selectCurrentUser(Integer agentId) {
         return orderDao.selectCurrentUser(agentId);
     }
 

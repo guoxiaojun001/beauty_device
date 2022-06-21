@@ -86,6 +86,11 @@ public class MachineServiceImpl implements MachineService {
     }
 
     @Override
+    public List<MachineInfo> selectAllByStore(Integer sid) {
+        return machineInfoDao.selectAllByStore(sid);
+    }
+
+    @Override
     public List<MachineInfo> selectByBrand(MachineRequestAfter request) {
         return machineInfoDao.selectByBrand(request);
     }

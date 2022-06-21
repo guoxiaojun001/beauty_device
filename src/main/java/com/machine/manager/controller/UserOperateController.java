@@ -34,6 +34,10 @@ public class UserOperateController  extends  BaseController{
     @Autowired
     private UserService userService;
 
+    @Autowired
+    @SuppressWarnings("all")
+    private StoresDao storesDao;
+
 
     @ApiOperation("新增用户")
 //    @UserLoginToken
@@ -287,10 +291,9 @@ public class UserOperateController  extends  BaseController{
         return restResult;
     }
 
-    @Autowired
-    @SuppressWarnings("all")
-    private StoresDao storesDao;
 
+
+    @ApiOperation("查询某个经销商下的门店列表")
 //    @UserLoginToken
 //    @AdminToken
     @PostMapping("/storesUnderAgent")
@@ -303,11 +306,12 @@ public class UserOperateController  extends  BaseController{
         return restResult;
     }
 
+    @ApiOperation("查询所有经销商列表 以及每个经销商下包含的门店列表")
     //    @UserLoginToken
 //    @AdminToken
     @PostMapping("/AllStoresUnderAgent")
     public RestResult getAllStoresUnderAgent(){
-        List<AgentAndStoreEntity> agentAndStoreEntities = storesDao.queryAllStoresUnderAgent();
+        List<AgentAndStoreEntity> agentAndStoreEntities = storesDao.queryAllStoresAndAgentList();
         RestResult restResult= new RestResult();
         restResult.setData(agentAndStoreEntities);
         restResult.setSuccess(true);

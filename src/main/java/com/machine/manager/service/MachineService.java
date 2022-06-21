@@ -111,6 +111,8 @@ public interface MachineService {
 
     List<MachineInfo> selectAllByNormal( Integer id);
 
+    List<MachineInfo> selectAllByStore(Integer sid);
+
     //1按照省查询
     List<MachineInfo> selectByProv( MachineRequestAfter request);
 

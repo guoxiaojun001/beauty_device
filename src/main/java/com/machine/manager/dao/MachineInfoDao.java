@@ -33,6 +33,8 @@ public interface MachineInfoDao {
     List<MachineInfo> selectAllByNormal(Integer id);
 
 
+    List<MachineInfo> selectAllByStore(Integer id);
+
     List<MachineInfo> selectByBrand( MachineRequestAfter request);
 
     public List<MachineInfo> selectByProv(MachineRequestAfter request);

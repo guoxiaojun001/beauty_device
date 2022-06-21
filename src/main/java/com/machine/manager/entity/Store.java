@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -12,11 +13,13 @@ import java.util.Objects;
  * @author
  */
 @Entity
-@Table(name = "stores")
+@Table(name = "t_stores")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Store implements Serializable {
+
+    private static final long serialVersionUID = 13435L;
     /**
      * 主键
      */
@@ -60,8 +63,6 @@ public class Store implements Serializable {
      * 门店名称
      */
     private String storeName;
-
-    private static final long serialVersionUID = 1L;
 
 
     @Override

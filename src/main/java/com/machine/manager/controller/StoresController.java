@@ -2,6 +2,7 @@ package com.machine.manager.controller;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.machine.manager.entity.Store;
+import com.machine.manager.entity.StoreData;
 import com.machine.manager.jwt.JwtTokenUtil222;
 import com.machine.manager.jwt.RestResult;
 import com.machine.manager.service.StoreService;
@@ -93,7 +94,24 @@ public class StoresController extends  BaseController{
     }
 
 
-    @ApiOperation("查询门店信息，返回列表，如果指定id查询，取列表中第一个")
+    @ApiOperation("查询门店列表  并且包含设备列表 ")
+//    @UserLoginToken
+//    @AdminToken
+    @PostMapping("/getAllStoreAndDevice")
+    public RestResult getAllStoreAndDevice() {
+        System.out.print("  getAllStoreAndDevice :"  );
+        RestResult restResult = new RestResult();
+        List<StoreData> store = storeService.getAllStoreAndDevice();
+        restResult.setCode(200);
+        restResult.setData(store);
+        restResult.setMsg("查询成功");
+        restResult.setSuccess(true);
+
+        return restResult;
+    }
+
+
+    @ApiOperation("查询门店 指定id查询 ")
 //    @UserLoginToken
 //    @AdminToken
     @PostMapping("/queryByStoreId")
@@ -108,6 +126,7 @@ public class StoresController extends  BaseController{
 
         return restResult;
     }
+
 
     @ApiOperation("查询门店信息，返回列表 ")
 //    @UserLoginToken
@@ -153,7 +172,7 @@ public class StoresController extends  BaseController{
             restResult.setSuccess(true);
             restResult.setMsg("查询成功");
         }else {
-            list = storeService.selectCurrentUser(userId+"");
+            list = storeService.selectCurrentUser(userId );
             restResult.setData(list);
             restResult.setCode(200);
             restResult.setSuccess(true);

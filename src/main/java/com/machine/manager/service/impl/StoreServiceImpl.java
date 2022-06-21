@@ -3,6 +3,7 @@ package com.machine.manager.service.impl;
 import com.machine.manager.dao.JwtUserDao;
 import com.machine.manager.dao.StoreDao;
 import com.machine.manager.entity.Store;
+import com.machine.manager.entity.StoreData;
 import com.machine.manager.service.MachineService;
 import com.machine.manager.service.StoreService;
 import org.springframework.stereotype.Service;
@@ -37,8 +38,13 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
-    public List<Store> selectCurrentUser(String agentId) {
+    public List<Store> selectCurrentUser(Integer agentId) {
         return storeDao.selectCurrentUser(agentId);
+    }
+
+    @Override
+    public List<StoreData> getAllStoreAndDevice() {
+        return storeDao.getAllStoreAndDevice();
     }
 
 

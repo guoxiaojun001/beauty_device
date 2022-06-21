@@ -9,11 +9,11 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * orders
+ * t_orders
  * @author
  */
 @Entity
-@Table(name = "orders")
+@Table(name = "t_orders")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

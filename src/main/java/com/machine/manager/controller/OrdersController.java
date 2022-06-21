@@ -37,7 +37,7 @@ public class OrdersController extends  BaseController{
 //    @UserLoginToken
 //    @AdminToken
     @PostMapping("/addOrder")
-    public RestResult addUser(@RequestBody Order order) {
+    public RestResult addOrder(@RequestBody Order order) {
         RestResult restResult = new RestResult();
         int code = orderService.insertSelective(order);
         if(code == 1){
@@ -57,7 +57,7 @@ public class OrdersController extends  BaseController{
 //    @UserLoginToken
 //    @AdminToken
     @PostMapping("/deleteOrder")
-    public RestResult deleteUserById(Integer id) {
+    public RestResult deleteOrderById(Integer id) {
         RestResult restResult = new RestResult();
         int code = orderService.deleteByPrimaryKey(id);
         if(code == 1){
@@ -93,11 +93,11 @@ public class OrdersController extends  BaseController{
     }
 
 
-    @ApiOperation("查询门店信息，返回列表，如果指定id查询，取列表中第一个")
+    @ApiOperation("通过id查询订单")
 //    @UserLoginToken
 //    @AdminToken
     @PostMapping("/queryByOrderId")
-    public RestResult queryStoreById(Integer id) {
+    public RestResult queryByOrderId(Integer id) {
         System.out.print("  queryByOrderId :" + id);
         RestResult restResult = new RestResult();
         Order order = orderService.selectByPrimaryKey(id);
@@ -109,11 +109,11 @@ public class OrdersController extends  BaseController{
         return restResult;
     }
 
-    @ApiOperation("查询门店信息，返回列表 ")
+    @ApiOperation("查询订单列表 ")
 //    @UserLoginToken
 //    @AdminToken
     @PostMapping("/queryAllOrder")
-    public RestResult queryAllStore() {
+    public RestResult queryAllOrder() {
         //TODO 涉及多表关联查询
         RestResult restResult = new RestResult();
         HttpServletRequest httpServletRequest = RequestUtils.getHttpRequest();
@@ -153,7 +153,7 @@ public class OrdersController extends  BaseController{
             restResult.setSuccess(true);
             restResult.setMsg("查询成功");
         }else {
-            list = orderService.selectCurrentUser(userId+"");
+            list = orderService.selectCurrentUser(userId );
             restResult.setData(list);
             restResult.setCode(200);
             restResult.setSuccess(true);

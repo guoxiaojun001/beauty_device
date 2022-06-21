@@ -1,6 +1,7 @@
 package com.machine.manager.service;
 
 import com.machine.manager.entity.Store;
+import com.machine.manager.entity.StoreData;
 
 import java.util.List;
 
@@ -12,7 +13,9 @@ public interface StoreService {
 
     List<Store> selectAll();
 
-    List<Store> selectCurrentUser(String agentId);
+    List<Store> selectCurrentUser(Integer agentId);
+
+    List<StoreData> getAllStoreAndDevice();
 
     Store selectByPrimaryKey(Integer id);
 

@@ -3,6 +3,7 @@ package com.machine.manager.dao;
 import java.util.List;
 
 import com.machine.manager.entity.Store;
+import com.machine.manager.entity.StoreData;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
@@ -12,14 +13,15 @@ public interface StoreDao {
 
     int deleteByPrimaryKey(Integer id);
 
-    int insert(Store record);
 
     int insertSelective(Store record);
 
 
     List<Store> selectAll();
 
-    List<Store> selectCurrentUser(String agentId);
+    List<Store> selectCurrentUser(Integer agentId);
+
+    List<StoreData> getAllStoreAndDevice();
 
     Store selectByPrimaryKey(Integer id);
 

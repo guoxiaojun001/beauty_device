@@ -331,6 +331,10 @@
   </select>
 
 
+  <select id="selectAllByStore" parameterType="java.lang.Integer" resultType="com.machine.manager.entity.MachineInfo">
+    select <include refid="Base_Column_List"/> FROM machine_info t where t.store_id=#{sid}
+  </select>
+
 
   <select id="selectByProv" parameterType="com.machine.manager.entity.machine.MachineRequestAfter" resultType="com.machine.manager.entity.MachineInfo">
     select <include refid="Base_Column_List"/> FROM machine_info t

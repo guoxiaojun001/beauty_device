@@ -19,17 +19,17 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from stores
+    from t_stores
     where id = #{id,jdbcType=INTEGER}
   </select>
 
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from stores
+    delete from t_stores
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.machine.manager.entity.store.StoresEntity">
-    insert into stores (id, code, address, 
+    insert into t_stores (id, code, address,
       contact_person, agent_id, create_time, 
       store_name, device_count, version
       )
@@ -39,7 +39,7 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.machine.manager.entity.store.StoresEntity">
-    insert into stores
+    insert into t_stores
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -100,7 +100,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.machine.manager.entity.store.StoresEntity">
-    update stores
+    update t_stores
     <set>
       <if test="code != null">
         code = #{code,jdbcType=VARCHAR},
@@ -130,7 +130,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.machine.manager.entity.store.StoresEntity">
-    update stores
+    update t_stores
     set code = #{code,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
       contact_person = #{contactPerson,jdbcType=VARCHAR},
@@ -168,12 +168,23 @@
 
   <!--查询门店下的代理商-->
   <select id="queryStoresUnderAgent" resultMap="StoresAndAgentResultMap">
-    select * from user_info u left join stores s on u.id = s.agent_id where u.id=#{agentId}
+    select * from user_info u left join t_stores s on u.id = s.agent_id where u.id=#{agentId}
   </select>
 
 
-  <select id="queryAllStoresUnderAgent" resultMap="StoresAndAgentResultMap">
-    select * from user_info u left join stores s on u.id = s.agent_id where u.id=#{agentId}
+
+
+
+<!--  =========================查询所有  经销商列表嵌套门店列表 -->
+  <resultMap id="StoresAndAgentResultMapList"  type="com.machine.manager.entity.AgentAndStoreEntity">
+    <collection property="storesEntities"
+                javaType="java.util.List" ofType="com.machine.manager.entity.store.StoresEntity"
+                column="id"
+                select="com.machine.manager.dao.StoreDao.selectCurrentUser">
+    </collection>
+  </resultMap>
+  <select id="queryAllStoresAndAgentList" resultMap="StoresAndAgentResultMapList">
+    select * from user_info
   </select>
 
 

@@ -28,16 +28,16 @@ public class SaticScheduleTask {
     //登录密码
     private static String password = "public";
     //服务器地址
-//    private static String serverPath = "http://172.18.130.64:18083";
-    private static String serverPath = "http://localhost:18083";
+    private static String serverPath = "http://172.18.130.64:18083";
+//    private static String serverPath = "http://localhost:18083";
     //当前页
     private static int pageIndex = 1;
     //页大小
     private static int pageSize = 100;
 
 
-    @Autowired
-    MqttGateway mqttGateway;
+//    @Autowired
+//    MqttGateway mqttGateway;
 
     @Autowired
     private MachineService service;
@@ -77,7 +77,7 @@ public class SaticScheduleTask {
             }
 
             //通知前端更新
-            mqttGateway.sendToMqtt("{'messsageType':'update'}","/device_list/device_status");
+//            mqttGateway.sendToMqtt("{'messsageType':'update'}","/device_list/device_status");
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

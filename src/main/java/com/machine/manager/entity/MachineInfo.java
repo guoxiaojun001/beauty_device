@@ -105,32 +105,6 @@ public class MachineInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Override
-    public String toString() {
-        return "MachineInfo{" +
-                "id=" + id +
-                ", machineType='" + machineType + '\'' +
-                ", machineFunction='" + machineFunction + '\'' +
-                ", machineParam='" + machineParam + '\'' +
-                ", machineAttribute='" + machineAttribute + '\'' +
-                ", userId=" + userId +
-                ", usedDuration=" + usedDuration +
-                ", machineBrand='" + machineBrand + '\'' +
-                ", machineStatus='" + machineStatus + '\'' +
-                ", machineWorkTimeOnce=" + machineWorkTimeOnce +
-                ", machineProviceId='" + machineProviceId + '\'' +
-                ", machineProvice='" + machineProvice + '\'' +
-                ", machineCityId='" + machineCityId + '\'' +
-                ", machineCity='" + machineCity + '\'' +
-                ", createTime='" + createTime + '\'' +
-                ", cooperationMode='" + cooperationMode + '\'' +
-                ", onlineStatus=" + onlineStatus +
-                ", lastloginTime='" + lastloginTime + '\'' +
-                ", lockStatus=" + lockStatus +
-                ", otherParm=" + otherParm +
-                ", other_parm='" + otherParm + '\'' +
-                '}';
-    }
 
     @Override
     public boolean equals(Object o) {

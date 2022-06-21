@@ -19,7 +19,7 @@ public interface OrderService {
 
     List<Order> selectAll();
 
-    List<Order> selectCurrentUser(String agentId);
+    List<Order> selectCurrentUser(Integer agentId);
 
     int updateByPrimaryKeySelective(Order record);
 

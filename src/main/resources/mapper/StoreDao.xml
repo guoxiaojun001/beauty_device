@@ -6,7 +6,7 @@
     <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="contact_person" jdbcType="VARCHAR" property="contactPerson" />
-    <result column="agent_id" jdbcType="VARCHAR" property="agentId" />
+    <result column="agent_id" jdbcType="INTEGER" property="agentId" />
     <result column="device_count" jdbcType="INTEGER" property="deviceCount" />
     <result column="create_time" jdbcType="VARCHAR" property="createTime" />
     <result column="version" jdbcType="INTEGER" property="version" />
@@ -22,7 +22,7 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from stores
+    from t_stores
     where id = #{id,jdbcType=INTEGER}
   </select>
 
@@ -30,24 +30,24 @@
 
 
   <select id="selectAll"  resultType="com.machine.manager.entity.Store">
-    select <include refid="Base_Column_List"/> FROM stores
+    select <include refid="Base_Column_List"/> FROM t_stores
   </select>
 
-  <select id="selectCurrentUser"  parameterType="java.lang.String" resultType="com.machine.manager.entity.Store">
-    select <include refid="Base_Column_List"/> FROM stores t where t.agent_id=#{agentId}
+  <select id="selectCurrentUser"  parameterType="java.lang.Integer" resultType="com.machine.manager.entity.Store">
+    select <include refid="Base_Column_List"/> FROM t_stores t where t.agent_id=#{agentId}
   </select>
 
 
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from stores
+    delete from t_stores
     where id = #{id,jdbcType=INTEGER}
   </delete>
 
 
 
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.machine.manager.entity.Store" useGeneratedKeys="true">
-    insert into stores
+    insert into t_stores
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="code != null">
         code,
@@ -85,7 +85,7 @@
         #{contactPerson,jdbcType=VARCHAR},
       </if>
       <if test="agentId != null">
-        #{agentId,jdbcType=VARCHAR},
+        #{agentId,jdbcType=INTEGER},
       </if>
       <if test="deviceCount != null">
         #{deviceCount,jdbcType=INTEGER},
@@ -103,16 +103,9 @@
   </insert>
 
 
-<!--  <select id="countByExample" parameterType="java.lang.Integer" resultType="java.lang.Long">-->
-<!--    select count(*) from stores t where t.agent_id=#{agentId}-->
-<!--    <if test="_parameter != null">-->
-<!--      <include refid="Base_Column_List" />-->
-<!--    </if>-->
-<!--  </select>-->
-
 
   <update id="updateByPrimaryKeySelective" parameterType="com.machine.manager.entity.Store">
-    update stores
+    update t_stores
     <set>
       <if test="code != null">
         code = #{code,jdbcType=VARCHAR},
@@ -124,7 +117,7 @@
         contact_person = #{contactPerson,jdbcType=VARCHAR},
       </if>
       <if test="agentId != null">
-        agent_id = #{agentId,jdbcType=VARCHAR},
+        agent_id = #{agentId,jdbcType=INTEGER},
       </if>
       <if test="deviceCount != null">
         device_count = #{deviceCount,jdbcType=INTEGER},
@@ -142,11 +135,11 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.machine.manager.entity.Store">
-    update stores
+    update t_stores
     set code = #{code,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
       contact_person = #{contactPerson,jdbcType=VARCHAR},
-      agent_id = #{agentId,jdbcType=VARCHAR},
+      agent_id = #{agentId,jdbcType=INTEGER},
       device_count = #{deviceCount,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=VARCHAR},
       version = #{version,jdbcType=INTEGER},

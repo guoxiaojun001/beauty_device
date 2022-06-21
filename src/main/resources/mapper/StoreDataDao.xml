@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.machine.manager.dao.StoreDao">
+<!--  <resultMap id="BaseResultMap" type="com.machine.manager.entity.Store">-->
+<!--    <id column="id" jdbcType="INTEGER" property="id" />-->
+<!--    <result column="code" jdbcType="VARCHAR" property="code" />-->
+<!--    <result column="address" jdbcType="VARCHAR" property="address" />-->
+<!--    <result column="contact_person" jdbcType="VARCHAR" property="contactPerson" />-->
+<!--    <result column="agent_id" jdbcType="INTEGER" property="agentId" />-->
+<!--    <result column="device_count" jdbcType="INTEGER" property="deviceCount" />-->
+<!--    <result column="create_time" jdbcType="VARCHAR" property="createTime" />-->
+<!--    <result column="version" jdbcType="INTEGER" property="version" />-->
+<!--    <result column="store_name" jdbcType="VARCHAR" property="storeName" />-->
+<!--  </resultMap>-->
+
+
+<!--  <sql id="Base_Column_List">-->
+<!--    id, code, address, contact_person, agent_id, device_count, create_time, version,-->
+<!--    store_name-->
+<!--  </sql>-->
+
+<!--  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">-->
+<!--    select-->
+<!--    <include refid="Base_Column_List" />-->
+<!--    from stores-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+<!--  </select>-->
+
+
+
+  <resultMap id="storeMaps" type="com.machine.manager.entity.StoreData">
+    <collection property="machineInfoList"
+                javaType="java.util.List" ofType="com.machine.manager.entity.MachineInfo"
+                column="id"
+                select="com.machine.manager.dao.MachineInfoDao.selectAllByStore">
+    </collection>
+  </resultMap>
+
+
+  <select id="getAllStoreAndDevice"  resultMap="storeMaps" >
+    select * FROM t_stores
+  </select>
+
+<!--  <select id="selectCurrentUser"  parameterType="java.lang.String" resultType="com.machine.manager.entity.Store">-->
+<!--    select <include refid="Base_Column_List"/> FROM stores t where t.agent_id=#{agentId}-->
+<!--  </select>-->
+
+
+
+
+
+
+</mapper>
