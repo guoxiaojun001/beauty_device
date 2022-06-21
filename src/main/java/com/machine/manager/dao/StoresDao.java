@@ -36,4 +36,6 @@ public interface StoresDao {
     */
     List<AgentAndStoreEntity> queryStoresUnderAgent(@Param("agentId") int agentId);
     /**查询门店下的设备*/
+
+    List<AgentAndStoreEntity> queryAllStoresUnderAgent();
 }

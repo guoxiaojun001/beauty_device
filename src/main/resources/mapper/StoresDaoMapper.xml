@@ -171,4 +171,10 @@
     select * from user_info u left join stores s on u.id = s.agent_id where u.id=#{agentId}
   </select>
 
+
+  <select id="queryAllStoresUnderAgent" resultMap="StoresAndAgentResultMap">
+    select * from user_info u left join stores s on u.id = s.agent_id where u.id=#{agentId}
+  </select>
+
+
 </mapper>

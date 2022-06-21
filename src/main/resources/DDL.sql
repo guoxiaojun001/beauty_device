@@ -1,10 +1,10 @@
 ﻿/*
 Navicat MySQL Data Transfer
 
-Source Server         : beauty_device
+Source Server         : beauty_deviceX
 Source Server Version : 50634
 Source Host           : localhost:3306
-Source Database       : beauty_device
+Source Database       : beauty_deviceX
 
 Target Server Type    : MYSQL
 Target Server Version : 50634
@@ -17,10 +17,10 @@ Date: 2021-02-21 11:25:50
 SET NAMES utf8;
 SET FOREIGN_KEY_CHECKS = 0;
 
-DROP DATABASE IF EXISTS `beauty_device`;
-CREATE DATABASE beauty_device;
+DROP DATABASE IF EXISTS `beauty_deviceX`;
+CREATE DATABASE beauty_deviceX;
 
-USE beauty_device;
+USE beauty_deviceX;
 
 -- ----------------------------
 -- Table structure for city

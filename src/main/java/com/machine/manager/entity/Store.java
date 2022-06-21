@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * store
@@ -38,7 +39,7 @@ public class Store implements Serializable {
     /**
      * 所属代理商
      */
-    private String agentId;
+    private Integer agentId;
 
     /**
      * 设备数量
@@ -62,77 +63,6 @@ public class Store implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getContactPerson() {
-        return contactPerson;
-    }
-
-    public void setContactPerson(String contactPerson) {
-        this.contactPerson = contactPerson;
-    }
-
-    public String getAgentId() {
-        return agentId;
-    }
-
-    public void setAgentId(String agentId) {
-        this.agentId = agentId;
-    }
-
-    public Integer getDeviceCount() {
-        return deviceCount;
-    }
-
-    public void setDeviceCount(Integer deviceCount) {
-        this.deviceCount = deviceCount;
-    }
-
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
-
-    public String getStoreName() {
-        return storeName;
-    }
-
-    public void setStoreName(String storeName) {
-        this.storeName = storeName;
-    }
 
     @Override
     public boolean equals(Object that) {
@@ -159,37 +89,7 @@ public class Store implements Serializable {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getCode() == null) ? 0 : getCode().hashCode());
-        result = prime * result + ((getAddress() == null) ? 0 : getAddress().hashCode());
-        result = prime * result + ((getContactPerson() == null) ? 0 : getContactPerson().hashCode());
-        result = prime * result + ((getAgentId() == null) ? 0 : getAgentId().hashCode());
-        result = prime * result + ((getDeviceCount() == null) ? 0 : getDeviceCount().hashCode());
-        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
-        result = prime * result + ((getVersion() == null) ? 0 : getVersion().hashCode());
-        result = prime * result + ((getStoreName() == null) ? 0 : getStoreName().hashCode());
-        return result;
+        return Objects.hash(id, code);
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", code=").append(code);
-        sb.append(", address=").append(address);
-        sb.append(", contactPerson=").append(contactPerson);
-        sb.append(", agentId=").append(agentId);
-        sb.append(", deviceCount=").append(deviceCount);
-        sb.append(", createTime=").append(createTime);
-        sb.append(", version=").append(version);
-        sb.append(", storeName=").append(storeName);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
-    }
 }

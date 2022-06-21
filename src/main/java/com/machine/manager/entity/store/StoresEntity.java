@@ -27,7 +27,7 @@ public class StoresEntity implements Serializable {
     /**
      * 代理商id
      */
-    private String agentId;
+    private Integer agentId;
 
     private String createTime;
 

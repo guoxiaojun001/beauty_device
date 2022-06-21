@@ -291,9 +291,23 @@ public class UserOperateController  extends  BaseController{
     @SuppressWarnings("all")
     private StoresDao storesDao;
 
+//    @UserLoginToken
+//    @AdminToken
     @PostMapping("/storesUnderAgent")
     public RestResult getStoresUnderAgent(Integer agentId){
         List<AgentAndStoreEntity> agentAndStoreEntities = storesDao.queryStoresUnderAgent(agentId);
+        RestResult restResult= new RestResult();
+        restResult.setData(agentAndStoreEntities);
+        restResult.setSuccess(true);
+        restResult.setMsg("success");
+        return restResult;
+    }
+
+    //    @UserLoginToken
+//    @AdminToken
+    @PostMapping("/AllStoresUnderAgent")
+    public RestResult getAllStoresUnderAgent(){
+        List<AgentAndStoreEntity> agentAndStoreEntities = storesDao.queryAllStoresUnderAgent();
         RestResult restResult= new RestResult();
         restResult.setData(agentAndStoreEntities);
         restResult.setSuccess(true);
