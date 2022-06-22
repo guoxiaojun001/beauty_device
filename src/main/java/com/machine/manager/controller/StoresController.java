@@ -207,6 +207,7 @@ public class StoresController extends  BaseController{
 
 
     @Autowired
+    @SuppressWarnings("all")
     MachineDao machineDao;
 
     @ApiOperation("查询某个门店下的设备列表")
@@ -269,4 +270,10 @@ public class StoresController extends  BaseController{
         restResult.setMsg("success");
         return restResult;
     }
+    @ApiOperation("查询所有门店列表 以及每个门店下包含的设备数量")
+    @PostMapping(value = "/storeInfo")
+    List<Store>  selectStoreInfoAndDeviceCount(){
+        return storeService.selectStoreInfoAndDeviceCount();
+    }
+
 }

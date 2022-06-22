@@ -13,6 +13,19 @@
     <result column="store_name" jdbcType="VARCHAR" property="storeName" />
   </resultMap>
 
+  <resultMap id="StoreAndDeviceCountResultMap" type="com.machine.manager.entity.Store">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="contact_person" jdbcType="VARCHAR" property="contactPerson" />
+    <result column="agent_id" jdbcType="INTEGER" property="agentId" />
+    <result column="device_count" jdbcType="INTEGER" property="deviceCount" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="store_name" jdbcType="VARCHAR" property="storeName" />
+    <result column="new_device_count" jdbcType="INTEGER" property="newDeviceCount" />
+  </resultMap>
+
 
   <sql id="Base_Column_List">
     id, code, address, contact_person, agent_id, device_count, create_time, version,
@@ -42,7 +55,6 @@
   <select id="selectCurrentUser"  parameterType="java.lang.Integer" resultType="com.machine.manager.entity.Store">
     select <include refid="Base_Column_List"/> FROM t_stores t where t.agent_id=#{agentId}
   </select>
-
 
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -152,4 +164,10 @@
       store_name = #{storeName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <!--查询门店信息以及门店下设备数量  -->
+  <select id="selectStoreInfoAndDeviceCount" resultMap="StoreAndDeviceCountResultMap">
+        SELECT s.*,COUNT(m.id) AS new_device_count FROM `t_stores`  s LEFT JOIN machine_info m ON s.id=m.store_id GROUP BY s.id
+  </select>
+
 </mapper>

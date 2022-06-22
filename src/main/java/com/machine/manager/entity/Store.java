@@ -64,6 +64,11 @@ public class Store implements Serializable {
      */
     private String storeName;
 
+    /**
+     * 设备数量
+     */
+    private Integer newDeviceCount;
+
 
     @Override
     public boolean equals(Object that) {

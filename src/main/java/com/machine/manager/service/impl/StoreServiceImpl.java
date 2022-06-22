@@ -68,4 +68,9 @@ public class StoreServiceImpl implements StoreService {
     public int updateByPrimaryKey(Store record) {
         return storeDao.updateByPrimaryKey(record);
     }
+
+    @Override
+    public List<Store>  selectStoreInfoAndDeviceCount(){
+        return storeDao.selectStoreInfoAndDeviceCount();
+    }
 }
