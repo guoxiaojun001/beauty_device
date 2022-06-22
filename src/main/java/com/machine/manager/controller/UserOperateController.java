@@ -294,8 +294,8 @@ public class UserOperateController  extends  BaseController{
 
 
     @ApiOperation("查询某个经销商下的门店列表")
-//    @UserLoginToken
-//    @AdminToken
+    @UserLoginToken
+    @AdminToken
     @PostMapping("/storesUnderAgent")
     public RestResult getStoresUnderAgent(Integer agentId){
         List<AgentAndStoreEntity> agentAndStoreEntities = storesDao.queryStoresUnderAgent(agentId);
@@ -306,16 +306,30 @@ public class UserOperateController  extends  BaseController{
         return restResult;
     }
 
+
     @ApiOperation("查询所有经销商列表 以及每个经销商下包含的门店列表")
-    //    @UserLoginToken
-//    @AdminToken
-    @PostMapping("/AllStoresUnderAgent")
-    public RestResult getAllStoresUnderAgent(){
-        List<AgentAndStoreEntity> agentAndStoreEntities = storesDao.queryAllStoresAndAgentList();
+    @UserLoginToken
+    @AdminToken
+    @PostMapping("/queryAllStoresAgent")
+    public RestResult queryAllStoresAgent(Integer agentId){
+        List<AgentAndStoreEntity> agentAndStoreEntities = storesDao.queryAllStoresAgent();
         RestResult restResult= new RestResult();
         restResult.setData(agentAndStoreEntities);
         restResult.setSuccess(true);
         restResult.setMsg("success");
         return restResult;
     }
+
+//    @ApiOperation("查询所有经销商列表 以及每个经销商下包含的门店列表")
+//    //    @UserLoginToken
+////    @AdminToken
+////    @PostMapping("/AllStoresUnderAgent2")
+//    public RestResult getAllStoresUnderAgent(){
+//        List<AgentAndStoreEntity> agentAndStoreEntities = storesDao.queryAllStoresAndAgentList();
+//        RestResult restResult= new RestResult();
+//        restResult.setData(agentAndStoreEntities);
+//        restResult.setSuccess(true);
+//        restResult.setMsg("success");
+//        return restResult;
+//    }
 }

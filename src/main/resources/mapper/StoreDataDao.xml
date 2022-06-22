@@ -29,7 +29,7 @@
 
 
   <resultMap id="storeMaps" type="com.machine.manager.entity.StoreData">
-    <collection property="machineInfoList"
+    <collection property="children"
                 javaType="java.util.List" ofType="com.machine.manager.entity.MachineInfo"
                 column="id"
                 select="com.machine.manager.dao.MachineInfoDao.selectAllByStore">

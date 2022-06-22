@@ -150,18 +150,18 @@
     <result column="telephone" jdbcType="VARCHAR" property="telephone" />
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="roleId" jdbcType="VARCHAR" property="roleId" />
-    <result column="userType" jdbcType="INTEGER" property="userType" />
-    <result column="companyName" jdbcType="INTEGER" property="companyName" />
+    <result column="role_id" jdbcType="VARCHAR" property="roleId" />
+    <result column="user_type" jdbcType="INTEGER" property="userType" />
+    <result column="company_name" jdbcType="INTEGER" property="companyName" />
     <collection  column="storesEntities" ofType="com.machine.manager.entity.store.StoresEntity" property="storesEntities" javaType="java.util.List">
       <result column="id" property="id"/>
-      <result column="code" property="code"/>
-      <result column="address" property="address"/>
-      <result column="contactPerson" property="contactPerson"/>
-      <result column="agentId" property="agentId"/>
-      <result column="createTime" property="createTime"/>
-      <result column="storeName" property="storeName"/>
-      <result column="deviceCount" property="deviceCount"/>
+      <result column="code" jdbcType="VARCHAR" property="code"/>
+      <result column="address" jdbcType="VARCHAR" property="address"/>
+      <result column="contact_person" property="contactPerson"/>
+      <result column="agent_id" property="agentId"/>
+      <result column="create_time" property="createTime"/>
+      <result column="store_name" property="storeName"/>
+      <result column="device_count" property="deviceCount"/>
       <result column="version" property="version"/>
     </collection>
   </resultMap>
@@ -172,6 +172,10 @@
   </select>
 
 
+  <!--  =========================查询所有  经销商列表嵌套门店列表，此接口正常 -->
+  <select id="queryAllStoresAgent" resultMap="StoresAndAgentResultMap">
+    select * from user_info u left join t_stores s on u.id = s.agent_id
+  </select>
 
 
 

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.machine.manager.dao.MachineDao">
+
+  <resultMap id="BaseResultMap" type="com.machine.manager.entity.store.MachineEntity">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="machine_type" jdbcType="VARCHAR" property="machineType" />
+    <result column="machine_function" jdbcType="VARCHAR" property="machineFunction" />
+    <result column="machine_param" jdbcType="VARCHAR" property="machineParam" />
+    <result column="machine_attribute" jdbcType="VARCHAR" property="machineAttribute" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="used_duration" jdbcType="INTEGER" property="usedDuration" />
+    <result column="machine_brand" jdbcType="VARCHAR" property="machineBrand" />
+    <result column="cooperation_mode" jdbcType="VARCHAR" property="cooperationMode" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="machine_status" jdbcType="VARCHAR" property="machineStatus" />
+    <result column="machine_work_time_once" jdbcType="INTEGER" property="machineWorkTimeOnce" />
+    <result column="machine_provice_id" jdbcType="VARCHAR" property="machineProviceId" />
+    <result column="machine_provice" jdbcType="VARCHAR" property="machineProvice" />
+    <result column="machine_city_id" jdbcType="VARCHAR" property="machineCityId" />
+    <result column="machine_city" jdbcType="VARCHAR" property="machineCity" />
+
+    <result column="online_status" jdbcType="INTEGER" property="onlineStatus" />
+    <result column="lastlogin_time" jdbcType="VARCHAR" property="lastloginTime" />
+    <result column="lock_status" jdbcType="INTEGER" property="lockStatus" />
+
+    <result column="store_id" jdbcType="INTEGER" property="storeId" />
+    <result column="other_parm" jdbcType="VARCHAR" property="otherParm" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, machine_type, machine_function, machine_param, machine_attribute, user_id, used_duration,
+    machine_brand, cooperation_mode,create_time, machine_status, machine_work_time_once, machine_provice_id,machine_provice,
+    machine_city_id,machine_city,online_status,lastlogin_time,lock_status,store_id,other_parm
+  </sql>
+
+
+  <resultMap id="MachineAndStoresResultMap" type="com.machine.manager.entity.StoreAndMachineEntity">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="contact_person" jdbcType="VARCHAR" property="contactPerson" />
+    <result column="agent_id" jdbcType="INTEGER" property="agentId" />
+    <result column="device_count" jdbcType="INTEGER" property="deviceCount" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="store_name" jdbcType="VARCHAR" property="storeName" />
+    <collection  column="storesEntities" ofType="com.machine.manager.entity.store.MachineEntity" property="machineEntityList" javaType="java.util.List">
+      <result column="id" property="id"/>
+      <result column="machine_type" property="machineType"/>
+      <result column="machine_function" property="machineFunction"/>
+      <result column="machine_param" property="machineParam"/>
+      <result column="machine_attribute" property="machineAttribute"/>
+      <result column="user_id" property="userId"/>
+      <result column="used_duration" property="usedDuration"/>
+      <result column="machine_brand" property="machineBrand"/>
+      <result column="machine_status" property="machineStatus"/>
+      <result column="machine_work_time_once" property="machineWorkTimeOnce"/>
+      <result column="machine_provice_id" property="machineProviceId"/>
+      <result column="machine_provice" property="machineProvice"/>
+      <result column="machine_city_id" property="machineCityId"/>
+      <result column="machine_city" property="machineCity"/>
+
+      <result column="create_time" property="createTime"/>
+      <result column="cooperation_mode" property="cooperationMode"/>
+      <result column="online_status" property="onlineStatus"/>
+      <result column="lastlogin_time" property="lastloginTime"/>
+      <result column="lock_status" property="lockStatus"/>
+
+      <result column="store_id" property="storeId"/>
+      <result column="other_parm" property="otherParm"/>
+
+
+    </collection>
+  </resultMap>
+
+  <!--查询门店下的代理商-->
+  <select id="queryAllDeviceUderStores" resultMap="MachineAndStoresResultMap">
+    select * from t_stores u left join machine_info s on u.id = s.store_id where u.id=#{storeId}
+  </select>
+
+
+  <select id="queryAllStoreDevice" resultMap="MachineAndStoresResultMap">
+    select * from t_stores u left join machine_info s on u.id = s.store_id
+  </select>
+
+
+</mapper>

@@ -5,30 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5b7c9d0-bd3b-4daf-a8aa-a123ed446911" name="Default" comment="Merge branch 'master' of github.com:guoxiaojun001/beauty_device&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/machine/manager/controller/LoginController.java&#10;#&#9;src/main/java/com/machine/manager/service/UserService.java&#10;#&#9;src/main/java/com/machine/manager/service/impl/UserServiceImpl.java">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/machine-6-21.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/dao/MachineDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/StoreAndMachineEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/store/MachineEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/mapper/MachineDaoMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/OrdersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/OrdersController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/SaticScheduleTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/SaticScheduleTask.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/StoresController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/StoresController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/UserOperateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/UserOperateController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/dao/MachineInfoDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/dao/MachineInfoDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/dao/OrderDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/dao/OrderDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/dao/StoreDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/dao/StoreDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/dao/StoresDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/dao/StoresDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/MachineInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/MachineInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/Store.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/Store.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/MachineService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/MachineService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/StoreService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/StoreService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/impl/MachineServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/impl/MachineServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/impl/OrderServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/impl/StoreServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/impl/StoreServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application-remote.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-local.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application-local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-loc.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/machine-6-21.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/machine-6-21.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/MachineInfoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/MachineInfoMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/OrderDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/OrderDao.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/StoreDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/StoreDao.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/StoreDataDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/StoreDataDao.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/StoresDaoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/StoresDaoMapper.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -103,7 +94,7 @@
     <setting file="file://$PROJECT_DIR$/src/main/java/com/machine/manager/util/RequestUtils.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/com/machine/manager/config/AdminLoginInterceptor.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/com/machine/manager/controller/MachineOperateController.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/resources/application-local.properties" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/resources/application-loc.properties" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/com/machine/manager/controller/UserOperateController.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
@@ -330,7 +321,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/mapper" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -344,18 +335,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\workspace\javaWeb\beauty_device\src\main\resources" />
       <recent name="D:\workspace\javaWeb\beauty_device\src\main\resources\mapper" />
+      <recent name="D:\workspace\javaWeb\beauty_device\src\main\resources" />
       <recent name="E:\xxxx\beauty_device_0614\beauty_device\src\main\java\com\machine\manager" />
       <recent name="D:\xxxx\beauty\beauty_device" />
       <recent name="D:\xxxx\beauty\beauty_device\src\main\java\com\machine\manager\config" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.machine.manager.entity" />
+      <recent name="com.machine.manager.entity.store" />
       <recent name="com.machine.manager.controller" />
       <recent name="com.machine.manager.service" />
       <recent name="com.machine.manager.entity.user" />
-      <recent name="com.machine.manager.entity.machine" />
-      <recent name="com.machine.manager.reject" />
     </key>
     <key name="ImportMappingsDialog.RecentPackages">
       <recent name="" />
@@ -502,8 +493,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Test" />
         <item itemvalue="Application.SecurityConfig" />
+        <item itemvalue="Application.Test" />
         <item itemvalue="Application.TestOld" />
       </list>
     </recent_temporary>
@@ -532,7 +523,7 @@
       <workItem from="1655439100463" duration="744000" />
       <workItem from="1655442921850" duration="767000" />
       <workItem from="1655515493843" duration="14059000" />
-      <workItem from="1655793216432" duration="8780000" />
+      <workItem from="1655793216432" duration="18513000" />
     </task>
     <servers />
   </component>
@@ -707,17 +698,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/machine/manager/controller/StoresController.java</url>
-          <line>49</line>
+          <line>54</line>
           <option name="timeStamp" value="49" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/machine/manager/controller/StoresController.java</url>
-          <line>69</line>
+          <line>74</line>
           <option name="timeStamp" value="50" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/machine/manager/controller/StoresController.java</url>
-          <line>89</line>
+          <line>94</line>
           <option name="timeStamp" value="51" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -726,9 +717,9 @@
           <option name="timeStamp" value="52" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/machine/manager/controller/UserOperateController.java</url>
-          <line>300</line>
-          <option name="timeStamp" value="54" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/machine/manager/controller/MachineOperateController.java</url>
+          <line>234</line>
+          <option name="timeStamp" value="58" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

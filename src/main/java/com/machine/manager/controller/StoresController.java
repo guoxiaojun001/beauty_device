@@ -1,10 +1,15 @@
 package com.machine.manager.controller;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.machine.manager.dao.MachineDao;
+import com.machine.manager.entity.AgentAndStoreEntity;
 import com.machine.manager.entity.Store;
+import com.machine.manager.entity.StoreAndMachineEntity;
 import com.machine.manager.entity.StoreData;
 import com.machine.manager.jwt.JwtTokenUtil222;
 import com.machine.manager.jwt.RestResult;
+import com.machine.manager.reject.AdminToken;
+import com.machine.manager.reject.UserLoginToken;
 import com.machine.manager.service.StoreService;
 import com.machine.manager.util.RequestUtils;
 import io.swagger.annotations.Api;
@@ -30,7 +35,7 @@ public class StoresController extends  BaseController{
     private StoreService storeService;
 
     @ApiOperation("新增门店")
-//    @UserLoginToken
+    @UserLoginToken
 //    @AdminToken
     @PostMapping("/addStore")
     public RestResult addStore(@RequestBody Store store) {
@@ -52,7 +57,7 @@ public class StoresController extends  BaseController{
     }
 
     @ApiOperation("删除门店")
-//    @UserLoginToken
+    @UserLoginToken
 //    @AdminToken
     @PostMapping("/deleteStore")
     public RestResult deleteStoreById(Integer id) {
@@ -72,7 +77,7 @@ public class StoresController extends  BaseController{
     }
 
     @ApiOperation("修改门店")
-    //    @UserLoginToken
+    @UserLoginToken
 //    @AdminToken
     @PostMapping("/updateStore")
     public RestResult updateStoreInfo(@RequestBody Store store) {
@@ -93,7 +98,7 @@ public class StoresController extends  BaseController{
         return restResult;
     }
 
-
+/*
     @ApiOperation("查询门店列表  并且包含设备列表 ")
 //    @UserLoginToken
 //    @AdminToken
@@ -108,9 +113,10 @@ public class StoresController extends  BaseController{
         restResult.setSuccess(true);
 
         return restResult;
-    }
+    }*/
 
 
+/*
     @ApiOperation("查询门店 指定id查询 ")
 //    @UserLoginToken
 //    @AdminToken
@@ -126,11 +132,13 @@ public class StoresController extends  BaseController{
 
         return restResult;
     }
+*/
+
 
 
     @ApiOperation("查询门店信息，返回列表 ")
-//    @UserLoginToken
-//    @AdminToken
+    @UserLoginToken
+    @AdminToken
     @PostMapping("/queryAllStore")
     public RestResult queryAllStore() {
         //TODO 涉及多表关联查询
@@ -179,6 +187,37 @@ public class StoresController extends  BaseController{
             restResult.setMsg("查询成功2");
         }
 
+        return restResult;
+    }
+
+
+    @Autowired
+    MachineDao machineDao;
+
+    @ApiOperation("查询某个门店下的设备列表")
+    @UserLoginToken
+    @AdminToken
+    @PostMapping("/queryDeviceUnderStore")
+    public RestResult getStoresUnderAgent(Integer storeId){
+        List<StoreAndMachineEntity> agentAndStoreEntities = machineDao.queryAllDeviceUderStores(storeId);
+        RestResult restResult= new RestResult();
+        restResult.setData(agentAndStoreEntities);
+        restResult.setSuccess(true);
+        restResult.setMsg("success");
+        return restResult;
+    }
+
+
+    @ApiOperation("查询所有门店列表 以及每个门店下包含的设备")
+//    @UserLoginToken
+//    @AdminToken
+    @PostMapping("/getAllStoreAndDevice")
+    public RestResult queryAllStoresAgent(Integer agentId){
+        List<StoreAndMachineEntity> agentAndStoreEntities = machineDao.queryAllStoreDevice();
+        RestResult restResult= new RestResult();
+        restResult.setData(agentAndStoreEntities);
+        restResult.setSuccess(true);
+        restResult.setMsg("success");
         return restResult;
     }
 }

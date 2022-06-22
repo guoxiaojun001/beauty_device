@@ -7,12 +7,6 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-/**
- * 门店查询DAO层
- *
- * @author guoxi_789@126.com
- * @date 2022/6/20
- */
 @Mapper
 public interface StoresDao {
     int deleteByPrimaryKey(Integer id);
@@ -36,7 +30,7 @@ public interface StoresDao {
     */
     List<AgentAndStoreEntity> queryStoresUnderAgent(@Param("agentId") int agentId);
     /**查询门店下的设备*/
-
+    List<AgentAndStoreEntity> queryAllStoresAgent( );
 
     List<AgentAndStoreEntity> queryAllStoresAndAgentList();
 }

@@ -34,8 +34,8 @@ public class OrdersController extends  BaseController{
     private OrderService orderService;
 
     @ApiOperation("新增门店")
-//    @UserLoginToken
-//    @AdminToken
+    @UserLoginToken
+    @AdminToken
     @PostMapping("/addOrder")
     public RestResult addOrder(@RequestBody Order order) {
         RestResult restResult = new RestResult();
@@ -54,8 +54,8 @@ public class OrdersController extends  BaseController{
     }
 
     @ApiOperation("删除订单")
-//    @UserLoginToken
-//    @AdminToken
+    @UserLoginToken
+    @AdminToken
     @PostMapping("/deleteOrder")
     public RestResult deleteOrderById(Integer id) {
         RestResult restResult = new RestResult();
@@ -73,8 +73,8 @@ public class OrdersController extends  BaseController{
     }
 
     @ApiOperation("修改订单")
-//    @UserLoginToken
-    //    @AdminToken
+    @UserLoginToken
+        @AdminToken
     @PostMapping("/updateOrder")
     public RestResult updateStoreInfo(@RequestBody Order order) {
         RestResult restResult = new RestResult();
@@ -94,8 +94,8 @@ public class OrdersController extends  BaseController{
 
 
     @ApiOperation("通过id查询订单")
-//    @UserLoginToken
-//    @AdminToken
+    @UserLoginToken
+    @AdminToken
     @PostMapping("/queryByOrderId")
     public RestResult queryByOrderId(Integer id) {
         System.out.print("  queryByOrderId :" + id);
@@ -110,8 +110,8 @@ public class OrdersController extends  BaseController{
     }
 
     @ApiOperation("查询订单列表 ")
-//    @UserLoginToken
-//    @AdminToken
+    @UserLoginToken
+    @AdminToken
     @PostMapping("/queryAllOrder")
     public RestResult queryAllOrder() {
         //TODO 涉及多表关联查询

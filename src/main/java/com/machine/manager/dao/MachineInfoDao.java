@@ -1,6 +1,7 @@
 package com.machine.manager.dao;
 
 import com.machine.manager.entity.MachineInfo;
+import com.machine.manager.entity.StoreData;
 import com.machine.manager.entity.machine.MachineRequest;
 import com.machine.manager.entity.machine.MachineRequestAfter;
 import com.machine.manager.entity.machine.MachintCount;
