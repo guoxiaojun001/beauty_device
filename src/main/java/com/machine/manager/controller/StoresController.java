@@ -15,10 +15,7 @@ import com.machine.manager.util.RequestUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -270,10 +267,16 @@ public class StoresController extends  BaseController{
         restResult.setMsg("success");
         return restResult;
     }
-    @ApiOperation("查询所有门店列表 以及每个门店下包含的设备数量")
-    @PostMapping(value = "/storeInfo")
+    @ApiOperation("查询所有门店列表,以及每个门店下包含的设备数量")
+    @PostMapping(value = "/storeInfoList")
     List<Store>  selectStoreInfoAndDeviceCount(){
         return storeService.selectStoreInfoAndDeviceCount();
+    }
+
+    @ApiOperation("根据门店名字模糊匹配门店列表,以及每个门店下包含的设备数量")
+    @PostMapping(value = "/storeInfoListByStoreName")
+    List<Store>  selectStoreInfoAndDeviceCountByStoreName(@RequestParam String storeName){
+        return storeService.selectStoreInfoAndDeviceCountByStoreName(storeName);
     }
 
 }

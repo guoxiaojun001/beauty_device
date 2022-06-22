@@ -170,4 +170,8 @@
         SELECT s.*,COUNT(m.id) AS new_device_count FROM `t_stores`  s LEFT JOIN machine_info m ON s.id=m.store_id GROUP BY s.id
   </select>
 
+  <select id="selectStoreInfoAndDeviceCountByStoreName" resultMap="StoreAndDeviceCountResultMap">
+    SELECT s.*,COUNT(m.id) AS new_device_count FROM `t_stores`  s LEFT JOIN machine_info m ON s.id=m.store_id WHERE s.store_name LIKE CONCAT('%',#{storeName},'%') GROUP BY s.id;
+  </select>
+
 </mapper>

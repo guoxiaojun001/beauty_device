@@ -32,4 +32,13 @@ public interface StoreService {
     * @return 门店信息列表
     */
     List<Store>  selectStoreInfoAndDeviceCount();
+
+    /**
+    * 功能描述 模糊查询门店信息
+    * @author guoxi_789@126.com
+    * @date 2022/6/22
+    * @param  storeName 门店名称
+    * @return 门店信息列表
+    */
+    List<Store>  selectStoreInfoAndDeviceCountByStoreName(String storeName);
 }
