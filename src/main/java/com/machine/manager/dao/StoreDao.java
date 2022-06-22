@@ -25,6 +25,7 @@ public interface StoreDao {
 
     Store selectByPrimaryKey(Integer id);
 
+    Store selectByStoreName(String storeName);
 
     int updateByPrimaryKeySelective(Store record);
 

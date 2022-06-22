@@ -20,6 +20,8 @@ public interface OrderDao {
 
     Order selectByPrimaryKey(Integer id);
 
+    Order selectByOrderNo(String orderNo);
+
     List<Order> selectAll();
 
     List<Order> selectCurrentUser(Integer agentId);

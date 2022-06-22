@@ -1,16 +1,21 @@
 package com.machine.manager.controller;
 
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.machine.manager.dao.StoreDao;
 import com.machine.manager.dao.StoresDao;
 import com.machine.manager.entity.AgentAndStoreEntity;
+import com.machine.manager.entity.Store;
 import com.machine.manager.entity.UserInfo;
 import com.machine.manager.entity.user.request.UserQueryRequest;
 import com.machine.manager.entity.user.request.UserQueryRequestName;
 import com.machine.manager.entity.user.request.UserQueryRequestParm;
 import com.machine.manager.entity.user.request.UserQueryRequestPhone;
+import com.machine.manager.jwt.JwtTokenUtil222;
 import com.machine.manager.jwt.RestResult;
 import com.machine.manager.reject.AdminToken;
 import com.machine.manager.reject.UserLoginToken;
 import com.machine.manager.service.UserService;
+import com.machine.manager.util.RequestUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
@@ -18,6 +23,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,13 +42,16 @@ public class UserOperateController  extends  BaseController{
     private UserService userService;
 
     @Autowired
-    @SuppressWarnings("all")
     private StoresDao storesDao;
 
 
+    @Autowired
+    StoreDao storeDao;
+
+
     @ApiOperation("新增用户")
-//    @UserLoginToken
-//    @AdminToken
+    @UserLoginToken
+    @AdminToken
     @PostMapping("/addUser")
     public RestResult addUser(@RequestBody UserInfo userInfo) {
         RestResult restResult = new RestResult();
@@ -56,7 +66,6 @@ public class UserOperateController  extends  BaseController{
         List<UserInfo> userInfoList = userService .selectByName(userInfo.getName());
 
         if(null == userInfoList  || userInfoList.size() <= 0){
-
             int code = userService.insertSelective(userInfo);
             if(code == 1){
                 restResult.setCode(200);
@@ -80,13 +89,24 @@ public class UserOperateController  extends  BaseController{
 
     }
 
+
+
     @ApiOperation("删除用户")
-    @UserLoginToken
-    @AdminToken
+//    @UserLoginToken
+//    @AdminToken
     @PostMapping("/deleteUser")
     public RestResult deleteUserById(Integer userId) {
         RestResult restResult = new RestResult();
+
+        //删除经销商用户
         int code = userService.deleteByPrimaryKey(userId);
+
+//        //查询出该经销商下的所有门店
+//        List<Store> storeList = storeDao.selectCurrentUser(userId);
+//        for(Store store : storeList){
+//            storeDao.deleteByPrimaryKey(store.getId());
+//        }
+
         if(code == 1){
             restResult.setCode(200);
             restResult.setSuccess(true);
@@ -101,8 +121,9 @@ public class UserOperateController  extends  BaseController{
 
     }
 
-    @ApiOperation("修改用户信息")
+    @ApiOperation("修改用户信息,管理员和当前用户都可以修改自己信息")
     @UserLoginToken
+//    @AdminToken
     @PostMapping("/updateUserInfo")
     public RestResult updateUserInfo(@RequestBody UserInfo userInfo) {
         List<UserInfo> userInfoList = userService .selectByName(userInfo.getName());
@@ -125,14 +146,12 @@ public class UserOperateController  extends  BaseController{
         }
 
         return restResult;
-
     }
 
 
-
-    @ApiOperation("查询用户信息，返回列表，如果指定id查询，取列表中第一个")
-    @UserLoginToken
-    @AdminToken
+    @ApiOperation("管理员 查询用户信息，返回列表，搜索的话，需要传入手机号，或者姓名 ，不限制条件，字段传空就行 ")
+//    @UserLoginToken
+//    @AdminToken
     @PostMapping("/queryUserList")
     public RestResult queryUserList(@RequestBody UserQueryRequestParm request) {
         RestResult pre = preCheck("queryUserList",UserOperateController.class);
@@ -151,8 +170,8 @@ public class UserOperateController  extends  BaseController{
                 return restResult;
             }
 
-            if(checkValue( request.getName())  ){
-                if(checkValue( request.getTelephone())){
+            if( !StringUtils.isEmpty( request.getName())  ){
+                if(!StringUtils.isEmpty( ( request.getTelephone()))){
                     //综合查询用户名和手机号
                     System.out.print("综合查询用户名和手机号:" + request.getName()  + request.getTelephone());
                     UserInfo userInfo = new UserInfo();
@@ -172,7 +191,7 @@ public class UserOperateController  extends  BaseController{
                     return queryUserInfoByName(userQueryRequestName);
                 }
             } else {
-                if(checkValue( request.getTelephone())){
+                if(!StringUtils.isEmpty( ( request.getTelephone()))){
                     // 根据查询手机号
                     System.out.print("根据查询手机号:" + request.getTelephone());
                     UserQueryRequestPhone userQueryRequestPhone = new UserQueryRequestPhone();
@@ -187,21 +206,12 @@ public class UserOperateController  extends  BaseController{
                     restResult.setMsg("查询所有");
                     restResult.setSuccess(true);
                     return restResult;
-
                 }
             }
         }
 
     }
 
-
-    public static boolean checkValue(String value){
-        if(null == value || "".equals(value)){
-            return false;
-        }
-
-        return true;
-    }
 
 
 //    @ApiOperation("输入id查询可能有多个，不输入 查询多个")
@@ -293,25 +303,59 @@ public class UserOperateController  extends  BaseController{
 
 
 
-    @ApiOperation("查询某个经销商下的门店列表")
+    @ApiOperation("查询某个经销商下的门店列表,暂时不用")
     @UserLoginToken
-    @AdminToken
+//    @AdminToken
     @PostMapping("/storesUnderAgent")
     public RestResult getStoresUnderAgent(Integer agentId){
-        List<AgentAndStoreEntity> agentAndStoreEntities = storesDao.queryStoresUnderAgent(agentId);
+        HttpServletRequest httpServletRequest = RequestUtils.getHttpRequest();
         RestResult restResult= new RestResult();
-        restResult.setData(agentAndStoreEntities);
-        restResult.setSuccess(true);
-        restResult.setMsg("success");
+        if(null == httpServletRequest ){
+            restResult.setCode(202);
+            restResult.setData("no data");
+            restResult.setMsg("请求参数异常3");
+            restResult.setSuccess(false);
+            return restResult;
+        }
+
+        String token = httpServletRequest.getHeader("token");
+        if( StringUtils.isEmpty(token)){
+            restResult.setCode(202);
+            restResult.setSuccess(false);
+            restResult.setMsg("请求token为空3");
+            return restResult;
+        }else {
+            try {
+                DecodedJWT decodedJWT = JwtTokenUtil222.getTokenInfo(token);
+                int userId = decodedJWT.getClaim("userId").asInt();
+                String userType = decodedJWT.getClaim("userType").asString();
+
+                if(!StringUtils.isEmpty(userType) && "admin".equals(userType)){
+                    //管理查询，不通过agentId
+                    logger.info("判断身份是管理员，直接查询所有经销商&门店");
+                    restResult = queryAllStoresAgent();
+                }else {
+                    logger.info("判断身份是经销商，查询指定经销商的门店");
+                    List<AgentAndStoreEntity> agentAndStoreEntities = storesDao.queryStoresUnderAgent(agentId);
+                    restResult.setData(agentAndStoreEntities);
+                    restResult.setSuccess(true);
+                    restResult.setMsg("success");
+                }
+
+            } catch ( Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         return restResult;
     }
 
 
     @ApiOperation("查询所有经销商列表 以及每个经销商下包含的门店列表")
-    @UserLoginToken
-    @AdminToken
-    @PostMapping("/queryAllStoresAgent")
-    public RestResult queryAllStoresAgent(Integer agentId){
+//    @UserLoginToken
+//    @AdminToken
+//    @PostMapping("/queryAllStoresAgent")
+    public RestResult queryAllStoresAgent(){
         List<AgentAndStoreEntity> agentAndStoreEntities = storesDao.queryAllStoresAgent();
         RestResult restResult= new RestResult();
         restResult.setData(agentAndStoreEntities);

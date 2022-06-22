@@ -50,6 +50,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public Order selectByOrderNo(String orderNo) {
+        return orderDao.selectByOrderNo(orderNo);
+    }
+
+    @Override
     public List<Order> selectAll() {
         return orderDao.selectAll();
     }

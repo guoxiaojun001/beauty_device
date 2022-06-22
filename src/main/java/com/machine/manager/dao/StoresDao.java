@@ -32,5 +32,5 @@ public interface StoresDao {
     /**查询门店下的设备*/
     List<AgentAndStoreEntity> queryAllStoresAgent( );
 
-    List<AgentAndStoreEntity> queryAllStoresAndAgentList();
+//    List<AgentAndStoreEntity> queryAllStoresAndAgentList();
 }

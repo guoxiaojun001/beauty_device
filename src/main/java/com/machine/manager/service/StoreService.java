@@ -19,6 +19,8 @@ public interface StoreService {
 
     Store selectByPrimaryKey(Integer id);
 
+    Store selectByStoreName(String name);
+
     int updateByPrimaryKeySelective(Store record);
 
     int updateByPrimaryKey(Store record);

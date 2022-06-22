@@ -166,8 +166,8 @@ CREATE TABLE `user_info`  (
 -- ----------------------------
 -- Records of user_info
 -- ----------------------------
-INSERT INTO `user_info` VALUES (7, 'guoxi', 'guoxi_789@126.com', '18640880000', 'beijing', '$2a$10$7XHoUDOhHao5KNBw6a6h9.OAugCAZEvXFbO9S/jqINfPn4.eZvq3C', 'admin', 'admin', 'xx科技有限公司');
-INSERT INTO `user_info` VALUES (8, 'ytuo', 'guoxi_789@126.com', '18640880000', 'shanghai', '$2a$10$ZhJ1jpbnwKPgV1tz7yil1.fwQyoPeoVNQ3sK2wkJbArhiVi3OcPDa', 'admin', 'admin', 'tt科技有限公司');
+INSERT INTO `user_info` VALUES (7, 'guoxi', 'guox@126.com', '18640880000', 'beijing', '$2a$10$7XHoUDOhHao5KNBw6a6h9.OAugCAZEvXFbO9S/jqINfPn4.eZvq3C', 'admin', 'admin', 'xx科技有限公司');
+INSERT INTO `user_info` VALUES (8, 'ytuo', 'guo@126.com', '18640880000', 'shanghai', '$2a$10$ZhJ1jpbnwKPgV1tz7yil1.fwQyoPeoVNQ3sK2wkJbArhiVi3OcPDa', 'admin', 'admin', 'tt科技有限公司');
 INSERT INTO `user_info` VALUES (9, 'guo', 'g@126.com', '18810500248', 'beijing', '$2a$10$uS6P6KJV8FGacOe6UfEVM.c2AV1FEVyFSEGJoWIjg4Zi.Qc5/nIBi', 'admin', 'admin', 'tt科技有限公司');
 
 -- ----------------------------

@@ -179,17 +179,17 @@
 
 
 
-<!--  =========================查询所有  经销商列表嵌套门店列表 -->
-  <resultMap id="StoresAndAgentResultMapList"  type="com.machine.manager.entity.AgentAndStoreEntity">
-    <collection property="storesEntities"
-                javaType="java.util.List" ofType="com.machine.manager.entity.store.StoresEntity"
-                column="id"
-                select="com.machine.manager.dao.StoreDao.selectCurrentUser">
-    </collection>
-  </resultMap>
-  <select id="queryAllStoresAndAgentList" resultMap="StoresAndAgentResultMapList">
-    select * from user_info
-  </select>
+<!--  =========================查询所有  经销商列表嵌套门店列表  先不用-->
+<!--  <resultMap id="StoresAndAgentResultMapList"  type="com.machine.manager.entity.AgentAndStoreEntity">-->
+<!--    <collection property="storesEntities"-->
+<!--                javaType="java.util.List" ofType="com.machine.manager.entity.store.StoresEntity"-->
+<!--                column="id"-->
+<!--                select="com.machine.manager.dao.StoreDao.selectCurrentUser">-->
+<!--    </collection>-->
+<!--  </resultMap>-->
+<!--  <select id="queryAllStoresAndAgentList" resultMap="StoresAndAgentResultMapList">-->
+<!--    select * from user_info-->
+<!--  </select>-->
 
 
 </mapper>

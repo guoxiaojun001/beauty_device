@@ -37,7 +37,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.machine.manager.controller.UserOperateController.checkValue;
 
 /**
  * 用户操作
@@ -587,9 +586,9 @@ public class MachineOperateController extends BaseController {
         }
 
 
-        if(checkValue(request.getMachineType())){
-            if(checkValue(request.getMachineProviceId())){
-                if(checkValue(request.getMachineCityId())){
+        if(!StringUtils.isEmpty(request.getMachineType())){
+            if(!StringUtils.isEmpty(request.getMachineProviceId())){
+                if(!StringUtils.isEmpty(request.getMachineCityId())){
                     //TODO  根据名称， 省，市来综合查询
                     System.out.print("根据名称， 省，市来综合查询"  );
                     machineList = service.selectByNameProvCity(machineRequestAfter);
@@ -605,8 +604,8 @@ public class MachineOperateController extends BaseController {
             }
         }else {
 
-            if(checkValue(request.getMachineProviceId())){
-                if(checkValue(request.getMachineCityId())){
+            if(!StringUtils.isEmpty(request.getMachineProviceId())){
+                if(!StringUtils.isEmpty(request.getMachineCityId())){
                     //TODO  根据  省，市来综合查询
                     System.out.print("根据  省，市来综合查询"  );
                     machineList = service.selectByProvCity(machineRequestAfter);

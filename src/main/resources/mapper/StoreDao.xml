@@ -27,6 +27,12 @@
   </select>
 
 
+  <select id="selectByStoreName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_stores
+    where store_name = #{storeName,jdbcType=VARCHAR}
+  </select>
 
 
   <select id="selectAll"  resultType="com.machine.manager.entity.Store">

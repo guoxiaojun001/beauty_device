@@ -49,6 +49,11 @@ public class StoreServiceImpl implements StoreService {
 
 
     @Override
+    public Store selectByStoreName(String name) {
+        return storeDao.selectByStoreName(name);
+    }
+
+    @Override
     public Store selectByPrimaryKey(Integer id) {
         return storeDao.selectByPrimaryKey(id);
     }

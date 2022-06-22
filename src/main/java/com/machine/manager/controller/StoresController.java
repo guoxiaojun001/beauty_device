@@ -116,9 +116,9 @@ public class StoresController extends  BaseController{
     }*/
 
 
-/*
+
     @ApiOperation("查询门店 指定id查询 ")
-//    @UserLoginToken
+    @UserLoginToken
 //    @AdminToken
     @PostMapping("/queryByStoreId")
     public RestResult queryStoreById(Integer id) {
@@ -132,13 +132,28 @@ public class StoresController extends  BaseController{
 
         return restResult;
     }
-*/
 
+
+    @ApiOperation("查询门店 指定门店名称 查询 ")
+    @UserLoginToken
+//    @AdminToken
+    @PostMapping("/queryByStoreName")
+    public RestResult selectByStoreName(String storeName) {
+        System.out.print("  selectByStoreName :" + storeName);
+        RestResult restResult = new RestResult();
+        Store store = storeService.selectByStoreName(storeName);
+        restResult.setCode(200);
+        restResult.setData(store);
+        restResult.setMsg("查询成功");
+        restResult.setSuccess(true);
+
+        return restResult;
+    }
 
 
     @ApiOperation("查询门店信息，返回列表 ")
     @UserLoginToken
-    @AdminToken
+//    @AdminToken
     @PostMapping("/queryAllStore")
     public RestResult queryAllStore() {
         //TODO 涉及多表关联查询
@@ -196,14 +211,48 @@ public class StoresController extends  BaseController{
 
     @ApiOperation("查询某个门店下的设备列表")
     @UserLoginToken
-    @AdminToken
+//    @AdminToken
     @PostMapping("/queryDeviceUnderStore")
     public RestResult getStoresUnderAgent(Integer storeId){
-        List<StoreAndMachineEntity> agentAndStoreEntities = machineDao.queryAllDeviceUderStores(storeId);
-        RestResult restResult= new RestResult();
-        restResult.setData(agentAndStoreEntities);
-        restResult.setSuccess(true);
-        restResult.setMsg("success");
+        RestResult restResult = new RestResult();
+        HttpServletRequest httpServletRequest = RequestUtils.getHttpRequest();
+        if(null == httpServletRequest ){
+            restResult.setCode(200);
+            restResult.setData("no data");
+            restResult.setMsg("请求参数异常2");
+            restResult.setSuccess(false);
+            return restResult;
+        }
+
+        String token = httpServletRequest.getHeader("token");
+        if(null == token || "".equals(token)){
+            restResult.setCode(200);
+            restResult.setSuccess(false);
+            restResult.setMsg("请求token为空");
+            return restResult;
+        }
+
+        String userType = "user";
+
+        try {
+            DecodedJWT decodedJWT = JwtTokenUtil222.getTokenInfo(token);
+            userType = decodedJWT.getClaim("userType").asString();
+
+            logger.info("  userType {} -- {} ",userType);
+        } catch ( Exception e) {
+        }
+
+        if("admin".equals(userType)){
+            logger.info("判断身份是管理员，直接查询所有 门店 & 设备列表");
+            restResult = queryAllStoresAgent();
+        }else {
+            logger.info("判断身份是管理员，直接查询指定门店 & 设备列表");
+            List<StoreAndMachineEntity> agentAndStoreEntities = machineDao.queryAllDeviceUderStores(storeId);
+            restResult.setData(agentAndStoreEntities);
+            restResult.setSuccess(true);
+            restResult.setMsg("success");
+        }
+
         return restResult;
     }
 
@@ -211,8 +260,8 @@ public class StoresController extends  BaseController{
     @ApiOperation("查询所有门店列表 以及每个门店下包含的设备")
 //    @UserLoginToken
 //    @AdminToken
-    @PostMapping("/getAllStoreAndDevice")
-    public RestResult queryAllStoresAgent(Integer agentId){
+//    @PostMapping("/getAllStoreAndDevice")
+    public RestResult queryAllStoresAgent(){
         List<StoreAndMachineEntity> agentAndStoreEntities = machineDao.queryAllStoreDevice();
         RestResult restResult= new RestResult();
         restResult.setData(agentAndStoreEntities);
