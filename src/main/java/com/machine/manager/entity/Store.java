@@ -35,9 +35,16 @@ public class Store implements Serializable {
     private String address;
 
     /**
-     * 联系人
+     * 门店联系人
      */
     private String contactPerson;
+
+
+    /**
+     * 门店联系人电话
+     */
+    private String contactPhone;
+
 
     /**
      * 所属代理商

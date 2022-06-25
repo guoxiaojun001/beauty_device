@@ -2,6 +2,7 @@ package com.machine.manager.dao;
 
 import com.machine.manager.entity.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -28,4 +29,9 @@ public interface UserInfoDao {
     List<UserInfo> selectAll();
 
     List<UserInfo> selectByUserInfo(UserInfo userInfo);
+
+
+    List<UserInfo>  selectUserInfoAndStoreCount();
+
+    List<UserInfo>  selectUserInfoByParmAndStoreCount(@Param("parms")  String parms);
 }

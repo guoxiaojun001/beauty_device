@@ -110,6 +110,7 @@ CREATE TABLE `t_stores`  (
   `code` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `address` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `contact_person` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `contact_phone` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `agent_id` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '代理商id',
   `create_time` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `store_name` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -122,9 +123,9 @@ CREATE TABLE `t_stores`  (
 -- ----------------------------
 -- Records of t_stores
 -- ----------------------------
-INSERT INTO `t_stores` VALUES (1, 's1', 'liaoning', '1', '7', '2022年6月20日23:40:50', '2022年6月20日23:40:53', 1, 0);
-INSERT INTO `t_stores` VALUES (2, 's2', 'liaoning', '1', '7', '2022年6月20日23:41:01', '2022年6月20日23:41:04', 2, 0);
-INSERT INTO `t_stores` VALUES (3, 's3', 'hubei', '1', '7', '2022年6月20日23:41:01', '2022年6月20日23:41:04', 2, 0);
+INSERT INTO `t_stores` VALUES (1, 's1', 'liaoning', '张三', '18800009999', '7', '2022年6月20日23:40:50', '2022年6月20日23:40:53', 0, 0);
+INSERT INTO `t_stores` VALUES (2, 's2', 'liaoning', '李四', '18800001111','7', '2022年6月20日23:41:01', '2022年6月20日23:41:04', 0, 0);
+INSERT INTO `t_stores` VALUES (3, 's3', 'hubei', '王五', '18800002222','7', '2022年6月20日23:41:01', '2022年6月20日23:41:04', 0, 0);
 
 
 -- ----------------------------
@@ -160,15 +161,17 @@ CREATE TABLE `user_info`  (
   `role_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `user_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `company_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `stores_count` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user_info
 -- ----------------------------
-INSERT INTO `user_info` VALUES (7, 'guoxi', 'guox@126.com', '18640880000', 'beijing', '$2a$10$7XHoUDOhHao5KNBw6a6h9.OAugCAZEvXFbO9S/jqINfPn4.eZvq3C', 'admin', 'admin', 'xx科技有限公司');
-INSERT INTO `user_info` VALUES (8, 'ytuo', 'guo@126.com', '18640880000', 'shanghai', '$2a$10$ZhJ1jpbnwKPgV1tz7yil1.fwQyoPeoVNQ3sK2wkJbArhiVi3OcPDa', 'admin', 'admin', 'tt科技有限公司');
-INSERT INTO `user_info` VALUES (9, 'guo', 'g@126.com', '18810500248', 'beijing', '$2a$10$uS6P6KJV8FGacOe6UfEVM.c2AV1FEVyFSEGJoWIjg4Zi.Qc5/nIBi', 'admin', 'admin', 'tt科技有限公司');
+INSERT INTO `user_info` VALUES (7, 'guox', 'guox@126.com', '18640880000', 'beijing', '$2a$10$7XHoUDOhHao5KNBw6a6h9.OAugCAZEvXFbO9S/jqINfPn4.eZvq3C', 'admin', 'user', 'xx科技有限公司',0);
+INSERT INTO `user_info` VALUES (8, 'ytuo', 'guo@126.com', '18640880000', 'shanghai', '$2a$10$ZhJ1jpbnwKPgV1tz7yil1.fwQyoPeoVNQ3sK2wkJbArhiVi3OcPDa', 'user', 'user', 'tt科技有限公司',0);
+INSERT INTO `user_info` VALUES (9, 'guo', 'g@126.com', '18810500248', 'beijing', '$2a$10$uS6P6KJV8FGacOe6UfEVM.c2AV1FEVyFSEGJoWIjg4Zi.Qc5/nIBi', 'admin', 'admin', 'tt科技有限公司',0);
+INSERT INTO `user_info` VALUES (10, 'wsq', 'g@126.com', '18810500248', 'beijing', '$2a$10$uS6P6KJV8FGacOe6UfEVM.c2AV1FEVyFSEGJoWIjg4Zi.Qc5/nIBi', 'admin', 'admin', 'tt科技有限公司',0);
 
 -- ----------------------------
 -- Table structure for work_records

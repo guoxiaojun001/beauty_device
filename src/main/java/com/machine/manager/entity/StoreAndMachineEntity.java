@@ -32,6 +32,7 @@ public class StoreAndMachineEntity implements Serializable {
      * 联系人
      */
     private String contactPerson;
+    private String contactPhone;
 
     /**
      * 所属代理商

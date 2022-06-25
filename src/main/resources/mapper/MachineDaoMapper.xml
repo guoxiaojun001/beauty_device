@@ -40,6 +40,7 @@
     <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="contact_person" jdbcType="VARCHAR" property="contactPerson" />
+    <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone" />
     <result column="agent_id" jdbcType="INTEGER" property="agentId" />
     <result column="device_count" jdbcType="INTEGER" property="deviceCount" />
     <result column="create_time" jdbcType="VARCHAR" property="createTime" />

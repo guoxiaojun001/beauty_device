@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -86,27 +87,23 @@ public class UserOperateController  extends  BaseController{
             restResult.setMsg("用户名已经存在");
             return restResult;
         }
-
     }
 
 
-
     @ApiOperation("删除用户")
-//    @UserLoginToken
-//    @AdminToken
+    @UserLoginToken
+    @AdminToken
     @PostMapping("/deleteUser")
     public RestResult deleteUserById(Integer userId) {
         RestResult restResult = new RestResult();
 
         //删除经销商用户
         int code = userService.deleteByPrimaryKey(userId);
-
 //        //查询出该经销商下的所有门店
 //        List<Store> storeList = storeDao.selectCurrentUser(userId);
 //        for(Store store : storeList){
 //            storeDao.deleteByPrimaryKey(store.getId());
 //        }
-
         if(code == 1){
             restResult.setCode(200);
             restResult.setSuccess(true);
@@ -118,7 +115,6 @@ public class UserOperateController  extends  BaseController{
         }
 
         return restResult;
-
     }
 
     @ApiOperation("修改用户信息,管理员和当前用户都可以修改自己信息")
@@ -149,7 +145,7 @@ public class UserOperateController  extends  BaseController{
     }
 
 
-    @ApiOperation("管理员 查询用户信息，返回列表，搜索的话，需要传入手机号，或者姓名 ，不限制条件，字段传空就行 ")
+/*    @ApiOperation("管理员 查询用户信息，返回列表，搜索的话，需要传入手机号，或者姓名 ，不限制条件，字段传空就行 ")
 //    @UserLoginToken
 //    @AdminToken
     @PostMapping("/queryUserList")
@@ -210,11 +206,11 @@ public class UserOperateController  extends  BaseController{
             }
         }
 
-    }
+    }*/
 
 
 
-//    @ApiOperation("输入id查询可能有多个，不输入 查询多个")
+/*//    @ApiOperation("输入id查询可能有多个，不输入 查询多个")
 //    @PostMapping("/queryUserInfo")
     public RestResult queryUserInfo(@RequestBody UserQueryRequest request) {
         RestResult restResult = new RestResult();
@@ -241,10 +237,10 @@ public class UserOperateController  extends  BaseController{
         restResult.setMsg("查询所有");
         return restResult;
 
-    }
+    }*/
 
 
-//    @ApiOperation("输入name查询，可能有多个， 不输入查询所有")
+/*//    @ApiOperation("输入name查询，可能有多个， 不输入查询所有")
 //    @PostMapping("/queryUserByName")
     public RestResult queryUserInfoByName(@RequestBody UserQueryRequestName request) {
         RestResult restResult = new RestResult();
@@ -270,10 +266,10 @@ public class UserOperateController  extends  BaseController{
         restResult.setData(list);
         restResult.setMsg("查询所有");
         return restResult;
-    }
+    }*/
 
 
-//    @ApiOperation("输入手机号查询 也可能多个， 不输入查询所有")
+    //    @ApiOperation("输入手机号查询 也可能多个， 不输入查询所有")
 //    @PostMapping("/queryUserByPhone")
     public RestResult queryUserByPhone(@RequestBody UserQueryRequestPhone request) {
         RestResult restResult = new RestResult();
@@ -303,10 +299,10 @@ public class UserOperateController  extends  BaseController{
 
 
 
-    @ApiOperation("查询某个经销商下的门店列表,暂时不用")
+    @ApiOperation("查询某个经销商下的门店列表, 暂时不用")
     @UserLoginToken
 //    @AdminToken
-    @PostMapping("/storesUnderAgent")
+//    @PostMapping("/storesUnderAgent")
     public RestResult getStoresUnderAgent(Integer agentId){
         HttpServletRequest httpServletRequest = RequestUtils.getHttpRequest();
         RestResult restResult= new RestResult();
@@ -351,7 +347,7 @@ public class UserOperateController  extends  BaseController{
     }
 
 
-    @ApiOperation("查询所有经销商列表 以及每个经销商下包含的门店列表")
+    @ApiOperation("查询所有经销商列表 以及每个经销商下包含的门店列表，暂时不用")
 //    @UserLoginToken
 //    @AdminToken
 //    @PostMapping("/queryAllStoresAgent")
@@ -363,6 +359,7 @@ public class UserOperateController  extends  BaseController{
         restResult.setMsg("success");
         return restResult;
     }
+
 
 //    @ApiOperation("查询所有经销商列表 以及每个经销商下包含的门店列表")
 //    //    @UserLoginToken
@@ -376,4 +373,83 @@ public class UserOperateController  extends  BaseController{
 //        restResult.setMsg("success");
 //        return restResult;
 //    }
+
+
+
+    @ApiOperation("查询所有经销商列表 以及每个经销商下包含的门店列表,用户列表使用")
+    @UserLoginToken
+//    @AdminToken
+    @PostMapping("/selectUserInfoAndStoreCount")
+    public RestResult selectUserInfoAndStoreCount(){
+//        List<UserInfo> agentAndStoreEntities = userService.selectUserInfoAndStoreCount();
+//        RestResult restResult= new RestResult();
+//        restResult.setData(agentAndStoreEntities);
+//        restResult.setSuccess(true);
+//        restResult.setMsg("success");
+//        return restResult;
+
+        HttpServletRequest httpServletRequest = RequestUtils.getHttpRequest();
+        RestResult restResult= new RestResult();
+        if(null == httpServletRequest ){
+            restResult.setCode(202);
+            restResult.setData("no data");
+            restResult.setMsg("请求参数异常3");
+            restResult.setSuccess(false);
+            return restResult;
+        }
+
+        String token = httpServletRequest.getHeader("token");
+        if( StringUtils.isEmpty(token)){
+            restResult.setCode(202);
+            restResult.setSuccess(false);
+            restResult.setMsg("请求token为空3");
+        }else {
+            try {
+                DecodedJWT decodedJWT = JwtTokenUtil222.getTokenInfo(token);
+                int userId = decodedJWT.getClaim("userId").asInt();
+                String userType = decodedJWT.getClaim("userType").asString();
+
+                if(!StringUtils.isEmpty(userType) && "admin".equals(userType)){
+                    //管理查询，不通过agentId
+                    logger.info("判断身份是管理员，直接查询所有经销商&门店");
+
+                    List<UserInfo> userInfoList = userService.selectUserInfoAndStoreCount();
+                    restResult.setData(userInfoList);
+                    restResult.setSuccess(true);
+                    restResult.setMsg("success");
+                }else {
+                    logger.info("判断身份是经销商，查询指定经销商的门店");
+                    List<UserInfo> userInfoList = new ArrayList<>();
+                    userInfoList.add( userService.selectByPrimaryKey(userId));
+                    restResult.setData(userInfoList);
+                    restResult.setSuccess(true);
+                    restResult.setMsg("success");
+                }
+
+            } catch ( Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return restResult;
+    }
+
+
+
+    @ApiOperation("查询某个经销商，名称或者手机号查询， 以及每个经销商下包含的门店列表")
+    @UserLoginToken
+//    @AdminToken
+    @PostMapping("/selectUserInfoByParmAndStoreCount")
+    public RestResult selectUserInfoByParmAndStoreCount(String parms){
+
+        UserInfo userInfo = userService. selectUserByUserName(parms);
+        RestResult restResult= new RestResult();
+        restResult.setData(userInfo);
+        restResult.setSuccess(true);
+        restResult.setMsg("success");
+
+        return restResult;
+
+    }
+
 }

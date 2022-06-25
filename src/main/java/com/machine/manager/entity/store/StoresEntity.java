@@ -23,6 +23,7 @@ public class StoresEntity implements Serializable {
     private String address;
 
     private String contactPerson;
+    private String contactPhone;
 
     /**
      * 代理商id

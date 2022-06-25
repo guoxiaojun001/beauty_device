@@ -114,7 +114,7 @@ public class StoresController extends  BaseController{
 
 
 
-    @ApiOperation("查询门店 指定id查询 ")
+    @ApiOperation("查询门店 指定id查询 ，暂时不用")
     @UserLoginToken
 //    @AdminToken
     @PostMapping("/queryByStoreId")
@@ -131,10 +131,10 @@ public class StoresController extends  BaseController{
     }
 
 
-    @ApiOperation("查询门店 指定门店名称 查询 ")
+    @ApiOperation("查询门店 指定门店名称 查询 ，暂时不用")
     @UserLoginToken
 //    @AdminToken
-    @PostMapping("/queryByStoreName")
+//    @PostMapping("/queryByStoreName")
     public RestResult selectByStoreName(String storeName) {
         System.out.print("  selectByStoreName :" + storeName);
         RestResult restResult = new RestResult();
@@ -148,10 +148,10 @@ public class StoresController extends  BaseController{
     }
 
 
-    @ApiOperation("查询门店信息，返回列表 ")
+    @ApiOperation("查询门店信息，返回列表,暂时不用 ")
     @UserLoginToken
 //    @AdminToken
-    @PostMapping("/queryAllStore")
+//    @PostMapping("/queryAllStore")
     public RestResult queryAllStore() {
         //TODO 涉及多表关联查询
         RestResult restResult = new RestResult();
@@ -268,15 +268,17 @@ public class StoresController extends  BaseController{
         return restResult;
     }
     @ApiOperation("查询所有门店列表,以及每个门店下包含的设备数量")
+    @UserLoginToken
     @PostMapping(value = "/storeInfoList")
     List<Store>  selectStoreInfoAndDeviceCount(){
         return storeService.selectStoreInfoAndDeviceCount();
     }
 
-    @ApiOperation("根据门店名字模糊匹配门店列表,以及每个门店下包含的设备数量")
-    @PostMapping(value = "/storeInfoListByStoreName")
-    List<Store>  selectStoreInfoAndDeviceCountByStoreName(@RequestParam String storeName){
-        return storeService.selectStoreInfoAndDeviceCountByStoreName(storeName);
+    @ApiOperation("根据门店名字 门店联系人或者联系人电话 模糊匹配门店列表,以及每个门店下包含的设备数量")
+    @UserLoginToken
+    @PostMapping(value = "/storeInfoListByParms")
+    List<Store>  selectStoreInfoAndDeviceCountByStoreName(@RequestParam String parms){
+        return storeService.selectStoreInfoAndDeviceCountByStoreName(parms);
     }
 
 }

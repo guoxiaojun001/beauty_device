@@ -6,6 +6,7 @@
     <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="contact_person" jdbcType="VARCHAR" property="contactPerson" />
+    <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone" />
     <result column="agent_id" jdbcType="VARCHAR" property="agentId" />
     <result column="create_time" jdbcType="VARCHAR" property="createTime" />
     <result column="store_name" jdbcType="VARCHAR" property="storeName" />
@@ -30,11 +31,11 @@
   </delete>
   <insert id="insert" parameterType="com.machine.manager.entity.store.StoresEntity">
     insert into t_stores (id, code, address,
-      contact_person, agent_id, create_time, 
+      contact_person, contact_phone,agent_id, create_time,
       store_name, device_count, version
       )
     values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
-      #{contactPerson,jdbcType=VARCHAR}, #{agentId,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{contactPerson,jdbcType=VARCHAR},#{contactPhone,jdbcType=VARCHAR}, #{agentId,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR},
       #{storeName,jdbcType=VARCHAR}, #{deviceCount,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}
       )
   </insert>
@@ -52,6 +53,9 @@
       </if>
       <if test="contactPerson != null">
         contact_person,
+      </if>
+      <if test="contactPhone != null">
+        contact_phone,
       </if>
       <if test="agentId != null">
         agent_id,
@@ -82,6 +86,9 @@
       <if test="contactPerson != null">
         #{contactPerson,jdbcType=VARCHAR},
       </if>
+      <if test="contactPhone != null">
+        #{contactPhone,jdbcType=VARCHAR},
+      </if>
       <if test="agentId != null">
         #{agentId,jdbcType=VARCHAR},
       </if>
@@ -111,6 +118,9 @@
       <if test="contactPerson != null">
         contact_person = #{contactPerson,jdbcType=VARCHAR},
       </if>
+      <if test="contactPhone != null">
+        contact_phone = #{contactPhone,jdbcType=VARCHAR},
+      </if>
       <if test="agentId != null">
         agent_id = #{agentId,jdbcType=VARCHAR},
       </if>
@@ -134,6 +144,7 @@
     set code = #{code,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
       contact_person = #{contactPerson,jdbcType=VARCHAR},
+      contact_phone = #{contactPhone,jdbcType=VARCHAR},
       agent_id = #{agentId,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=VARCHAR},
       store_name = #{storeName,jdbcType=VARCHAR},
@@ -158,6 +169,7 @@
       <result column="code" jdbcType="VARCHAR" property="code"/>
       <result column="address" jdbcType="VARCHAR" property="address"/>
       <result column="contact_person" property="contactPerson"/>
+      <result column="contact_phone" property="contactPhone"/>
       <result column="agent_id" property="agentId"/>
       <result column="create_time" property="createTime"/>
       <result column="store_name" property="storeName"/>

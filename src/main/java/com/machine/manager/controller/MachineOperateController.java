@@ -1,12 +1,10 @@
 package com.machine.manager.controller;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.machine.manager.config.SecurityConfig;
 import com.machine.manager.constant.UserRoleEnum;
 import com.machine.manager.entity.MachineInfo;
 import com.machine.manager.entity.UserInfo;
 import com.machine.manager.entity.WebData;
-import com.machine.manager.entity.WorkRecords;
 import com.machine.manager.entity.machine.MachineRequest;
 import com.machine.manager.entity.machine.MachineRequestAfter;
 import com.machine.manager.entity.machine.MachintCount;
@@ -19,23 +17,15 @@ import com.machine.manager.service.MachineService;
 import com.machine.manager.service.UserService;
 import com.machine.manager.service.impl.WorkRecordsServiceImpl;
 import com.machine.manager.util.RequestUtils;
-import io.jsonwebtoken.Claims;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.method.HandlerMethod;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -60,7 +50,7 @@ public class MachineOperateController extends BaseController {
 
     @ApiOperation("新增设备信息,machineParam为设备id，唯一性")
     @UserLoginToken
-    @AdminToken
+//    @AdminToken
     @PostMapping("/addMachine")
     public RestResult addMachine(@RequestBody MachineInfo machineInfo) {
         RestResult restResult = new RestResult();
@@ -316,10 +306,67 @@ public class MachineOperateController extends BaseController {
 //    }
 
 
-
-    @ApiOperation("查询所有设备信息,用户id， 名称 省市 可选参数")
+    @ApiOperation("搜索 设备信息，输入关键字 类型名称品牌等")
     @UserLoginToken
-    @PostMapping("/mixSearchMachineList")
+    @PostMapping("/commonSearchMachineList")
+    public RestResult commonSearchMachineList (String parms){
+        RestResult restResult = new RestResult();
+        HttpServletRequest httpServletRequest = RequestUtils.getHttpRequest();
+        if(null == httpServletRequest){
+            restResult.setCode(202);
+            restResult.setData("no data");
+            restResult.setMsg("查询不到有效数据");
+            restResult.setSuccess(false);
+            return restResult;
+        }
+
+        String token =  httpServletRequest.getHeader("token");
+        if(StringUtils.isEmpty(token)){
+            restResult.setCode(202);
+            restResult.setData("no data");
+            restResult.setMsg("请求token为空");
+            restResult.setSuccess(false);
+            return restResult;
+        }
+
+        try {
+            DecodedJWT decodedJWT = JwtTokenUtil222 .getTokenInfo(token);
+            int userId = decodedJWT.getClaim("userId").asInt();
+//            String userName = decodedJWT.getClaim("userName").asString();
+            String userType = decodedJWT.getClaim("userType").asString();
+            System.out.print(userId + "==userId, userType == " + userType);
+
+            if("admin".equals( userType )){
+                List<MachineInfo> machineInfoList;
+                if(StringUtils.isEmpty(parms)){
+                    machineInfoList = service.selectAllByAdmin();
+                }else {
+                    machineInfoList =  service.queryMachineByParm(parms);
+                }
+                restResult.setCode(200);
+                restResult.setData(machineInfoList);
+                restResult.setMsg("success");
+                restResult.setSuccess(true);
+                return restResult;
+            }else {
+                //查询自己名下的设备
+                List<MachineInfo> machineInfoList =  service.selectAllByNormalWithParm(7,parms);
+                restResult.setCode(200);
+                restResult.setData(machineInfoList);
+                restResult.setMsg("success");
+                restResult.setSuccess(true);
+                return restResult;
+            }
+        } catch ( Exception e) {
+        }
+
+        return restResult;
+    }
+
+
+//    @ApiOperation("查询所有设备信息,用户id， 名称 省市 可选参数")
+//    @UserLoginToken
+//    @PostMapping("/mixSearchMachineList")
     public RestResult mixSearchMachineList(@RequestBody MixRequest request) {
 
         List<WebData> webDataList = new ArrayList<>();

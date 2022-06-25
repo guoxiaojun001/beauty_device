@@ -21,6 +21,7 @@ public class StoreData implements Serializable  {
 	private String code;
 	private String address;
 	private String contactPerson;
+	private String contactPhone;
 
 	private Integer agentId;
 

@@ -45,8 +45,8 @@ public interface StoreDao {
     * 功能描述 根据门店名字模糊查询门店信息
     * @author guoxi_789@126.com
     * @date 2022/6/22
-    * @param  storeName 门店名称
+    * @param  parms 门店名称 联系人或者联系电话
     * @return 门店列表
     */
-    List<Store>  selectStoreInfoAndDeviceCountByStoreName(@Param("storeName") String storeName);
+    List<Store>  selectStoreInfoAndDeviceCountByStoreName(@Param("parms") String parms);
 }

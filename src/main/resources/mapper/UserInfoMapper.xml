@@ -159,4 +159,30 @@
     select <include refid="Base_Column_List"/> FROM user_info t WHERE t.`telephone`=#{telephone}
   </select>
 
+
+
+
+
+  <!--查询用户信息以及名下下门店数量  -->
+  <resultMap id="UserInfoAndStoreCountResultMap" type="com.machine.manager.entity.UserInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="role_id" jdbcType="VARCHAR" property="roleId" />
+    <result column="user_type" jdbcType="VARCHAR" property="userType" />
+    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <result column="stores_count" jdbcType="INTEGER" property="storesCount" />
+  </resultMap>
+  <select id="selectUserInfoAndStoreCount" resultMap="UserInfoAndStoreCountResultMap">
+    SELECT s.*,COUNT(m.id) AS stores_count FROM `user_info`  s LEFT JOIN t_stores m ON s.id=m.agent_id GROUP BY s.id
+  </select>
+
+
+  <select id="selectUserInfoByParmAndStoreCount" resultMap="UserInfoAndStoreCountResultMap">
+    SELECT s.*,COUNT(m.id) AS stores_count FROM `user_info`  s  LEFT JOIN t_stores m ON s.id=m.agent_id  where s.name=#{parms} or s.telephone=#{parms}  GROUP BY s.id
+  </select>
+
 </mapper>

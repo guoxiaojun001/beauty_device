@@ -134,4 +134,8 @@ public interface MachineService {
 
     List<MachintCount> selectByDevType ();
     List<MachintCount> selectByDevLocation ();
+
+
+    List<MachineInfo> queryMachineByParm(String parms);
+    List<MachineInfo> selectAllByNormalWithParm( Integer id,String parm);
 }

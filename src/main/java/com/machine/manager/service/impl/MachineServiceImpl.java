@@ -135,4 +135,14 @@ public class MachineServiceImpl implements MachineService {
         return machineInfoDao.selectByDevLocation();
     }
 
+    @Override
+    public List<MachineInfo> queryMachineByParm(String parms) {
+        return machineInfoDao.queryMachineByParm(parms);
+    }
+
+    @Override
+    public List<MachineInfo> selectAllByNormalWithParm(Integer id, String parms) {
+        return machineInfoDao.queryMachineByIDAndParm(id,parms);
+    }
+
 }

@@ -93,21 +93,21 @@ public class OrdersController extends  BaseController{
     }
 
 
-    @ApiOperation("通过id查询订单")
-    @UserLoginToken
-//    @AdminToken
-    @PostMapping("/queryByOrderId")
-    public RestResult queryByOrderId(Integer id) {
-        System.out.print("  queryByOrderId :" + id);
-        RestResult restResult = new RestResult();
-        Order order = orderService.selectByPrimaryKey(id);
-        restResult.setCode(200);
-        restResult.setData(order);
-        restResult.setMsg("查询成功");
-        restResult.setSuccess(true);
-
-        return restResult;
-    }
+//    @ApiOperation("通过id查询订单")
+//    @UserLoginToken
+////    @AdminToken
+//    @PostMapping("/queryByOrderId")
+//    public RestResult queryByOrderId(Integer id) {
+//        System.out.print("  queryByOrderId :" + id);
+//        RestResult restResult = new RestResult();
+//        Order order = orderService.selectByPrimaryKey(id);
+//        restResult.setCode(200);
+//        restResult.setData(order);
+//        restResult.setMsg("查询成功");
+//        restResult.setSuccess(true);
+//
+//        return restResult;
+//    }
 
 
     @ApiOperation("通过订单号查询订单")

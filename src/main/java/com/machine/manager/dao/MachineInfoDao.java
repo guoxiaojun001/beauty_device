@@ -1,11 +1,13 @@
 package com.machine.manager.dao;
 
 import com.machine.manager.entity.MachineInfo;
+import com.machine.manager.entity.StoreAndMachineEntity;
 import com.machine.manager.entity.StoreData;
 import com.machine.manager.entity.machine.MachineRequest;
 import com.machine.manager.entity.machine.MachineRequestAfter;
 import com.machine.manager.entity.machine.MachintCount;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -56,4 +58,7 @@ public interface MachineInfoDao {
     public List<MachintCount> selectByDevType ();
     public List<MachintCount> selectByDevLocation ();
 
+
+    List<MachineInfo> queryMachineByParm(@Param("parms") String parms);
+    List<MachineInfo> queryMachineByIDAndParm(@Param("id") Integer id,@Param("parms") String parms);
 }

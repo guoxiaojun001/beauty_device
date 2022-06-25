@@ -75,6 +75,8 @@ public class UserInfo implements Serializable, UserDetails {
     @Column(name = "company_name")
     private String companyName;
 
+    @Column(name = "stores_count")
+    private int storesCount;
     private static final long serialVersionUID = 1L;
 
 

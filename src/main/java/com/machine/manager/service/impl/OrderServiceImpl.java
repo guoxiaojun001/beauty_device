@@ -44,10 +44,10 @@ public class OrderServiceImpl implements OrderService {
         return orderDao.selectByExample(example);
     }
 
-    @Override
-    public Order selectByPrimaryKey(Integer id) {
-        return orderDao.selectByPrimaryKey(id);
-    }
+//    @Override
+//    public Order selectByPrimaryKey(Integer id) {
+//        return orderDao.selectByPrimaryKey(id);
+//    }
 
     @Override
     public Order selectByOrderNo(String orderNo) {

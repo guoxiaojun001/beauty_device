@@ -29,6 +29,9 @@ public interface UserService {
 
     List<UserInfo> selectByUserInfo(UserInfo userInfo);
 
+    List<UserInfo>  selectUserInfoAndStoreCount();
+    List<UserInfo>  selectUserInfoByParmAndStoreCount(String parms);
+
     //jwt使用
     public UserInfo selectUserByUserName(String userName);
 }

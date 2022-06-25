@@ -86,6 +86,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserInfo> selectUserInfoAndStoreCount() {
+        return userInfoDao.selectUserInfoAndStoreCount();
+    }
+
+    @Override
+    public List<UserInfo>  selectUserInfoByParmAndStoreCount(String parms){
+        return userInfoDao.selectUserInfoByParmAndStoreCount(parms);
+    }
+
+    @Override
     public UserInfo selectUserByUserName(String userName) {
         UserInfo user = new UserInfo();
         user.setName(userName);

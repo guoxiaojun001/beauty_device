@@ -437,13 +437,38 @@
 
 
   <select id="selectByDevType" resultType="com.machine.manager.entity.machine.MachintCount">
-    select machine_type ,count(*) as counts from machine_info GROUP BY machine_type
+    select machine_type ,count(*) as counts from machine_info GROUP BY machine_param
 
   </select>
 
   <select id="selectByDevLocation" resultType="com.machine.manager.entity.machine.MachintCount">
-    select machine_provice ,count(*) as counts from machine_info GROUP BY machine_provice
+    select machine_provice ,count(*) as counts from machine_info GROUP BY machine_param
 
   </select>
 
+
+  <select id="queryMachineByParm" resultType="com.machine.manager.entity.MachineInfo">
+    select s.*  from `machine_info` s
+    where s.machine_type = #{parms}
+       or s.machine_function = #{parms}
+       or s.machine_attribute = #{parms}
+       or s.machine_brand = #{parms}
+       or s.machine_provice = #{parms}
+       or s.machine_city = #{parms} GROUP BY machine_param
+
+  </select>
+
+
+
+  <select id="queryMachineByIDAndParm" resultType="com.machine.manager.entity.MachineInfo">
+    select s.*  from `machine_info` s
+    where s.user_id = #{id}
+       and s.machine_type = #{parms}
+       or s.machine_function = #{parms}
+       or s.machine_attribute = #{parms}
+       or s.machine_brand = #{parms}
+       or s.machine_provice = #{parms}
+       or s.machine_city = #{parms} GROUP BY machine_param
+
+  </select>
 </mapper>

@@ -18,7 +18,7 @@ public interface OrderDao {
 
     List<Order> selectByExample(Order example);
 
-    Order selectByPrimaryKey(Integer id);
+//    Order selectByPrimaryKey(Integer id);
 
     Order selectByOrderNo(String orderNo);
 
