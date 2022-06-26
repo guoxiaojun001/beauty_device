@@ -1,8 +1,6 @@
 package com.machine.manager.service;
 
-import com.machine.manager.entity.MachineInfo;
 import com.machine.manager.entity.WorkRecords;
-import com.machine.manager.entity.machine.MachineRequest;
 import com.machine.manager.entity.machine.WorkRecordsRequest;
 
 import java.util.List;

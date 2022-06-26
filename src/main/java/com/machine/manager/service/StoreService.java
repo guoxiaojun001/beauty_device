@@ -2,6 +2,7 @@ package com.machine.manager.service;
 
 import com.machine.manager.entity.Store;
 import com.machine.manager.entity.StoreData;
+import io.swagger.models.auth.In;
 
 import java.util.List;
 
@@ -31,14 +32,14 @@ public interface StoreService {
     * @date 2022/6/22
     * @return 门店信息列表
     */
-    List<Store>  selectStoreInfoAndDeviceCount();
+    List<Store>  selectStoreInfoAndDeviceCount(Integer id);
 
     /**
     * 功能描述 模糊查询门店信息
     * @author guoxi_789@126.com
     * @date 2022/6/22
-    * @param  storeNameOrPhone 门店名称
+    * @param  parms 门店名称
     * @return 门店信息列表
     */
-    List<Store>  selectStoreInfoAndDeviceCountByStoreName(String parms);
+    List<Store>  selectStoreInfoAndDeviceCountByStoreName(Integer id,String parms);
 }

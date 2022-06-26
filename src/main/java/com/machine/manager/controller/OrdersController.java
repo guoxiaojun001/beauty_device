@@ -4,6 +4,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.machine.manager.entity.Order;
 import com.machine.manager.entity.Store;
 import com.machine.manager.entity.UserInfo;
+import com.machine.manager.entity.machine.CommonRequest;
 import com.machine.manager.jwt.JwtTokenUtil222;
 import com.machine.manager.jwt.RestResult;
 import com.machine.manager.reject.AdminToken;
@@ -13,6 +14,7 @@ import com.machine.manager.service.StoreService;
 import com.machine.manager.util.RequestUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -110,29 +112,60 @@ public class OrdersController extends  BaseController{
 //    }
 
 
-    @ApiOperation("通过订单号查询订单")
+/*    @ApiOperation("查询订单")
     @UserLoginToken
 //    @AdminToken
-    @PostMapping("/queryByOrderNo")
-    public RestResult queryByOrderNo(String orderNo) {
-        System.out.print("  queryByOrderNo :" + orderNo);
-        RestResult restResult = new RestResult();
-        Order order = orderService.selectByOrderNo(orderNo);
-        restResult.setCode(200);
-        restResult.setData(order);
-        restResult.setMsg("查询成功");
-        restResult.setSuccess(true);
+    @PostMapping("/queryByOrder")
+    public RestResult queryByOrder(String parms) {
+
+        HttpServletRequest httpServletRequest = RequestUtils.getHttpRequest();
+        RestResult restResult= new RestResult();
+        if(null == httpServletRequest ){
+            restResult.setCode(202);
+            restResult.setData("no data");
+            restResult.setMsg("请求参数异常3");
+            restResult.setSuccess(false);
+            return restResult;
+        }
+
+        String token = httpServletRequest.getHeader("token");
+        if( StringUtils.isEmpty(token)){
+            restResult.setCode(202);
+            restResult.setSuccess(false);
+            restResult.setMsg("请求token为空3");
+        }else {
+            try {
+                DecodedJWT decodedJWT = JwtTokenUtil222.getTokenInfo(token);
+                int userId = decodedJWT.getClaim("userId").asInt();
+                String userType = decodedJWT.getClaim("userType").asString();
+
+                if(!StringUtils.isEmpty(userType) && "admin".equals(userType)){
+                    System.out.print(" 管理员查询 queryByOrder :" + parms);
+                    Order order = orderService.selectByOrderNo(parms);
+                    restResult.setCode(200);
+                    restResult.setData(order);
+                    restResult.setMsg("查询成功");
+                    restResult.setSuccess(true);
+                }else {
+                    System.out.print(" 不是管理员查询，需要添加门店号， queryByOrderNo :" + parms);
+                }
+            }catch (Exception e){
+            }
+        }
+
 
         return restResult;
-    }
+    }*/
 
-    @ApiOperation("查询订单列表 ")
+    @ApiOperation("查询订单列表 ,参数传空 返回所有")
     @UserLoginToken
 //    @AdminToken
-    @PostMapping("/queryAllOrder")
-    public RestResult queryAllOrder() {
+    @PostMapping("/queryOrderList")
+    public RestResult queryAllOrder(@RequestBody CommonRequest commonRequest) {
         //TODO 涉及多表关联查询
+        logger.info("queryOrderList commonRequest = " + commonRequest);
         RestResult restResult = new RestResult();
+                List<Order> list ;
         HttpServletRequest httpServletRequest = RequestUtils.getHttpRequest();
         if(null == httpServletRequest ){
             restResult.setCode(200);
@@ -152,7 +185,7 @@ public class OrdersController extends  BaseController{
 
         String userType = "user";
         int userId = -1;
-        List<Order> list ;
+
 
         try {
             DecodedJWT decodedJWT = JwtTokenUtil222.getTokenInfo(token);
@@ -164,13 +197,13 @@ public class OrdersController extends  BaseController{
         }
 
         if("admin".equals(userType)){
-            list = orderService.selectAll();
+            list = orderService.selectCurrentUser(null, commonRequest.getParms());
             restResult.setData(list);
             restResult.setCode(200);
             restResult.setSuccess(true);
             restResult.setMsg("查询成功");
         }else {
-            list = orderService.selectCurrentUser(userId );
+            list = orderService.selectCurrentUser(userId ,commonRequest.getParms());
             restResult.setData(list);
             restResult.setCode(200);
             restResult.setSuccess(true);

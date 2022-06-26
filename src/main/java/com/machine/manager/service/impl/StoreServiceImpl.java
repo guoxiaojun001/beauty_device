@@ -70,12 +70,12 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
-    public List<Store>  selectStoreInfoAndDeviceCount(){
-        return storeDao.selectStoreInfoAndDeviceCount();
+    public List<Store>  selectStoreInfoAndDeviceCount(Integer id){
+        return storeDao.selectStoreInfoAndDeviceCount(id);
     }
 
     @Override
-    public List<Store>  selectStoreInfoAndDeviceCountByStoreName(String storeName){
-        return storeDao.selectStoreInfoAndDeviceCountByStoreName(storeName);
+    public List<Store>  selectStoreInfoAndDeviceCountByStoreName(Integer id,String storeName){
+        return storeDao.selectStoreInfoAndDeviceCountByStoreName(id,storeName);
     }
 }

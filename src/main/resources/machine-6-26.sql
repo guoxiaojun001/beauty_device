@@ -111,7 +111,7 @@ CREATE TABLE `t_stores`  (
   `address` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `contact_person` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `contact_phone` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `agent_id` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '代理商id',
+  `agent_id` int NOT NULL DEFAULT -1 COMMENT '代理商id',
   `create_time` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `store_name` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `device_count` int NOT NULL DEFAULT 0,
@@ -123,9 +123,9 @@ CREATE TABLE `t_stores`  (
 -- ----------------------------
 -- Records of t_stores
 -- ----------------------------
-INSERT INTO `t_stores` VALUES (1, 's1', 'liaoning', '张三', '18800009999', '7', '2022年6月20日23:40:50', '2022年6月20日23:40:53', 0, 0);
-INSERT INTO `t_stores` VALUES (2, 's2', 'liaoning', '李四', '18800001111','7', '2022年6月20日23:41:01', '2022年6月20日23:41:04', 0, 0);
-INSERT INTO `t_stores` VALUES (3, 's3', 'hubei', '王五', '18800002222','7', '2022年6月20日23:41:01', '2022年6月20日23:41:04', 0, 0);
+INSERT INTO `t_stores` VALUES (1, 's1', 'liaoning', '张三', '18800009999', 7, '2022年6月20日23:40:50', '2022年6月20日23:40:53', 0, 0);
+INSERT INTO `t_stores` VALUES (2, 's2', 'liaoning', '李四', '18800001111',7, '2022年6月20日23:41:01', '2022年6月20日23:41:04', 0, 0);
+INSERT INTO `t_stores` VALUES (3, 's3', 'hubei', '王五', '18800002222',10, '2022年6月20日23:41:01', '2022年6月20日23:41:04', 0, 0);
 
 
 -- ----------------------------
@@ -143,6 +143,7 @@ CREATE TABLE `t_orders`  (
   `order_status` int(11) NOT NULL DEFAULT -1,
   `pay_status` int(11) NOT NULL DEFAULT -1,
   `operation_time` int(11) NOT NULL DEFAULT 0,
+  `agent_id` int NOT NULL DEFAULT -1 COMMENT '代理商id',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 

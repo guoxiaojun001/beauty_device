@@ -179,11 +179,30 @@
 
   <!--查询门店信息以及门店下设备数量  -->
   <select id="selectStoreInfoAndDeviceCount" resultMap="StoreAndDeviceCountResultMap">
-        SELECT s.*,COUNT(m.id) AS new_device_count FROM `t_stores`  s LEFT JOIN machine_info m ON s.id=m.store_id GROUP BY s.id
+        SELECT s.*,COUNT(m.id) AS new_device_count FROM `t_stores`  s LEFT JOIN machine_info m ON s.id=m.store_id
+        where 1=1
+        <if test="agentId != null and agentId != '' ">
+            and s.agent_id=#{agentId}
+        </if>
+        GROUP BY s.id
   </select>
 
   <select id="selectStoreInfoAndDeviceCountByStoreName" resultMap="StoreAndDeviceCountResultMap">
-    SELECT s.*,COUNT(m.id) AS new_device_count FROM `t_stores`  s LEFT JOIN machine_info m ON s.id=m.store_id WHERE s.store_name LIKE CONCAT('%',#{parms},'%') OR s.contact_person LIKE CONCAT('%',#{parms},'%') OR s.contact_phone LIKE CONCAT('%',#{parms},'%') GROUP BY s.id;
+    SELECT s.*,COUNT(m.id) AS new_device_count FROM `t_stores`  s LEFT JOIN machine_info m ON s.id=m.store_id
+    WHERE 1=1
+    <if test="agentId != null and agentId != '' ">
+      and s.agent_id=#{agentId}
+    </if>
+    <if test="parms != null and parms != '' ">
+       AND (s.store_name LIKE CONCAT('%',#{parms},'%')
+                OR s.contact_person LIKE CONCAT('%',#{parms},'%')
+                OR s.code LIKE CONCAT('%',#{parms},'%')
+                OR s.contact_phone LIKE CONCAT('%',#{parms},'%')
+                OR s.address LIKE CONCAT('%',#{parms},'%') )
+    </if>
+
+    GROUP BY s.id;
+
   </select>
 
 </mapper>

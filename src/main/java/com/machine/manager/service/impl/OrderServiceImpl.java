@@ -54,14 +54,14 @@ public class OrderServiceImpl implements OrderService {
         return orderDao.selectByOrderNo(orderNo);
     }
 
-    @Override
-    public List<Order> selectAll() {
-        return orderDao.selectAll();
-    }
+//    @Override
+//    public List<Order> selectAll() {
+//        return orderDao.selectAll();
+//    }
 
     @Override
-    public List<Order> selectCurrentUser(Integer agentId) {
-        return orderDao.selectCurrentUser(agentId);
+    public List<Order> selectCurrentUser(Integer agentId, String parms) {
+        return orderDao.selectCurrentUser(agentId,parms);
     }
 
 

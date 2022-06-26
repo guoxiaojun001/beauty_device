@@ -31,7 +31,9 @@ public interface UserInfoDao {
     List<UserInfo> selectByUserInfo(UserInfo userInfo);
 
 
-    List<UserInfo>  selectUserInfoAndStoreCount();
+//    List<UserInfo>  selectUserInfoAndStoreCount(@Param("id")  Integer id);
 
-    List<UserInfo>  selectUserInfoByParmAndStoreCount(@Param("parms")  String parms);
+
+
+    List<UserInfo>  selectUserInfoByParmAndId(@Param("id")  Integer id,@Param("parms")  String parms);
 }

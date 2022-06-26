@@ -1,10 +1,6 @@
 package com.machine.manager.service;
 
 import com.machine.manager.entity.MachineInfo;
-import com.machine.manager.entity.UserInfo;
-import com.machine.manager.entity.machine.MachineRequest;
-import com.machine.manager.entity.machine.MachineRequestAfter;
-import com.machine.manager.entity.machine.MachintCount;
 
 import java.util.List;
 
@@ -78,64 +74,7 @@ public interface MachineService {
      */
     int updateByPrimaryKey(MachineInfo record);
 
-    /**
-     * 功能描述
-     *
-     * @param request
-     * @return MachineInfo
-     * @author guoxi_789@126.com
-     * @date 2020/12/14
-     */
-    MachineInfo getMachineInfoByAdmin(MachineRequestAfter request);
 
-    /**
-     * 功能描述
-     *
-     * @param request
-     * @return MachineInfo
-     * @author guoxi_789@126.com
-     * @date 2020/12/14
-     */
-    MachineInfo getMachineInfoByNormal(MachineRequestAfter request);
-
-
-    /**
-     * 功能描述
-     * 查询设备列表
-     * @param
-     * @return MachineInfo
-     * @author guoxiaojun8804@126.com
-     * @date 2021/01/24
-     */
-    List<MachineInfo> selectAllByAdmin();
-
-    List<MachineInfo> selectAllByNormal( Integer id);
-
-    List<MachineInfo> selectAllByStore(Integer sid);
-
-    //1按照省查询
-    List<MachineInfo> selectByProv( MachineRequestAfter request);
-
-    //2按照省市查询
-    List<MachineInfo> selectByProvCity( MachineRequestAfter request);
-
-    //3，按照名称
-    List<MachineInfo> selectByBrand( MachineRequestAfter request);
-
-    List<MachineInfo> selectByNameProvCity( MachineRequestAfter request);
-
-    //4名称 省查询，
-    List<MachineInfo> selectByNameProv ( MachineRequestAfter request);
-
-    List<MachineInfo> selectCommon ( MachineRequestAfter request);
-
-    List<MachineInfo> selectByUserId ( Integer userId);
-
-
-    List<MachintCount> selectByDevType ();
-    List<MachintCount> selectByDevLocation ();
-
-
-    List<MachineInfo> queryMachineByParm(String parms);
+//    public List<MachineInfo> selectAllByStore(Integer sid);
     List<MachineInfo> selectAllByNormalWithParm( Integer id,String parm);
 }

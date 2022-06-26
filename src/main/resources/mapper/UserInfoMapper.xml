@@ -175,14 +175,33 @@
     <result column="user_type" jdbcType="VARCHAR" property="userType" />
     <result column="company_name" jdbcType="VARCHAR" property="companyName" />
     <result column="stores_count" jdbcType="INTEGER" property="storesCount" />
+    <result column="new_stores_count" jdbcType="INTEGER" property="newStoresCount" />
   </resultMap>
-  <select id="selectUserInfoAndStoreCount" resultMap="UserInfoAndStoreCountResultMap">
-    SELECT s.*,COUNT(m.id) AS stores_count FROM `user_info`  s LEFT JOIN t_stores m ON s.id=m.agent_id GROUP BY s.id
-  </select>
+<!--  <select id="selectUserInfoAndStoreCount" resultMap="UserInfoAndStoreCountResultMap">-->
+<!--    SELECT s.*,COUNT(m.id) AS stores_count FROM `user_info`  s LEFT JOIN t_stores m ON s.id=m.agent_id-->
+
+<!--    where 1=1-->
+<!--    <if test="id != null and id != '' ">-->
+<!--      and  s.id=#{id}-->
+<!--    </if>-->
+<!--    GROUP BY s.id-->
+<!--  </select>-->
 
 
-  <select id="selectUserInfoByParmAndStoreCount" resultMap="UserInfoAndStoreCountResultMap">
-    SELECT s.*,COUNT(m.id) AS stores_count FROM `user_info`  s  LEFT JOIN t_stores m ON s.id=m.agent_id  where s.name=#{parms} or s.telephone=#{parms}  GROUP BY s.id
+
+  <select id="selectUserInfoByParmAndId" resultMap="UserInfoAndStoreCountResultMap">
+    SELECT s.*,COUNT(m.id) AS new_stores_count FROM `user_info`   s  LEFT JOIN t_stores m ON s.id=m.agent_id
+    where
+      1=1
+    <if test="id != null and id != '' ">
+      and  s.id=#{id}
+    </if>
+    <if test="parms != null and parms != '' ">
+      and
+      (s.name=#{parms} or s.telephone=#{parms})
+    </if>
+
+    GROUP BY s.id
   </select>
 
 </mapper>

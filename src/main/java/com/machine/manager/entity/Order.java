@@ -63,6 +63,8 @@ public class Order implements Serializable {
 
     private String store_id;//门店id
 
+    private Integer agentId;
+
     private static final long serialVersionUID = 1L;
 
 

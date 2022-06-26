@@ -1,9 +1,6 @@
 package com.machine.manager.dao;
 
-import com.machine.manager.entity.MachineInfo;
 import com.machine.manager.entity.WorkRecords;
-import com.machine.manager.entity.machine.MachineRequest;
-import com.machine.manager.entity.machine.WorkRecordsRequest;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

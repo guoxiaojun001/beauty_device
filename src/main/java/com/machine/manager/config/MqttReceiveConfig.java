@@ -130,7 +130,7 @@ public class MqttReceiveConfig {
                         UserInfo userInfo = userService.selectByPrimaryKey(userId);
                         if(userInfo.getUserType().equals("admin")){
                             //需要区分出 用户类型，防止查找的数据太多
-                            machineInfoList = service.selectAllByAdmin();
+                            machineInfoList = service.selectAllByNormalWithParm(null,null);
                             js.put("data",machineInfoList);
                             js.putByPath("messsageType","web_device_status");
 //                            mqttGateway.sendToMqtt(js.toString(),"/admin/device_status");
@@ -139,7 +139,7 @@ public class MqttReceiveConfig {
 
                             log.info("===============通知管理员后台刷新==>" + js.toString());
                         }else {
-                            machineInfoList = service.selectAllByNormal(userId);
+                            machineInfoList = service.selectAllByNormalWithParm(userId,null);
                             js.put("data",machineInfoList);
                             js.putByPath("messsageType","web_device_status");
 //                            mqttGateway.sendToMqtt(js.toString(),"/"  + userId + "/device_status");

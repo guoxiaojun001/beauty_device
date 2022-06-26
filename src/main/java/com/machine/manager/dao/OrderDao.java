@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.machine.manager.entity.Order;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface OrderDao {
@@ -18,13 +19,12 @@ public interface OrderDao {
 
     List<Order> selectByExample(Order example);
 
-//    Order selectByPrimaryKey(Integer id);
 
-    Order selectByOrderNo(String orderNo);
+    Order selectByOrderNo(@Param("parms") String parms);
 
-    List<Order> selectAll();
+//    List<Order> selectAll();
 
-    List<Order> selectCurrentUser(Integer agentId);
+    List<Order> selectCurrentUser(@Param("agentId") Integer agentId, @Param("parms") String parms);
 
     int updateByPrimaryKeySelective(Order record);
 

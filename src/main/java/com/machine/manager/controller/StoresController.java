@@ -6,6 +6,7 @@ import com.machine.manager.entity.AgentAndStoreEntity;
 import com.machine.manager.entity.Store;
 import com.machine.manager.entity.StoreAndMachineEntity;
 import com.machine.manager.entity.StoreData;
+import com.machine.manager.entity.machine.CommonRequest;
 import com.machine.manager.jwt.JwtTokenUtil222;
 import com.machine.manager.jwt.RestResult;
 import com.machine.manager.reject.AdminToken;
@@ -114,6 +115,7 @@ public class StoresController extends  BaseController{
 
 
 
+/*
     @ApiOperation("查询门店 指定id查询 ，暂时不用")
     @UserLoginToken
 //    @AdminToken
@@ -129,6 +131,7 @@ public class StoresController extends  BaseController{
 
         return restResult;
     }
+*/
 
 
     @ApiOperation("查询门店 指定门店名称 查询 ，暂时不用")
@@ -204,13 +207,12 @@ public class StoresController extends  BaseController{
 
 
     @Autowired
-    @SuppressWarnings("all")
     MachineDao machineDao;
 
     @ApiOperation("查询某个门店下的设备列表")
     @UserLoginToken
 //    @AdminToken
-    @PostMapping("/queryDeviceUnderStore")
+//    @PostMapping("/queryDeviceUnderStore")
     public RestResult getStoresUnderAgent(Integer storeId){
         RestResult restResult = new RestResult();
         HttpServletRequest httpServletRequest = RequestUtils.getHttpRequest();
@@ -255,8 +257,8 @@ public class StoresController extends  BaseController{
     }
 
 
-    @ApiOperation("查询所有门店列表 以及每个门店下包含的设备")
-//    @UserLoginToken
+    @ApiOperation("查询所有门店列表 以及每个门店下包含的设备,暂时不用")
+    @UserLoginToken
 //    @AdminToken
 //    @PostMapping("/getAllStoreAndDevice")
     public RestResult queryAllStoresAgent(){
@@ -267,18 +269,110 @@ public class StoresController extends  BaseController{
         restResult.setMsg("success");
         return restResult;
     }
-    @ApiOperation("查询所有门店列表,以及每个门店下包含的设备数量")
+
+   /* @ApiOperation("查询所有门店列表,以及每个门店下包含的设备数量")
     @UserLoginToken
     @PostMapping(value = "/storeInfoList")
-    List<Store>  selectStoreInfoAndDeviceCount(){
-        return storeService.selectStoreInfoAndDeviceCount();
-    }
+    public RestResult  selectStoreInfoAndDeviceCount(){
+        RestResult restResult = new RestResult();
+        HttpServletRequest httpServletRequest = RequestUtils.getHttpRequest();
+        if(null == httpServletRequest ){
+            restResult.setCode(200);
+            restResult.setData("no data");
+            restResult.setMsg("请求参数异常2");
+            restResult.setSuccess(false);
+            return restResult;
+        }
 
-    @ApiOperation("根据门店名字 门店联系人或者联系人电话 模糊匹配门店列表,以及每个门店下包含的设备数量")
+        String token = httpServletRequest.getHeader("token");
+        if(null == token || "".equals(token)){
+            restResult.setCode(200);
+            restResult.setSuccess(false);
+            restResult.setMsg("请求token为空");
+            return restResult;
+        }
+
+        String userType = "user";
+        int userId = -1;
+
+        try {
+            DecodedJWT decodedJWT = JwtTokenUtil222.getTokenInfo(token);
+            userType = decodedJWT.getClaim("userType").asString();
+            userId = decodedJWT.getClaim("userId").asInt();
+
+            logger.info("  userType {} -- {} ",userId ,userType);
+        } catch ( Exception e) {
+        }
+
+        if("admin".equals(userType)){
+            logger.info("判断身份是管理员，直接查询所有 门店 & 设备列表");
+            List<Store> storeList=  storeService.selectStoreInfoAndDeviceCount(null);
+            restResult.setCode(200);
+            restResult.setData(storeList);
+            restResult.setSuccess(true);
+            restResult.setMsg("success");
+
+        }else {
+            List<Store> storeList=  storeService.selectStoreInfoAndDeviceCount(userId);
+            restResult.setCode(200);
+            restResult.setData(storeList);
+            restResult.setSuccess(true);
+            restResult.setMsg("success");
+        }
+
+       return restResult;
+    }*/
+
+    @ApiOperation("查询所有门店列表,以及每个门店下包含的设备数量,输入参数后 根据门店名字 门店联系人或者联系人电话 地址 模糊匹配门店列表,以及每个门店下包含的设备数量")
     @UserLoginToken
     @PostMapping(value = "/storeInfoListByParms")
-    List<Store>  selectStoreInfoAndDeviceCountByStoreName(@RequestParam String parms){
-        return storeService.selectStoreInfoAndDeviceCountByStoreName(parms);
+    public RestResult  selectStoreInfoAndDeviceCountByStoreName(@RequestBody CommonRequest commonRequest){
+        RestResult restResult = new RestResult();
+        logger.info("selectStoreInfoAndDeviceCountByStoreName commonRequest = " + commonRequest);
+        HttpServletRequest httpServletRequest = RequestUtils.getHttpRequest();
+        if(null == httpServletRequest ){
+            restResult.setCode(200);
+            restResult.setData("no data");
+            restResult.setMsg("请求参数异常2");
+            restResult.setSuccess(false);
+            return restResult;
+        }
+
+        String token = httpServletRequest.getHeader("token");
+        if(null == token || "".equals(token)){
+            restResult.setCode(200);
+            restResult.setSuccess(false);
+            restResult.setMsg("请求token为空");
+            return restResult;
+        }
+
+        String userType = "user";
+        int userId = -1;
+
+        try {
+            DecodedJWT decodedJWT = JwtTokenUtil222.getTokenInfo(token);
+            userType = decodedJWT.getClaim("userType").asString();
+            userId = decodedJWT.getClaim("userId").asInt();
+
+            logger.info("  userType {} -- {} ",userId ,userType);
+        } catch ( Exception e) {
+        }
+
+        if("admin".equals(userType)){
+            List<Store> storeList = storeService.selectStoreInfoAndDeviceCountByStoreName(null ,commonRequest.getParms());
+            restResult.setData(storeList);
+            restResult.setCode(200);
+            restResult.setSuccess(true);
+            restResult.setMsg("success");
+        }else {
+            List<Store> storeList = storeService.selectStoreInfoAndDeviceCountByStoreName( userId,commonRequest.getParms());
+            restResult.setData(storeList);
+            restResult.setCode(200);
+            restResult.setSuccess(true);
+            restResult.setMsg("success");
+        }
+
+        return restResult;
     }
 
 }

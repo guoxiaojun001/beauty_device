@@ -38,7 +38,7 @@ public interface StoreDao {
     * @date 2022/6/22
     * @return 门店信息列表
     */
-    List<Store>  selectStoreInfoAndDeviceCount();
+    List<Store>  selectStoreInfoAndDeviceCount(@Param("agentId") Integer agentId);
 
 
     /**
@@ -48,5 +48,5 @@ public interface StoreDao {
     * @param  parms 门店名称 联系人或者联系电话
     * @return 门店列表
     */
-    List<Store>  selectStoreInfoAndDeviceCountByStoreName(@Param("parms") String parms);
+    List<Store>  selectStoreInfoAndDeviceCountByStoreName(@Param("agentId") Integer agentId,@Param("parms") String parms);
 }

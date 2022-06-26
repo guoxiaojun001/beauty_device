@@ -295,110 +295,17 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <!-- 自定义sql -->
-  <select id="getMachineInfoByAdmin" resultMap="BaseResultMap">
-    select <include refid="Base_Column_List"/>
-    from machine_info
-  </select>
+
 
   <select id="selectDeviceId" resultMap="BaseResultMap">
     select <include refid="Base_Column_List"/>
     from machine_info t where t.machine_param=#{machineParam}
   </select>
 
-  <select id="getMachineInfoByNormal" resultMap="BaseResultMap">
-    select <include refid="Base_Column_List"/>
-    from machine_info t where t.user_id=#{id}
-  </select>
-
-  <select id="selectByBrand" parameterType="com.machine.manager.entity.machine.MachineRequestAfter" resultMap="BaseResultMap">
-    select <include refid="Base_Column_List"/>
-    from machine_info t
-    where    1=1
-    <if test="role != 'admin' ">
-      AND t.`user_id`=#{userId}
-    </if>
-    AND t.machine_brand=#{machineBrand}
-  </select>
-
-
-  <select id="selectAllByAdmin" parameterType="com.machine.manager.entity.machine.MachineRequestAfter" resultType="com.machine.manager.entity.MachineInfo">
-    select <include refid="Base_Column_List"/> FROM machine_info
-  </select>
-
-  <select id="selectAllByNormal" parameterType="com.machine.manager.entity.machine.MachineRequestAfter" resultType="com.machine.manager.entity.MachineInfo">
-    select <include refid="Base_Column_List"/> FROM machine_info t where t.user_id=#{id}
-  </select>
 
 
   <select id="selectAllByStore" parameterType="java.lang.Integer" resultType="com.machine.manager.entity.MachineInfo">
     select <include refid="Base_Column_List"/> FROM machine_info t where t.store_id=#{sid}
-  </select>
-
-
-
-  <select id="selectByProv" parameterType="com.machine.manager.entity.machine.MachineRequestAfter" resultType="com.machine.manager.entity.MachineInfo">
-    select <include refid="Base_Column_List"/> FROM machine_info t
-    where    1=1
-    <if test="role != 'admin' ">
-      AND t.`user_id`=#{userId}
-    </if>
-    AND t.`machine_provice_id`=#{machineProviceId}
-    AND t.`user_id`=#{userId}
-  </select>
-
-
-  <select id="selectByProvCity" parameterType="com.machine.manager.entity.machine.MachineRequestAfter" resultType="com.machine.manager.entity.MachineInfo">
-    select <include refid="Base_Column_List"/> FROM machine_info t
-    where    1=1
-    <if test="role != 'admin' ">
-      AND t.`user_id`=#{userId}
-    </if>
-    AND t.`machine_provice_id`=#{machineProviceId}
-    AND t.`machine_city_id`=#{machineCityId}
-  </select>
-
-
-  <select id="selectByNameProvCity" parameterType="com.machine.manager.entity.machine.MachineRequestAfter" resultType="com.machine.manager.entity.MachineInfo">
-    select <include refid="Base_Column_List"/> FROM machine_info t
-    <!--where    1=1-->
-    <!--<if test="machineType != null and machineType != '' ">-->
-      <!--AND t.machine_type=#{machineType}-->
-    <!--</if>-->
-
-    <!--<if test="machineProviceId != null and machineProviceId != '' ">-->
-      <!--AND t.machine_provice_id=#{machineProviceId}-->
-    <!--</if>-->
-
-    <!--<if test="machineCityId != null and machineCityId != '' ">-->
-      <!--AND t.machine_city_id=#{machineCityId}-->
-    <!--</if>-->
-
-    <!--<if test="curPage != null ">-->
-      <!--LIMIT #{curPage}, #{pageSize}-->
-    <!--</if>-->
-
-    select <include refid="Base_Column_List"/> FROM machine_info t
-    where    1=1
-    <if test="role != 'admin' ">
-      AND t.`user_id`=#{userId}
-    </if>
-    AND t.machine_type=#{machine_type}
-    AND t.`machine_provice_id`=#{machineProviceId}
-    AND t.machine_city_id=#{machineCityId}
-
-
-  </select>
-
-
-  <select id="selectByNameProv" resultType="com.machine.manager.entity.MachineInfo">
-    select <include refid="Base_Column_List"/> FROM machine_info t
-    where    1=1
-    <if test="role != 'admin' ">
-      AND t.`user_id`=#{userId}
-    </if>
-    AND t.machine_type=#{machine_type}
-    AND t.`machine_provice_id`=#{machineProviceId}
   </select>
 
 
@@ -436,39 +343,44 @@
   </select>
 
 
-  <select id="selectByDevType" resultType="com.machine.manager.entity.machine.MachintCount">
-    select machine_type ,count(*) as counts from machine_info GROUP BY machine_param
-
-  </select>
-
-  <select id="selectByDevLocation" resultType="com.machine.manager.entity.machine.MachintCount">
-    select machine_provice ,count(*) as counts from machine_info GROUP BY machine_param
-
-  </select>
 
 
-  <select id="queryMachineByParm" resultType="com.machine.manager.entity.MachineInfo">
-    select s.*  from `machine_info` s
-    where s.machine_type = #{parms}
-       or s.machine_function = #{parms}
-       or s.machine_attribute = #{parms}
-       or s.machine_brand = #{parms}
-       or s.machine_provice = #{parms}
-       or s.machine_city = #{parms} GROUP BY machine_param
+<!--  <select id="queryMachineByParm" resultType="com.machine.manager.entity.MachineInfo">-->
+<!--    select s.*  from `machine_info` s-->
+<!--    where    1=1-->
+<!--    <if test="parms != null and parms != '' ">-->
+<!--      AND-->
+<!--      (s.machine_type = #{parms}-->
+<!--      or s.machine_function = #{parms}-->
+<!--      or s.machine_attribute = #{parms}-->
+<!--      or s.machine_brand = #{parms}-->
+<!--      or s.machine_provice = #{parms}-->
+<!--      or s.machine_city = #{parms})-->
+<!--    </if>-->
+<!--          GROUP BY machine_param-->
 
-  </select>
-
+<!--  </select>-->
 
 
   <select id="queryMachineByIDAndParm" resultType="com.machine.manager.entity.MachineInfo">
     select s.*  from `machine_info` s
-    where s.user_id = #{id}
-       and s.machine_type = #{parms}
+    where 1=1
+    <if test="id != null and id != '' ">
+      and s.user_id = #{id}
+    </if>
+
+    <if test="parms != null and parms != '' ">
+       and
+         ( s.machine_type = #{parms}
        or s.machine_function = #{parms}
        or s.machine_attribute = #{parms}
        or s.machine_brand = #{parms}
        or s.machine_provice = #{parms}
-       or s.machine_city = #{parms} GROUP BY machine_param
+       or s.machine_param = #{parms}
+       or s.machine_city = #{parms} )
+
+    </if>
+       GROUP BY machine_param
 
   </select>
 </mapper>

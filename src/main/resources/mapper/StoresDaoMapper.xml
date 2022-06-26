@@ -7,7 +7,7 @@
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="contact_person" jdbcType="VARCHAR" property="contactPerson" />
     <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone" />
-    <result column="agent_id" jdbcType="VARCHAR" property="agentId" />
+    <result column="agent_id" jdbcType="INTEGER" property="agentId" />
     <result column="create_time" jdbcType="VARCHAR" property="createTime" />
     <result column="store_name" jdbcType="VARCHAR" property="storeName" />
     <result column="device_count" jdbcType="INTEGER" property="deviceCount" />
@@ -90,7 +90,7 @@
         #{contactPhone,jdbcType=VARCHAR},
       </if>
       <if test="agentId != null">
-        #{agentId,jdbcType=VARCHAR},
+        #{agentId,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=VARCHAR},
@@ -122,7 +122,7 @@
         contact_phone = #{contactPhone,jdbcType=VARCHAR},
       </if>
       <if test="agentId != null">
-        agent_id = #{agentId,jdbcType=VARCHAR},
+        agent_id = #{agentId,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=VARCHAR},
@@ -145,7 +145,7 @@
       address = #{address,jdbcType=VARCHAR},
       contact_person = #{contactPerson,jdbcType=VARCHAR},
       contact_phone = #{contactPhone,jdbcType=VARCHAR},
-      agent_id = #{agentId,jdbcType=VARCHAR},
+      agent_id = #{agentId,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=VARCHAR},
       store_name = #{storeName,jdbcType=VARCHAR},
       device_count = #{deviceCount,jdbcType=INTEGER},

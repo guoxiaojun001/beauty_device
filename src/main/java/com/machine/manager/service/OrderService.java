@@ -19,9 +19,9 @@ public interface OrderService {
 
     Order selectByOrderNo(String orderNo);
 
-    List<Order> selectAll();
+//    List<Order> selectAll();
 
-    List<Order> selectCurrentUser(Integer agentId);
+    List<Order> selectCurrentUser(Integer agentId, String parms);
 
     int updateByPrimaryKeySelective(Order record);
 

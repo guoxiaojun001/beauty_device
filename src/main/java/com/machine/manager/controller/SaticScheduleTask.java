@@ -26,11 +26,11 @@ public class SaticScheduleTask {
     //用户名
     private static String username = "admin";
     //登录密码
-//    private static String password = "qunimabi#123$456";
-    private static String password = "public";
+    private static String password = "qunimabi#123$456";
+//    private static String password = "public";
     //服务器地址
-    private static String serverPath = "http://localhost:18083";
-//        private static String serverPath = "http://172.18.130.64:18083";
+//    private static String serverPath = "http://localhost:18083";
+        private static String serverPath = "http://172.18.130.64:18083";
     //当前页
     private static int pageIndex = 1;
     //页大小
@@ -47,7 +47,7 @@ public class SaticScheduleTask {
     //3.添加定时任务
 //    @Scheduled(cron = "0/30 * * * * ?")
     //或直接指定时间间隔，例如：30秒
-    @Scheduled(fixedRate=40000)
+//    @Scheduled(fixedRate=40000)
     private void configureTasks() {
         System.err.println("执行静态定时任务时间: " + LocalDateTime.now());
         //账号密码Base64加密
@@ -62,7 +62,7 @@ public class SaticScheduleTask {
             JSONArray jsonArray = jsonObject.getJSONArray("data");
 //            String  clientid = jsonObject.getJSONArray("data").getJSONObject(0).getStr("clientid");
             if(!StringUtils.isEmpty(json)){
-                List<MachineInfo> machineInfoList = service.selectAllByAdmin();
+                List<MachineInfo> machineInfoList = service.selectAllByNormalWithParm(null,null);
                 for(int i = 0 ; i < jsonArray.size(); i ++){
                     JSONObject o =  jsonArray.getJSONObject(i);
                     for(MachineInfo machineInfo : machineInfoList){

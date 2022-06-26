@@ -77,6 +77,10 @@ public class UserInfo implements Serializable, UserDetails {
 
     @Column(name = "stores_count")
     private int storesCount;
+
+
+    @Transient
+    private Integer newStoresCount;
     private static final long serialVersionUID = 1L;
 
 
