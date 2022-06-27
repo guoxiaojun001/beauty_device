@@ -41,5 +41,5 @@ public interface StoreService {
     * @param  parms 门店名称
     * @return 门店信息列表
     */
-    List<Store>  selectStoreInfoAndDeviceCountByStoreName(Integer id,String parms);
+    List<Store>  selectStoreInfoAndDeviceCountByStoreName(Integer id,String parms,int pageIndex,int pageSize);
 }

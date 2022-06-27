@@ -75,7 +75,7 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
-    public List<Store>  selectStoreInfoAndDeviceCountByStoreName(Integer id,String storeName){
-        return storeDao.selectStoreInfoAndDeviceCountByStoreName(id,storeName);
+    public List<Store>  selectStoreInfoAndDeviceCountByStoreName(Integer id,String storeName,int pageIndex,int pageSize){
+        return storeDao.selectStoreInfoAndDeviceCountByStoreName(id,storeName,pageIndex,pageSize);
     }
 }

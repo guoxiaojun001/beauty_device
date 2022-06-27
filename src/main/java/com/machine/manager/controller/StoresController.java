@@ -358,14 +358,17 @@ public class StoresController extends  BaseController{
         } catch ( Exception e) {
         }
 
+        int currentPage =commonRequest.getCurPage();
+        int pageSize = commonRequest.getPageSize();
+        int pageIndex =(currentPage-1) * pageSize;
         if("admin".equals(userType)){
-            List<Store> storeList = storeService.selectStoreInfoAndDeviceCountByStoreName(null ,commonRequest.getParms());
+            List<Store> storeList = storeService.selectStoreInfoAndDeviceCountByStoreName(null ,commonRequest.getParms(),pageIndex,pageSize);
             restResult.setData(storeList);
             restResult.setCode(200);
             restResult.setSuccess(true);
             restResult.setMsg("success");
         }else {
-            List<Store> storeList = storeService.selectStoreInfoAndDeviceCountByStoreName( userId,commonRequest.getParms());
+            List<Store> storeList = storeService.selectStoreInfoAndDeviceCountByStoreName( userId,commonRequest.getParms(),pageIndex,pageSize);
             restResult.setData(storeList);
             restResult.setCode(200);
             restResult.setSuccess(true);

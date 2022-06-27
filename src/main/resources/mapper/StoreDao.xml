@@ -201,7 +201,8 @@
                 OR s.address LIKE CONCAT('%',#{parms},'%') )
     </if>
 
-    GROUP BY s.id;
+    GROUP BY s.id
+    LIMIT #{pageIndex},#{pageSize};
 
   </select>
 

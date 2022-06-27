@@ -48,5 +48,5 @@ public interface StoreDao {
     * @param  parms 门店名称 联系人或者联系电话
     * @return 门店列表
     */
-    List<Store>  selectStoreInfoAndDeviceCountByStoreName(@Param("agentId") Integer agentId,@Param("parms") String parms);
+    List<Store>  selectStoreInfoAndDeviceCountByStoreName(@Param("agentId") Integer agentId,@Param("parms") String parms,@Param("pageIndex") int pageIndex,@Param("pageSize")int pageSize);
 }
