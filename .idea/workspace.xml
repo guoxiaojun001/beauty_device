@@ -5,41 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5b7c9d0-bd3b-4daf-a8aa-a123ed446911" name="Default" comment="Merge branch 'master' of github.com:guoxiaojun001/beauty_device&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/machine/manager/controller/LoginController.java&#10;#&#9;src/main/java/com/machine/manager/service/UserService.java&#10;#&#9;src/main/java/com/machine/manager/service/impl/UserServiceImpl.java">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/machine/UserTimeRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/util/AesEncryptUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/config/MqttReceiveConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/config/MqttReceiveConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/MachineOperateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/MachineOperateController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/MachineRecordsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/MachineRecordsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/OrdersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/OrdersController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/SaticScheduleTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/SaticScheduleTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/StoresController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/StoresController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/UserOperateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/UserOperateController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/dao/MachineInfoDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/dao/MachineInfoDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/dao/OrderDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/dao/OrderDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/dao/StoreDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/dao/StoreDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/dao/UserInfoDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/dao/UserInfoDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/MachineInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/MachineInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/machine/CommonRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/machine/CommonRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/machine/MachintCount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/machine/MachintCount.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/store/MachineEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/store/MachineEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/jwt/RestResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/jwt/RestResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/MachineService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/MachineService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/StoreService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/StoreService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/impl/MachineServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/impl/MachineServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/impl/OrderServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/impl/StoreServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/impl/StoreServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/machine-6-26.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/machine-6-26.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/MachineDaoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/MachineDaoMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/MachineInfoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/MachineInfoMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/OrderDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/OrderDao.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/StoreDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/StoreDao.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/UserInfoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/UserInfoMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/util/AesEncryptUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/util/AesEncryptUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -578,7 +545,7 @@
       <workItem from="1656495150085" duration="1255000" />
       <workItem from="1656569382864" duration="5163000" />
       <workItem from="1656940661278" duration="4009000" />
-      <workItem from="1657071971830" duration="13470000" />
+      <workItem from="1657071971830" duration="14543000" />
     </task>
     <servers />
   </component>
@@ -798,7 +765,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/machine/manager/util/AesEncryptUtils.java</url>
-          <line>75</line>
+          <line>76</line>
           <option name="timeStamp" value="76" />
         </line-breakpoint>
       </breakpoints>

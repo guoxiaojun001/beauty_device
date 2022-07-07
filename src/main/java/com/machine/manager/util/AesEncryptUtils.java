@@ -14,7 +14,8 @@ import javax.crypto.spec.SecretKeySpec;
  */
 public class AesEncryptUtils {
     //可配置到Constant中，并读取配置文件注入
-    public static final String KEY = "abcdef0123456789";
+//    public static final String KEY = "abcdef0123456789";
+    public static final String KEY = "jkl;POIU1234%%==";
 
     //参数分别代表 算法名称/加密模式/数据填充方式
     public static final String ALGORITHMSTR = "AES/ECB/PKCS5Padding";
