@@ -4,6 +4,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.machine.manager.entity.MachineInfo;
 import com.machine.manager.entity.machine.CommonRequest;
 import com.machine.manager.entity.machine.MachintCount;
+import com.machine.manager.entity.machine.UserTimeRequest;
 import com.machine.manager.jwt.JwtTokenUtil222;
 import com.machine.manager.jwt.RestResult;
 import com.machine.manager.reject.AdminToken;
@@ -11,6 +12,7 @@ import com.machine.manager.reject.UserLoginToken;
 import com.machine.manager.service.MachineService;
 import com.machine.manager.service.UserService;
 import com.machine.manager.service.impl.WorkRecordsServiceImpl;
+import com.machine.manager.util.AesEncryptUtils;
 import com.machine.manager.util.RequestUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -330,17 +332,23 @@ public class MachineOperateController extends BaseController {
             String userType = decodedJWT.getClaim("userType").asString();
             System.out.print(userId + "==userId, userType == " + userType);
 
+            int page =commonRequest.getPage();
+            int pageSize = commonRequest.getPageSize();
+            int pageIndex =(page-1) * pageSize;
             if("admin".equals(userType )){
-                List<MachineInfo> machineInfoList;
-                machineInfoList = service.selectAllByNormalWithParm(null,commonRequest.getParms());
+                int total = service.queryMachineCurrent(null).size();
+                List<MachineInfo> machineInfoList = service.selectAllByNormalWithParm(null,commonRequest.getParms(),pageIndex,pageSize);
                 restResult.setCode(200);
+                restResult.setCounts(total);
                 restResult.setData(machineInfoList);
                 restResult.setMsg("success");
                 restResult.setSuccess(true);
             }else {
                 //查询自己名下的设备
-                List<MachineInfo> machineInfoList =  service.selectAllByNormalWithParm(userId,commonRequest.getParms());
+                int total = service.queryMachineCurrent(userId).size();
+                List<MachineInfo> machineInfoList =  service.selectAllByNormalWithParm(userId,commonRequest.getParms(),pageIndex,pageSize);
                 restResult.setCode(200);
+                restResult.setCounts(total);
                 restResult.setData(machineInfoList);
                 restResult.setMsg("success");
                 restResult.setSuccess(true);
@@ -354,12 +362,20 @@ public class MachineOperateController extends BaseController {
 
 
     @ApiOperation("更新设备使用时长")
-//    @PostMapping("/updateUsedTime")
-    @RequestMapping(value = "/updateUsedTime", method = {RequestMethod.GET,RequestMethod.POST})
-//    @ResponseBody
-    public RestResult updateUsedTime( int duration){
+    @PostMapping("/updateUsedTime")
+//    @RequestMapping(value = "/updateUsedTime", method = { RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public RestResult updateUsedTime( @RequestBody UserTimeRequest userTimeRequest){
         RestResult restResult = new RestResult();
-        System.out.print("duration==>" + duration);
+        System.out.print("userTimeRequest==>" + userTimeRequest);
+        if(userTimeRequest.getLeftTime() < 0){
+            restResult.setCode(202);
+            restResult.setData("data error");
+            restResult.setMsg("请求参数异常4");
+            restResult.setSuccess(false);
+            return restResult;
+        }
+
         HttpServletRequest httpServletRequest = RequestUtils.getHttpRequest();
         if(null == httpServletRequest ){
             restResult.setCode(202);
@@ -370,7 +386,39 @@ public class MachineOperateController extends BaseController {
         }
 
         String machineParam = httpServletRequest.getHeader("blackId");
-        System.out.print("machineParam==>" + machineParam);
+        logger.info("解密前 machineParam ：" + machineParam);
+        try {
+            machineParam = AesEncryptUtils.decrypt(machineParam);
+            logger.info("解密后：" + machineParam);
+
+            System.out.println("解密后 = " + machineParam);
+
+            String[] arr = machineParam.split("#####");
+
+            System.out.println("解密后：arr = " + arr[1]);
+            long start = Long.parseLong(arr[1]);
+            System.out.println("start = " + start);
+            Thread.sleep(1000);
+            long end = System.currentTimeMillis();
+            System.out.println("end = " + end);
+
+            long diff = end-start;
+            System.out.println("diff = " + diff);
+
+            if(diff >= 3000){
+                restResult.setCode(202);
+                restResult.setSuccess(false);
+                restResult.setMsg("参数过期");
+                return restResult;
+            }
+
+        } catch (Exception e) {
+            restResult.setCode(202);
+            restResult.setSuccess(false);
+            restResult.setMsg(e.getMessage());
+            return restResult;
+        }
+
         if(null == machineParam || "".equals(machineParam)){
             restResult.setCode(202);
             restResult.setSuccess(false);
@@ -390,12 +438,19 @@ public class MachineOperateController extends BaseController {
                 return restResult;
             }
 
+            int remainTime = qu.getLeftTime();
+
+            if(remainTime - userTimeRequest.getLeftTime() >0){
+                qu.setLeftTime(remainTime - userTimeRequest.getLeftTime());
+            }else {
+                qu.setLeftTime(0);
+            }
             int dura = qu.getUsedDuration();
             System.out.println("已经使用时长 dura = " + dura);
-            qu.setUsedDuration(duration + dura);
+            qu.setUsedDuration(userTimeRequest.getTotalTime());
             System.out.println("已经使用时长 最新 = " + qu.getUsedDuration());
 
-            //TODO 使用时长暂时不提供修改 只有重置0
+            //TODO 使用时长暂时不提供修改 只有重置
             int result = service.updateByPrimaryKeySelective(qu);
             System.out.println(" 最新 result= " + result);
 
@@ -415,108 +470,13 @@ public class MachineOperateController extends BaseController {
 
     }
 
-
-/*    @ApiOperation("查询所有设备信息,管理员传id+admin，普通用户user+id,名称 省市 可选参数")
-    @UserLoginToken
-//    @PostMapping("/selectAllMachineList")
-    public RestResult selectAllMachineList(@RequestBody MachineRequest request) {
-
-        RestResult restResult = new RestResult();
-
-        HttpServletRequest httpServletRequest = RequestUtils.getHttpRequest();
-        if(null == httpServletRequest){
-            restResult.setCode(202);
-            restResult.setData("no data");
-            restResult.setMsg("查询不到有效数据1");
-            restResult.setSuccess(false);
-            return restResult;
-        }
-        String token = httpServletRequest.getHeader("token");
-
-        List<MachineInfo> machineList;
-        if(StringUtils.isEmpty(token)){
-            restResult.setCode(202);
-            restResult.setData("no data");
-            restResult.setMsg("token 为空");
-            restResult.setSuccess(false);
-            return restResult;
-        }
-
-        System.out.print("查询 设备信息:" + request );
-        MachineRequestAfter machineRequestAfter = new MachineRequestAfter(request);
-        try {
-            DecodedJWT decodedJWT = JwtTokenUtil222 .getTokenInfo(token);
-            int userId = decodedJWT.getClaim("userId").asInt();
-            String userName = decodedJWT.getClaim("userName").asString();
-            String userType = decodedJWT.getClaim("userType").asString();
-
-            machineRequestAfter.setRole(userType);
-            machineRequestAfter.setUserId(userId);
-
-            System.out.print("查询 machineRequestAfter:" + machineRequestAfter.toString() );
-
-        } catch ( Exception e) {
-            machineRequestAfter.setRole("");
-            machineRequestAfter.setUserId(-1);
-        }
-
-
-        if(!StringUtils.isEmpty(request.getMachineType())){
-            if(!StringUtils.isEmpty(request.getMachineProviceId())){
-                if(!StringUtils.isEmpty(request.getMachineCityId())){
-                    //TODO  根据名称， 省，市来综合查询
-                    System.out.print("根据名称， 省，市来综合查询"  );
-                    machineList = service.selectByNameProvCity(machineRequestAfter);
-                }else {
-                    //TODO  根据名称 ，省 来综合查询
-                    System.out.print(" 根据名称 ，省 来综合查询"  );
-                    machineList = service.selectByNameProv(machineRequestAfter);
-                }
-            }else {
-                //TODO  根据 名称来综合查询
-                System.out.print("根据 名称来综合查询:"  );
-                return selectByType(machineRequestAfter);
-            }
-        }else {
-
-            if(!StringUtils.isEmpty(request.getMachineProviceId())){
-                if(!StringUtils.isEmpty(request.getMachineCityId())){
-                    //TODO  根据  省，市来综合查询
-                    System.out.print("根据  省，市来综合查询"  );
-                    machineList = service.selectByProvCity(machineRequestAfter);
-                }else {
-                    //TODO  根据 省 来综合查询
-                    System.out.print(" 根据 省 来综合查询"  );
-                    machineList = service.selectByProv(machineRequestAfter);
-                }
-            }else {
-                //TODO 管理员查询所有
-                if (UserRoleEnum.ADMIN.getCode().equals(machineRequestAfter.getRole())) {
-                    System.out.print("根据 管理员查询所有:"  );
-                    return   selectAllByAdmin();
-                }else {
-                    System.out.print("根据 user查询所有:"  );
-                    return   selectAllByNormal(machineRequestAfter.getUserId());
-                }
-            }
-        }
-
-        restResult.setCode(200);
-        restResult.setData(machineList);
-        restResult.setMsg("查询设备数据");
-        restResult.setSuccess(true);
-        return restResult;
-
-    }*/
-
-
     @ApiOperation("设备类型排名")
+    @UserLoginToken
     @PostMapping("/deviceRanking")
     public RestResult deviceRanking() {
         RestResult restResult = new RestResult();
 
-        List<MachintCount> machineList/* = service.selectByDevType()*/;
-        machineList = null;
+        List<MachintCount> machineList = service.selectByDevType();
         restResult.setCode(200);
         restResult.setData(machineList);
         restResult.setSuccess(true);
@@ -525,12 +485,12 @@ public class MachineOperateController extends BaseController {
 
 
     @ApiOperation("设备位置地图显示")
+    @UserLoginToken
     @PostMapping("/deviceMapDisplay")
     public RestResult deviceMapDisplay() {
         RestResult restResult = new RestResult();
 
-        List<MachintCount> machineList /*= service.selectByDevLocation()*/;
-        machineList = null;
+        List<MachintCount> machineList = service.selectByDevLocation();
 
         restResult.setCode(200);
         restResult.setData(machineList);

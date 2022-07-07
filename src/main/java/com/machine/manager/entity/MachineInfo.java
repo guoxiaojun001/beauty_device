@@ -103,6 +103,13 @@ public class MachineInfo implements Serializable {
     @Column(name = "other_parm")
     private String otherParm;
 
+
+    @Column(name = "device_sn")//用于标签 sn号
+    private String deviceSn;
+
+    @Column(name = "left_time")//剩余时间
+    private Integer leftTime;
+
     private static final long serialVersionUID = 1L;
 
 

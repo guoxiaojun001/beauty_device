@@ -26,12 +26,14 @@
 
     <result column="store_id" jdbcType="INTEGER" property="storeId" />
     <result column="other_parm" jdbcType="VARCHAR" property="otherParm" />
+    <result column="device_sn" jdbcType="VARCHAR" property="deviceSn" />
+    <result column="left_time" jdbcType="INTEGER" property="leftTime" />
   </resultMap>
 
   <sql id="Base_Column_List">
     id, machine_type, machine_function, machine_param, machine_attribute, user_id, used_duration,
     machine_brand, cooperation_mode,create_time, machine_status, machine_work_time_once, machine_provice_id,machine_provice,
-    machine_city_id,machine_city,online_status,lastlogin_time,lock_status,store_id,other_parm
+    machine_city_id,machine_city,online_status,lastlogin_time,lock_status,store_id,other_parm,device_sn,left_time
   </sql>
 
 
@@ -70,7 +72,8 @@
 
       <result column="store_id" property="storeId"/>
       <result column="other_parm" property="otherParm"/>
-
+      <result column="device_sn" property="deviceSn"/>
+      <result column="left_time" property="leftTime"/>
 
     </collection>
   </resultMap>

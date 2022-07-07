@@ -65,7 +65,7 @@ public class UserOperateController  extends  BaseController{
             return restResult;
         }
 
-        List<UserInfo> userInfoList = userService .selectByName(userInfo.getName());
+        List<UserInfo> userInfoList = userService .selectByUserInfo(userInfo);
 
         if(null == userInfoList  || userInfoList.size() <= 0){
             int code = userService.insertSelective(userInfo);
@@ -123,7 +123,6 @@ public class UserOperateController  extends  BaseController{
 //    @AdminToken
     @PostMapping("/updateUserInfo")
     public RestResult updateUserInfo(@RequestBody UserInfo userInfo) {
-        List<UserInfo> userInfoList = userService .selectByName(userInfo.getName());
 
         RestResult restResult = new RestResult();
         String pwd = userInfo.getPassword();
@@ -239,17 +238,22 @@ public class UserOperateController  extends  BaseController{
                 int userId = decodedJWT.getClaim("userId").asInt();
                 String userType = decodedJWT.getClaim("userType").asString();
 
+                int page =commonRequest.getPage();
+                int pageSize = commonRequest.getPageSize();
+                int pageIndex =(page-1) * pageSize;
                 if(!StringUtils.isEmpty(userType) && "admin".equals(userType)){
                     //管理查询，不通过agentId
                     logger.info("判断身份是管理员，直接查询所有经销商&门店");
-
-                    List<UserInfo>  userInfoList = userService. selectUserInfoByParmAndId(null,commonRequest.getParms());
+                    int total = userService .selectAll();
+                    List<UserInfo>  userInfoList = userService. selectUserInfoByParmAndId(null,commonRequest.getParms(),pageIndex,pageSize);
                     restResult.setData(userInfoList);
+                    restResult.setCounts(total);
                     restResult.setSuccess(true);
                     restResult.setMsg("success");
                 }else {
                     logger.info("判断身份是经销商，查询指定经销商的门店");
-                    List<UserInfo> userInfoList = userService.selectUserInfoByParmAndId(userId,commonRequest.getParms());
+                    List<UserInfo> userInfoList = userService.selectUserInfoByParmAndId(userId,commonRequest.getParms(),pageIndex,pageSize);
+                    restResult.setCounts(1);
                     restResult.setData(userInfoList);
                     restResult.setSuccess(true);
                     restResult.setMsg("success");

@@ -20,13 +20,8 @@ public interface UserInfoDao {
 
     int updateByPrimaryKey(UserInfo record);
 
-    UserInfo selectByUserName(String name, String password);
 
-    List<UserInfo> selectByName(String name);
-
-    List<UserInfo> selectByPhone(String telephone);
-
-    List<UserInfo> selectAll();
+    Integer selectAll();
 
     List<UserInfo> selectByUserInfo(UserInfo userInfo);
 
@@ -35,5 +30,5 @@ public interface UserInfoDao {
 
 
 
-    List<UserInfo>  selectUserInfoByParmAndId(@Param("id")  Integer id,@Param("parms")  String parms);
+    List<UserInfo>  selectUserInfoByParmAndId(@Param("id")  Integer id,@Param("parms")  String parms,@Param("pageIndex") int pageIndex,@Param("pageSize")int pageSize);
 }

@@ -32,10 +32,6 @@ public class StoreServiceImpl implements StoreService {
         return storeDao.insertSelective(record);
     }
 
-    @Override
-    public List<Store> selectAll() {
-        return storeDao.selectAll();
-    }
 
     @Override
     public List<Store> selectCurrentUser(Integer agentId) {

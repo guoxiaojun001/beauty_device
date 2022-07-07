@@ -26,11 +26,14 @@
     <result column="store_id" jdbcType="INTEGER" property="storeId" />
     <result column="other_parm" jdbcType="VARCHAR" property="otherParm" />
 
+    <result column="device_sn" jdbcType="VARCHAR" property="deviceSn" />
+    <result column="left_time" jdbcType="INTEGER" property="leftTime" />
+
   </resultMap>
   <sql id="Base_Column_List">
     id, machine_type, machine_function, machine_param, machine_attribute, user_id, used_duration,
     machine_brand, cooperation_mode,create_time, machine_status, machine_work_time_once, machine_provice_id,machine_provice,
-    machine_city_id,machine_city,online_status,lastlogin_time,lock_status,store_id,other_parm
+    machine_city_id,machine_city,online_status,lastlogin_time,lock_status,store_id,other_parm,device_sn,left_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -47,13 +50,14 @@
       machine_attribute, user_id, used_duration, 
       machine_brand, cooperation_mode,create_time, machine_status,
       machine_work_time_once, machine_provice_id,machine_provice, machine_city_id,machine_city
-      ,online_status,lastlogin_time,lock_status,store_id,other_parm
+      ,online_status,lastlogin_time,lock_status,store_id,other_parm,device_sn,left_time
       )
     values (#{machineType,jdbcType=VARCHAR}, #{machineFunction,jdbcType=VARCHAR}, #{machineParam,jdbcType=VARCHAR}, 
       #{machineAttribute,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{usedDuration,jdbcType=INTEGER}, 
       #{machineBrand,jdbcType=VARCHAR}, #{cooperationMode,jdbcType=VARCHAR}, #{createTime,  jdbcType=DATE}, #{machineStatus,jdbcType=VARCHAR},
       #{machineWorkTimeOnce,jdbcType=INTEGER}, #{machineProviceId,jdbcType=VARCHAR}, #{machineProvice,jdbcType=VARCHAR}, #{machineCityId,jdbcType=VARCHAR},#{machineCity,jdbcType=VARCHAR}
       ,#{onlineStatus,jdbcType=INTEGER},#{lastloginTime,jdbcType=VARCHAR},#{lockStatus,jdbcType=INTEGER},#{storeId,jdbcType=INTEGER},#{otherParm,jdbcType=VARCHAR}
+      ,#{deviceSn,jdbcType=VARCHAR} ,#{left_time,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.machine.manager.entity.MachineInfo" useGeneratedKeys="true">
@@ -125,6 +129,14 @@
         other_parm,
       </if>
 
+      <if test="deviceSn != null">
+        device_sn,
+      </if>
+
+      <if test="leftTime != null">
+        left_time,
+      </if>
+
 
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -192,6 +204,14 @@
 
       <if test="otherParm != null">
         #{otherParm,jdbcType=VARCHAR},
+      </if>
+
+      <if test="deviceSn != null">
+        #{deviceSn,jdbcType=VARCHAR},
+      </if>
+
+      <if test="leftTime != null">
+        #{leftTime,jdbcType=INTEGER},
       </if>
 
     </trim>
@@ -265,6 +285,13 @@
         other_parm = #{otherParm,jdbcType=VARCHAR},
       </if>
 
+      <if test="deviceSn != null">
+        device_sn = #{deviceSn,jdbcType=VARCHAR},
+      </if>
+
+      <if test="leftTime != null">
+        left_time = #{leftTime,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -290,7 +317,9 @@
       lastlogin_time = #{lastloginTime,jdbcType=VARCHAR},
       lock_status = #{lockStatus,jdbcType=INTEGER},
       store_id = #{storeId,jdbcType=INTEGER},
-      other_parm = #{otherParm,jdbcType=VARCHAR}
+      other_parm = #{otherParm,jdbcType=VARCHAR},
+      device_sn = #{deviceSn,jdbcType=VARCHAR},
+      left_time = #{leftTime,jdbcType=INTEGER}
 
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -310,7 +339,7 @@
 
 
 
-  <select id="selectCommon" resultType="com.machine.manager.entity.MachineInfo">
+<!--  <select id="selectCommon" resultType="com.machine.manager.entity.MachineInfo">
     select <include refid="Base_Column_List"/> FROM machine_info t
     where    1=1
     <if test="role != 'admin' ">
@@ -329,37 +358,44 @@
         AND (t.machine_type=#{machineType} OR t.machine_brand=#{machineType})
     </if>
 
-<!--    <if test="machineBrand != null and machineBrand != '' ">-->
-<!--      OR t.machine_brand=#{machineBrand}-->
-<!--    </if>-->
+&lt;!&ndash;    <if test="machineBrand != null and machineBrand != '' ">&ndash;&gt;
+&lt;!&ndash;      OR t.machine_brand=#{machineBrand}&ndash;&gt;
+&lt;!&ndash;    </if>&ndash;&gt;
 
-
-  </select>
+  </select>-->
 
   <select id="selectByUserId" resultType="com.machine.manager.entity.MachineInfo">
     select <include refid="Base_Column_List"/>
-    from machine_info t where t.user_id=#{userId}
+    from machine_info t
+    where 1=1
+    <if test="userId != null and userId != '' ">
+      AND s.user_id = #{userId}
+    </if>
+
 
   </select>
 
 
+  <select id="selectByDevType" resultType="com.machine.manager.entity.machine.MachintCount">
+    select machine_type ,count(*) as counts from machine_info  GROUP BY id
+
+  </select>
+
+  <select id="selectByDevLocation" resultType="com.machine.manager.entity.machine.MachintCount">
+    select machine_city ,count(*) as counts from machine_info  GROUP BY id
+
+  </select>
 
 
-<!--  <select id="queryMachineByParm" resultType="com.machine.manager.entity.MachineInfo">-->
-<!--    select s.*  from `machine_info` s-->
-<!--    where    1=1-->
-<!--    <if test="parms != null and parms != '' ">-->
-<!--      AND-->
-<!--      (s.machine_type = #{parms}-->
-<!--      or s.machine_function = #{parms}-->
-<!--      or s.machine_attribute = #{parms}-->
-<!--      or s.machine_brand = #{parms}-->
-<!--      or s.machine_provice = #{parms}-->
-<!--      or s.machine_city = #{parms})-->
-<!--    </if>-->
-<!--          GROUP BY machine_param-->
+  <select id="queryMachineCurrent" resultType="com.machine.manager.entity.MachineInfo">
+    select s.*  from `machine_info` s
+    where    1=1
+    <if test="userId != null and userId != '' ">
+      AND s.user_id = #{userId}
+    </if>
+        GROUP BY machine_param
 
-<!--  </select>-->
+  </select>
 
 
   <select id="queryMachineByIDAndParm" resultType="com.machine.manager.entity.MachineInfo">
@@ -381,6 +417,7 @@
 
     </if>
        GROUP BY machine_param
+    LIMIT #{pageIndex},#{pageSize};
 
   </select>
 </mapper>

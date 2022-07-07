@@ -23,6 +23,6 @@ public class CommonRequest {
     private int curPage =1;
 
     @ApiModelProperty("一页多少条")
-    private int pageSize=1;
+    private int pageSize=20;
 
 }

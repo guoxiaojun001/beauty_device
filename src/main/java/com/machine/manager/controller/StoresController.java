@@ -189,7 +189,7 @@ public class StoresController extends  BaseController{
         }
 
         if("admin".equals(userType)){
-            list = storeService.selectAll();
+            list = storeService.selectCurrentUser(null);
             restResult.setData(list);
             restResult.setCode(200);
             restResult.setSuccess(true);
@@ -358,19 +358,23 @@ public class StoresController extends  BaseController{
         } catch ( Exception e) {
         }
 
-        int currentPage =commonRequest.getCurPage();
+        int page =commonRequest.getPage();
         int pageSize = commonRequest.getPageSize();
-        int pageIndex =(currentPage-1) * pageSize;
+        int pageIndex =(page-1) * pageSize;
         if("admin".equals(userType)){
+            int total = storeService.selectCurrentUser(null).size();
             List<Store> storeList = storeService.selectStoreInfoAndDeviceCountByStoreName(null ,commonRequest.getParms(),pageIndex,pageSize);
             restResult.setData(storeList);
+            restResult.setCounts(total);
             restResult.setCode(200);
             restResult.setSuccess(true);
             restResult.setMsg("success");
         }else {
+            int total = storeService.selectCurrentUser(userId).size();
             List<Store> storeList = storeService.selectStoreInfoAndDeviceCountByStoreName( userId,commonRequest.getParms(),pageIndex,pageSize);
             restResult.setData(storeList);
             restResult.setCode(200);
+            restResult.setCounts(total);
             restResult.setSuccess(true);
             restResult.setMsg("success");
         }

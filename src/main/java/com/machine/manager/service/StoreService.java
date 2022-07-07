@@ -12,7 +12,6 @@ public interface StoreService {
 
     int insertSelective(Store record);
 
-    List<Store> selectAll();
 
     List<Store> selectCurrentUser(Integer agentId);
 

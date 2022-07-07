@@ -22,9 +22,11 @@ public interface OrderDao {
 
     Order selectByOrderNo(@Param("parms") String parms);
 
-//    List<Order> selectAll();
 
-    List<Order> selectCurrentUser(@Param("agentId") Integer agentId, @Param("parms") String parms);
+    List<Order> selectAllByAgentId(@Param("agentId") Integer agentId);
+
+
+    List<Order> selectCurrentUser(@Param("agentId") Integer agentId, @Param("parms") String parms,@Param("pageIndex") int pageIndex,@Param("pageSize")int pageSize);
 
     int updateByPrimaryKeySelective(Order record);
 

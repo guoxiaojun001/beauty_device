@@ -12,6 +12,8 @@ public class RestResult {
     private int code;
     private Object data;
 
+    private int counts;
+
 
     private boolean success;
 
@@ -36,6 +38,15 @@ public class RestResult {
             this.data = new HashMap<String,Object>();
         }
         ((Map)this.data).put(key,data);
+    }
+
+
+    public int getCounts() {
+        return counts;
+    }
+
+    public void setCounts(int counts) {
+        this.counts = counts;
     }
 
     public String getMsg() {
@@ -77,6 +88,7 @@ public class RestResult {
                 "msg='" + msg + '\'' +
                 ", code=" + code +
                 ", data=" + data +
+                ", counts=" + counts +
                 ", success=" + success +
                 '}';
     }

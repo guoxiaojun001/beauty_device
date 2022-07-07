@@ -57,26 +57,9 @@ public class UserServiceImpl implements UserService {
         return userInfoDao.updateByPrimaryKeySelective(record);
     }
 
-    @Override
-    public UserInfo selectByUserName(UserInfo userInfo) {
-        if (StringUtils.isNotBlank(userInfo.getName()) && StringUtils.isNotBlank(userInfo.getPassword())) {
-            return userInfoDao.selectByUserName(userInfo.getName(), DigestUtils.md5DigestAsHex(userInfo.getPassword().getBytes()));
-        }
-        return null;
-    }
 
     @Override
-    public List<UserInfo> selectByName(String name) {
-        return userInfoDao.selectByName(name);
-    }
-
-    @Override
-    public List<UserInfo> selectByPhone(String telephone) {
-        return userInfoDao.selectByPhone(telephone);
-    }
-
-    @Override
-    public List<UserInfo> selectAll() {
+    public Integer selectAll() {
         return userInfoDao.selectAll();
     }
 
@@ -93,8 +76,8 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public List<UserInfo>  selectUserInfoByParmAndId(Integer id, String parms){
-        return userInfoDao.selectUserInfoByParmAndId(id, parms);
+    public List<UserInfo>  selectUserInfoByParmAndId(Integer id, String parms,int pageIndex,int pageSize){
+        return userInfoDao.selectUserInfoByParmAndId(id, parms,pageIndex,pageSize);
     }
 
 

@@ -1,6 +1,7 @@
 package com.machine.manager.service;
 
 import com.machine.manager.entity.UserInfo;
+import io.swagger.models.auth.In;
 
 import java.util.List;
 
@@ -19,19 +20,13 @@ public interface UserService {
 
     int updateByPrimaryKeySelective(UserInfo record);
 
-    UserInfo selectByUserName(UserInfo userInfo);
-
-    List<UserInfo> selectByName(String name);
-
-    List<UserInfo> selectByPhone(String telephone);
-
-    List<UserInfo> selectAll();
+    Integer selectAll();
 
     List<UserInfo> selectByUserInfo(UserInfo userInfo);
 
 //    List<UserInfo>  selectUserInfoAndStoreCount(Integer id);
 
-    List<UserInfo>  selectUserInfoByParmAndId(Integer id, String parms);
+    List<UserInfo>  selectUserInfoByParmAndId(Integer id, String parms,int pageIndex,int pageSize);
 
     //jwt使用
     public UserInfo selectUserByUserName(String userName);

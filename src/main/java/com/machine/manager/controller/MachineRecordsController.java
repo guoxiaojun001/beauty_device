@@ -6,6 +6,7 @@ import com.machine.manager.jwt.RestResult;
 import com.machine.manager.reject.PassToken;
 import com.machine.manager.reject.UserLoginToken;
 import com.machine.manager.service.impl.WorkRecordsServiceImpl;
+import com.machine.manager.util.AesEncryptUtils;
 import com.machine.manager.util.RequestUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,12 +33,6 @@ public class MachineRecordsController extends BaseController {
     @Autowired
     private WorkRecordsServiceImpl workRecordsService;
 
-//    @ApiOperation("根据用户角色查询设备记录信息")
-//    @GetMapping("/getWorkRecordsByRole")
-//    public WorkRecords getWorkRecordsByRole(WorkRecordsRequest request) {
-//        return workRecordsService.selectByPrimaryKey(request);
-//    }
-
     @ApiOperation("新增记录信息")
     @PassToken
     @PostMapping("/addWorkRecords")
@@ -54,6 +49,34 @@ public class MachineRecordsController extends BaseController {
         }
 
         String specialId = httpServletRequest.getHeader("blackId");
+        logger.info("解密前 specialId ：" + specialId);
+        try {
+            specialId = AesEncryptUtils.decrypt(specialId);
+            logger.info("解密后：" + specialId);
+
+            String[] arr = specialId.split("#####");
+            System.out.println("解密后：arr = " + arr[1]);
+            long start = Long.parseLong(arr[1]);
+            System.out.println("start = " + start);
+            Thread.sleep(1000);
+            long end = System.currentTimeMillis();
+            System.out.println("end = " + end);
+            long diff = end-start;
+            System.out.println("diff = " + diff);
+
+            if(diff >= 3000){
+                restResult.setCode(202);
+                restResult.setSuccess(false);
+                restResult.setMsg("参数过期");
+                return restResult;
+            }
+
+        } catch (Exception e) {
+            restResult.setCode(202);
+            restResult.setSuccess(false);
+            restResult.setMsg(e.getMessage());
+            return restResult;
+        }
 
         if( StringUtils.isEmpty(specialId)){
             System.out.print("提前判断权限，权限失败");

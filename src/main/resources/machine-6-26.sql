@@ -63,13 +63,15 @@ CREATE TABLE `machine_info`  (
   `lock_status` int NOT NULL DEFAULT -1,
   `store_id` int NOT NULL DEFAULT -1,
   `other_parm` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `device_sn` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `left_time` int NOT NULL DEFAULT 0,
   PRIMARY KEY (`machine_param`) USING BTREE,
   INDEX `id`(`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 
-INSERT INTO `machine_info` (`machine_type`, `machine_function`, `machine_param`, `machine_attribute`, `user_id`, `used_duration`, `machine_brand`, `user_name`, `machine_status`, `machine_work_time_once`, `machine_provice_id`, `machine_provice`, `machine_city_id`, `machine_city`, `create_time`, `cooperation_mode`, `online_status`, `lastlogin_time`, `lock_status`, `store_id`, `other_parm`) VALUES ('white', 'tt', 'erewr324235', '352', 7, 1, 'oppo', 'ytuo', '1', 10, '1', 'shanghai', '2', 'shanghai', '2022-06-20', '1', -1, '2022-06-19', 0, 1, 'other');
-INSERT INTO `machine_info` (`machine_type`, `machine_function`, `machine_param`, `machine_attribute`, `user_id`, `used_duration`, `machine_brand`, `user_name`, `machine_status`, `machine_work_time_once`, `machine_provice_id`, `machine_provice`, `machine_city_id`, `machine_city`, `create_time`, `cooperation_mode`, `online_status`, `lastlogin_time`, `lock_status`, `store_id`, `other_parm`) VALUES ('fx', 'tt', '45rfefdgsdfg', '352', 7, 1, 'oppo', 'ytuo', '1', 10, '1', 'shanghai', '2', 'shanghai', '2022-06-20', '1', -1, '2022-06-19', 0, 1, 'other');
+INSERT INTO `machine_info` (`machine_type`, `machine_function`, `machine_param`, `machine_attribute`, `user_id`, `used_duration`, `machine_brand`, `user_name`, `machine_status`, `machine_work_time_once`, `machine_provice_id`, `machine_provice`, `machine_city_id`, `machine_city`, `create_time`, `cooperation_mode`, `online_status`, `lastlogin_time`, `lock_status`, `store_id`, `other_parm`,`device_sn`,`left_time`) VALUES ('white', 'tt', 'erewr324235', '352', 7, 1, 'oppo', 'ytuo', '1', 10, '1', 'shanghai', '2', 'shanghai', '2022-06-20', '1', -1, '2022-06-19', 0, 1, 'other','',0);
+INSERT INTO `machine_info` (`machine_type`, `machine_function`, `machine_param`, `machine_attribute`, `user_id`, `used_duration`, `machine_brand`, `user_name`, `machine_status`, `machine_work_time_once`, `machine_provice_id`, `machine_provice`, `machine_city_id`, `machine_city`, `create_time`, `cooperation_mode`, `online_status`, `lastlogin_time`, `lock_status`, `store_id`, `other_parm`,`device_sn`,`left_time`) VALUES ('fx', 'tt', '45rfefdgsdfg', '352', 7, 1, 'oppo', 'ytuo', '1', 10, '1', 'shanghai', '2', 'shanghai', '2022-06-20', '1', -1, '2022-06-19', 0, 1, 'other','',0);
 
 
 -- ----------------------------

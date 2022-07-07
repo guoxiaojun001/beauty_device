@@ -47,9 +47,17 @@
     where order_no = #{orderNo,jdbcType=VARCHAR}
   </select>
 
-<!--  <select id="selectAll"  resultType="com.machine.manager.entity.Order">-->
-<!--    select <include refid="Base_Column_List"/> FROM t_orders-->
-<!--  </select>-->
+
+  <select id="selectAllByAgentId"  resultType="com.machine.manager.entity.Order">
+    select <include refid="Base_Column_List"/> FROM t_orders t
+    where 1=1
+    <if test="agentId != null and agentId != '' ">
+      and t.agent_id=#{agentId}
+    </if>
+
+    GROUP BY t.id
+  </select>
+
 
   <select id="selectCurrentUser"  resultType="com.machine.manager.entity.Order">
     select <include refid="Base_Column_List"/> FROM t_orders t
@@ -63,6 +71,8 @@
       and  (t.order_no=#{parms} or t.order_content=#{parms} or t.machine_param=#{parms})
     </if>
 
+    GROUP BY t.id
+    LIMIT #{pageIndex},#{pageSize};
   </select>
 
 

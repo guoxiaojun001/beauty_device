@@ -18,7 +18,6 @@ public interface StoreDao {
     int insertSelective(Store record);
 
 
-    List<Store> selectAll();
 
     List<Store> selectCurrentUser(Integer agentId);
 

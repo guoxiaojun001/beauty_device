@@ -1,6 +1,7 @@
 package com.machine.manager.service;
 
 import com.machine.manager.entity.MachineInfo;
+import com.machine.manager.entity.machine.MachintCount;
 
 import java.util.List;
 
@@ -11,15 +12,6 @@ import java.util.List;
  * @date 2020/12/14
  */
 public interface MachineService {
-    /**
-     * 功能描述
-     *
-     * @param request
-     * @return MachineInfo
-     * @author guoxi_789@126.com
-     * @date 2020/12/14
-     */
-//    MachineInfo getMachineInfo(MachineRequestAfter request);
 
     /**
      * 功能描述
@@ -64,6 +56,11 @@ public interface MachineService {
      */
     int updateByPrimaryKeySelective(MachineInfo record);
 
+
+    public List<MachintCount> selectByDevType();
+
+    public List<MachintCount> selectByDevLocation() ;
+
     /**
      * 功能描述
      *
@@ -74,7 +71,7 @@ public interface MachineService {
      */
     int updateByPrimaryKey(MachineInfo record);
 
+    public List<MachineInfo> queryMachineCurrent(Integer userId);
 
-//    public List<MachineInfo> selectAllByStore(Integer sid);
-    List<MachineInfo> selectAllByNormalWithParm( Integer id,String parm);
+    List<MachineInfo> selectAllByNormalWithParm( Integer id,String parm,int pageIndex,int pageSize);
 }

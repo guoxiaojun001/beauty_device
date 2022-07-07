@@ -73,5 +73,9 @@ public class MachineEntity implements Serializable {
 
     private String otherParm;
 
+    private String deviceSn;
+
+    private Integer leftTime;
+
     private static final long serialVersionUID = 154L;
 }

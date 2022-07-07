@@ -196,16 +196,23 @@ public class OrdersController extends  BaseController{
         } catch ( Exception e) {
         }
 
+        int page =commonRequest.getPage();
+        int pageSize = commonRequest.getPageSize();
+        int pageIndex =(page-1) * pageSize;
         if("admin".equals(userType)){
-            list = orderService.selectCurrentUser(null, commonRequest.getParms());
+            int total = orderService.selectAllByAgentId(null).size();
+            list = orderService.selectCurrentUser(null, commonRequest.getParms(),pageIndex,pageSize);
             restResult.setData(list);
+            restResult.setCounts(total);
             restResult.setCode(200);
             restResult.setSuccess(true);
             restResult.setMsg("查询成功");
         }else {
-            list = orderService.selectCurrentUser(userId ,commonRequest.getParms());
+            int total = orderService.selectAllByAgentId(userId).size();
+            list = orderService.selectCurrentUser(userId ,commonRequest.getParms(),pageIndex,pageSize);
             restResult.setData(list);
             restResult.setCode(200);
+            restResult.setCounts(total);
             restResult.setSuccess(true);
             restResult.setMsg("查询成功2");
         }

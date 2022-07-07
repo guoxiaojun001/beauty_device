@@ -62,7 +62,7 @@ public class SaticScheduleTask {
             JSONArray jsonArray = jsonObject.getJSONArray("data");
 //            String  clientid = jsonObject.getJSONArray("data").getJSONObject(0).getStr("clientid");
             if(!StringUtils.isEmpty(json)){
-                List<MachineInfo> machineInfoList = service.selectAllByNormalWithParm(null,null);
+                List<MachineInfo> machineInfoList = service.selectAllByNormalWithParm(null,null,0,1000);
                 for(int i = 0 ; i < jsonArray.size(); i ++){
                     JSONObject o =  jsonArray.getJSONObject(i);
                     for(MachineInfo machineInfo : machineInfoList){

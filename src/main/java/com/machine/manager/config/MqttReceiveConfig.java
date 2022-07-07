@@ -63,8 +63,8 @@ public class MqttReceiveConfig {
     @Autowired
     UserService userService;
 
-    @Autowired
-    MqttGateway mqttGateway;
+//    @Autowired
+//    MqttGateway mqttGateway;
 
     @Bean
     public MqttConnectOptions getMqttConnectOptions() {
@@ -130,21 +130,20 @@ public class MqttReceiveConfig {
                         UserInfo userInfo = userService.selectByPrimaryKey(userId);
                         if(userInfo.getUserType().equals("admin")){
                             //需要区分出 用户类型，防止查找的数据太多
-                            machineInfoList = service.selectAllByNormalWithParm(null,null);
+                            machineInfoList = service.selectAllByNormalWithParm(null,null,0,1000);
                             js.put("data",machineInfoList);
                             js.putByPath("messsageType","web_device_status");
-//                            mqttGateway.sendToMqtt(js.toString(),"/admin/device_status");
 
-                            mqttGateway.sendToMqtt("{'messsageType':'update'}","/device_list/device_status");
+//                            mqttGateway.sendToMqtt("{'messsageType':'update'}","/device_list/device_status");
 
                             log.info("===============通知管理员后台刷新==>" + js.toString());
                         }else {
-                            machineInfoList = service.selectAllByNormalWithParm(userId,null);
+                            machineInfoList = service.selectAllByNormalWithParm(userId,null,0,1000);
                             js.put("data",machineInfoList);
                             js.putByPath("messsageType","web_device_status");
 //                            mqttGateway.sendToMqtt(js.toString(),"/"  + userId + "/device_status");
 
-                            mqttGateway.sendToMqtt("{'messsageType':'update'}","/device_list/device_status");
+//                            mqttGateway.sendToMqtt("{'messsageType':'update'}","/device_list/device_status");
 
                             log.info("===============通知经销商后台刷新==>" + js.toString());
                         }
