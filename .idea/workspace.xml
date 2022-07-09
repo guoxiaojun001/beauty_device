@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5b7c9d0-bd3b-4daf-a8aa-a123ed446911" name="Default" comment="Merge branch 'master' of github.com:guoxiaojun001/beauty_device&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/machine/manager/controller/LoginController.java&#10;#&#9;src/main/java/com/machine/manager/service/UserService.java&#10;#&#9;src/main/java/com/machine/manager/service/impl/UserServiceImpl.java">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/application-dev.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/util/AesEncryptUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/util/AesEncryptUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -307,7 +308,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../flink/springboot-flink" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../yx-image-recognition/pom.xml" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -321,8 +322,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\workspace\javaWeb\beauty_device\src\main\resources\mapper" />
       <recent name="D:\workspace\javaWeb\beauty_device\src\main\resources" />
+      <recent name="D:\workspace\javaWeb\beauty_device\src\main\resources\mapper" />
       <recent name="E:\xxxx\beauty_device_0614\beauty_device\src\main\java\com\machine\manager" />
       <recent name="D:\xxxx\beauty\beauty_device" />
       <recent name="D:\xxxx\beauty\beauty_device\src\main\java\com\machine\manager\config" />
@@ -339,7 +340,7 @@
       <recent name="com.machine.manager.entity.user" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.AesEncryptUtils">
+  <component name="RunManager" selected="Spring Boot.ManagerApplication">
     <configuration default="true" type="tests" factoryName="Nosetests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -504,8 +505,8 @@
       <item itemvalue="Application.TestOld" />
       <item itemvalue="Application.Test" />
       <item itemvalue="Application.Main" />
-      <item itemvalue="Spring Boot.ManagerApplication" />
       <item itemvalue="Application.AesEncryptUtils" />
+      <item itemvalue="Spring Boot.ManagerApplication" />
     </list>
     <recent_temporary>
       <list>
@@ -545,7 +546,9 @@
       <workItem from="1656495150085" duration="1255000" />
       <workItem from="1656569382864" duration="5163000" />
       <workItem from="1656940661278" duration="4009000" />
-      <workItem from="1657071971830" duration="14543000" />
+      <workItem from="1657071971830" duration="18961000" />
+      <workItem from="1657246682359" duration="603000" />
+      <workItem from="1657247684007" duration="928000" />
     </task>
     <servers />
   </component>
