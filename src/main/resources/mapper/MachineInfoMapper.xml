@@ -413,6 +413,7 @@
        or s.machine_brand = #{parms}
        or s.machine_provice = #{parms}
        or s.machine_param = #{parms}
+       or s.device_sn = #{parms}
        or s.machine_city = #{parms} )
 
     </if>
