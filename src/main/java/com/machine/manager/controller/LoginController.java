@@ -34,6 +34,7 @@ public class LoginController extends BaseController {
     @PostMapping(value = "/userLogin")
     @PassToken
     public UserLoginInResp login(@RequestBody UserLoginRequest request) {
+        System.out.println("login request ：" + request.toString());
         UserLoginInResp resp = new UserLoginInResp();
         String username = request.getUserName();
         String password = request.getPassWord();

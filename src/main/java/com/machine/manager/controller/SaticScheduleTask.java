@@ -47,8 +47,8 @@ public class SaticScheduleTask {
     //3.添加定时任务
 //    @Scheduled(cron = "0/30 * * * * ?")
     //或直接指定时间间隔，例如：30秒
-//    @Scheduled(fixedRate=40000)
-    private void configureTasks() {
+    @Scheduled(fixedRate=40000)
+    public void configureTasks() {
         System.err.println("执行静态定时任务时间: " + LocalDateTime.now());
         //账号密码Base64加密
         String authorization = null;
