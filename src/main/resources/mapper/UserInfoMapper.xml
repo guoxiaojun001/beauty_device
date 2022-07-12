@@ -25,14 +25,14 @@
     delete from user_info
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.machine.manager.entity.UserInfo" useGeneratedKeys="true">
-    insert into user_info (`name`, email, telephone, 
-      address, `password`, role_id, 
-      user_type,company_name)
-    values (#{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
-      #{address,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, 
-      #{userType,jdbcType=VARCHAR}, #{`companyName`,jdbcType=VARCHAR})
-  </insert>
+<!--  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.machine.manager.entity.UserInfo" useGeneratedKeys="true">-->
+<!--    insert into user_info (`name`, email, telephone, -->
+<!--      address, `password`, role_id, -->
+<!--      user_type,company_name)-->
+<!--    values (#{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, -->
+<!--      #{address,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, -->
+<!--      #{userType,jdbcType=VARCHAR}, #{`companyName`,jdbcType=VARCHAR})-->
+<!--  </insert>-->
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.machine.manager.entity.UserInfo" useGeneratedKeys="true">
     insert into user_info
     <trim prefix="(" suffix=")" suffixOverrides=",">

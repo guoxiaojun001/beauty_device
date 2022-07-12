@@ -41,7 +41,7 @@ public class JwtAuthService {
             resp.setSuccess(false);
             resp.setToken("");
             resp.setUserType("");
-            resp.setMsg("用户名密码错误2");
+            resp.setMsg("手机号或密码错误2");
             return resp;
         }
 

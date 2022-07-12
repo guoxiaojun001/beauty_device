@@ -10,7 +10,7 @@ import java.util.List;
 public interface UserInfoDao {
     int deleteByPrimaryKey(Integer id);
 
-    int insert(UserInfo record);
+//    int insert(UserInfo record);
 
     int insertSelective(UserInfo record);
 

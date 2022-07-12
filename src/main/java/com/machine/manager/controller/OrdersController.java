@@ -35,7 +35,7 @@ public class OrdersController extends  BaseController{
     @Autowired
     private OrderService orderService;
 
-    @ApiOperation("新增门店")
+    @ApiOperation("新增订单")
     @UserLoginToken
 //    @AdminToken
     @PostMapping("/addOrder")

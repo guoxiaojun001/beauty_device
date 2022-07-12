@@ -11,7 +11,7 @@ import java.util.List;
 public interface StoresDao {
     int deleteByPrimaryKey(Integer id);
 
-    int insert(StoresEntity record);
+//    int insert(StoresEntity record);
 
     int insertSelective(StoresEntity record);
 

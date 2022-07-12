@@ -13,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -36,8 +37,22 @@ public class LoginController extends BaseController {
     public UserLoginInResp login(@RequestBody UserLoginRequest request) {
         System.out.println("login request ：" + request.toString());
         UserLoginInResp resp = new UserLoginInResp();
-        String username = request.getUserName();
+
+        String phone = request.getUserName();
         String password = request.getPassWord();
+        List<UserInfo> userInfoList =  userService.selectUserInfoByParmAndId(null,phone,0,10);
+
+        if(null == userInfoList || userInfoList.isEmpty()){
+            resp.setCode(202);
+            resp.setSuccess(false);
+            resp.setToken("");
+            resp.setUserType("");
+            resp.setMsg("手机号或密码错误");
+
+            return resp;
+        }
+        String username = userInfoList.get(0).getName();
+        System.out.println(userInfoList.get(0));
         return jwtAuthService.loaddUsergin(username, password);
     }
 
