@@ -2,6 +2,7 @@ package com.machine.manager.controller;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.machine.manager.entity.MachineInfo;
+import com.machine.manager.entity.MachineInfoEntity;
 import com.machine.manager.entity.machine.CommonRequest;
 import com.machine.manager.entity.machine.MachintCount;
 import com.machine.manager.entity.machine.UserTimeRequest;
@@ -302,6 +303,7 @@ public class MachineOperateController extends BaseController {
 //    }
 
 
+    SaticScheduleTask saticScheduleTask;
     @ApiOperation("搜索 设备信息，输入关键字 类型名称品牌等，参数为空时查询所有")
     @UserLoginToken
     @PostMapping("/commonSearchMachineList")
@@ -326,6 +328,13 @@ public class MachineOperateController extends BaseController {
             return restResult;
         }
 
+        if(saticScheduleTask ==null){
+            saticScheduleTask = new SaticScheduleTask();
+        }
+        //手动查询一下在线状态
+        System.out.println("scan start === " +System.currentTimeMillis());
+        saticScheduleTask.configureTasks();
+
         try {
             DecodedJWT decodedJWT = JwtTokenUtil222 .getTokenInfo(token);
             int userId = decodedJWT.getClaim("userId").asInt();
@@ -337,7 +346,7 @@ public class MachineOperateController extends BaseController {
             int pageIndex =(page-1) * pageSize;
             if("admin".equals(userType )){
                 int total = service.queryMachineCurrent(null).size();
-                List<MachineInfo> machineInfoList = service.selectAllByNormalWithParm(null,commonRequest.getParms(),pageIndex,pageSize);
+                List<MachineInfoEntity> machineInfoList = service.selectAllByNormalWithParm22(null,commonRequest.getParms(),pageIndex,pageSize);
                 restResult.setCode(200);
                 restResult.setCounts(total);
                 restResult.setData(machineInfoList);
@@ -346,7 +355,7 @@ public class MachineOperateController extends BaseController {
             }else {
                 //查询自己名下的设备
                 int total = service.queryMachineCurrent(userId).size();
-                List<MachineInfo> machineInfoList =  service.selectAllByNormalWithParm(userId,commonRequest.getParms(),pageIndex,pageSize);
+                List<MachineInfoEntity> machineInfoList =  service.selectAllByNormalWithParm22(userId,commonRequest.getParms(),pageIndex,pageSize);
                 restResult.setCode(200);
                 restResult.setCounts(total);
                 restResult.setData(machineInfoList);
@@ -355,6 +364,9 @@ public class MachineOperateController extends BaseController {
             }
         } catch ( Exception e) {
         }
+
+
+        logger.info("xxxxxxxx设备列表 = {}",restResult);
 
         return restResult;
     }

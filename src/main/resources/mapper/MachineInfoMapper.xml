@@ -417,7 +417,64 @@
        or s.machine_city = #{parms} )
 
     </if>
+
        GROUP BY machine_param
+    LIMIT #{pageIndex},#{pageSize};
+
+  </select>
+
+  <resultMap id="MachineXXXResultMap" type="com.machine.manager.entity.MachineInfoEntity">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="machine_type" jdbcType="VARCHAR" property="machineType" />
+    <result column="machine_function" jdbcType="VARCHAR" property="machineFunction" />
+    <result column="machine_param" jdbcType="VARCHAR" property="machineParam" />
+    <result column="machine_attribute" jdbcType="VARCHAR" property="machineAttribute" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="name" jdbcType="VARCHAR" property="owner" />
+
+    <result column="used_duration" jdbcType="INTEGER" property="usedDuration" />
+    <result column="machine_brand" jdbcType="VARCHAR" property="machineBrand" />
+    <result column="machine_status" jdbcType="VARCHAR" property="machineStatus" />
+    <result column="machine_work_time_once" jdbcType="VARCHAR" property="machineWorkTimeOnce"/>
+    <result column="machine_provice_id" jdbcType="VARCHAR" property="machineProviceId"/>
+    <result column="machine_provice" jdbcType="VARCHAR" property="machineProvice"/>
+
+    <result column="machine_city_id" jdbcType="VARCHAR" property="machineCityId"/>
+    <result column="machine_city" jdbcType="VARCHAR" property="machineCity"/>
+    <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+    <result column="cooperation_mode" jdbcType="VARCHAR" property="cooperationMode"/>
+    <result column="online_status" jdbcType="INTEGER" property="onlineStatus"/>
+    <result column="lastlogin_time" jdbcType="VARCHAR" property="lastloginTime"/>
+
+    <result column="lock_status" jdbcType="INTEGER" property="lockStatus"/>
+    <result column="store_id" jdbcType="INTEGER" property="storeId"/>
+    <result column="store_name" jdbcType="VARCHAR"  property="belongsStore"/>
+    <result column="other_parm" jdbcType="VARCHAR"  property="otherParm"/>
+    <result column="device_sn" jdbcType="VARCHAR" property="deviceSn"/>
+    <result column="left_time" jdbcType="INTEGER"  property="leftTime"/>
+
+  </resultMap>
+
+  <select id="queryMachineByIDAndParm22"  resultMap="MachineXXXResultMap">
+    select *  from machine_info s  left join t_stores si on s.store_id=si.id left join user_info ui on s.user_id=ui.id
+    where 1=1
+    <if test="id != null and id != '' ">
+      and s.user_id = #{id}
+    </if>
+
+    <if test="parms != null and parms != '' ">
+      and
+      ( s.machine_type = #{parms}
+      or s.machine_function = #{parms}
+      or s.machine_attribute = #{parms}
+      or s.machine_brand = #{parms}
+      or s.machine_provice = #{parms}
+      or s.machine_param = #{parms}
+      or s.device_sn = #{parms}
+      or s.machine_city = #{parms} )
+    </if>
+
+    GROUP BY machine_param
     LIMIT #{pageIndex},#{pageSize};
 
   </select>

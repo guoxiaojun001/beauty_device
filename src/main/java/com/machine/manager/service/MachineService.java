@@ -1,6 +1,7 @@
 package com.machine.manager.service;
 
 import com.machine.manager.entity.MachineInfo;
+import com.machine.manager.entity.MachineInfoEntity;
 import com.machine.manager.entity.machine.MachintCount;
 
 import java.util.List;
@@ -74,4 +75,6 @@ public interface MachineService {
     public List<MachineInfo> queryMachineCurrent(Integer userId);
 
     List<MachineInfo> selectAllByNormalWithParm( Integer id,String parm,int pageIndex,int pageSize);
+
+    List<MachineInfoEntity> selectAllByNormalWithParm22(Integer id, String parms, int pageIndex, int pageSize);
 }

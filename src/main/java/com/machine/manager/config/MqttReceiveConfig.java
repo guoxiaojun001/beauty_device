@@ -2,6 +2,7 @@ package com.machine.manager.config;
 
 import cn.hutool.json.JSONObject;
 import com.machine.manager.entity.MachineInfo;
+import com.machine.manager.entity.MachineInfoEntity;
 import com.machine.manager.entity.UserInfo;
 import com.machine.manager.mqtt.MqttGateway;
 import com.machine.manager.service.MachineService;
@@ -126,11 +127,11 @@ public class MqttReceiveConfig {
 
                         Integer userId = jsonObject.getInt("userId");
                         JSONObject js = new JSONObject();
-                        List<MachineInfo> machineInfoList;
+                        List<MachineInfoEntity> machineInfoList;
                         UserInfo userInfo = userService.selectByPrimaryKey(userId);
                         if(userInfo.getUserType().equals("admin")){
                             //需要区分出 用户类型，防止查找的数据太多
-                            machineInfoList = service.selectAllByNormalWithParm(null,null,0,1000);
+                            machineInfoList = service.selectAllByNormalWithParm22(null,null,0,1000);
                             js.put("data",machineInfoList);
                             js.putByPath("messsageType","web_device_status");
 
@@ -138,7 +139,7 @@ public class MqttReceiveConfig {
 
                             log.info("===============通知管理员后台刷新==>" + js.toString());
                         }else {
-                            machineInfoList = service.selectAllByNormalWithParm(userId,null,0,1000);
+                            machineInfoList = service.selectAllByNormalWithParm22(userId,null,0,1000);
                             js.put("data",machineInfoList);
                             js.putByPath("messsageType","web_device_status");
 //                            mqttGateway.sendToMqtt(js.toString(),"/"  + userId + "/device_status");
