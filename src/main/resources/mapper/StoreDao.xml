@@ -21,6 +21,8 @@
     <result column="contact_person" jdbcType="VARCHAR" property="contactPerson" />
     <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone" />
     <result column="agent_id" jdbcType="INTEGER" property="agentId" />
+    <result column="name" jdbcType="VARCHAR" property="owner" />
+
     <result column="device_count" jdbcType="INTEGER" property="deviceCount" />
     <result column="create_time" jdbcType="VARCHAR" property="createTime" />
     <result column="version" jdbcType="INTEGER" property="version" />
@@ -187,8 +189,28 @@
         GROUP BY s.id
   </select>
 
+
+
+<!--  <resultMap id="StoreAndDeviceCountResultMapxx" type="com.machine.manager.entity.store.StoresAndStoreName">-->
+<!--    <id column="id" jdbcType="INTEGER" property="id" />-->
+<!--    <result column="code" jdbcType="VARCHAR" property="code" />-->
+<!--    <result column="address" jdbcType="VARCHAR" property="address" />-->
+<!--    <result column="contact_person" jdbcType="VARCHAR" property="contactPerson" />-->
+<!--    <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone" />-->
+<!--    <result column="agent_id" jdbcType="INTEGER" property="agentId" />-->
+<!--    <result column="name" jdbcType="VARCHAR" property="owner" />-->
+
+<!--    <result column="device_count" jdbcType="INTEGER" property="deviceCount" />-->
+<!--    <result column="create_time" jdbcType="VARCHAR" property="createTime" />-->
+<!--    <result column="version" jdbcType="INTEGER" property="version" />-->
+<!--    <result column="store_name" jdbcType="VARCHAR" property="storeName" />-->
+<!--    <result column="new_device_count" jdbcType="INTEGER" property="newDeviceCount" />-->
+<!--  </resultMap>-->
   <select id="selectStoreInfoAndDeviceCountByStoreName" resultMap="StoreAndDeviceCountResultMap">
-    SELECT s.*,COUNT(m.id) AS new_device_count FROM `t_stores`  s LEFT JOIN machine_info m ON s.id=m.store_id
+    SELECT s.*,COUNT(m.id) AS new_device_count ,u.name FROM t_stores s
+        LEFT JOIN machine_info m ON s.id=m.store_id
+        LEFT JOIN user_info u ON s.agent_id=u.id
+
     WHERE 1=1
     <if test="agentId != null and agentId != '' ">
       and s.agent_id=#{agentId}

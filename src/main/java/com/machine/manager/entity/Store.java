@@ -50,6 +50,7 @@ public class Store implements Serializable {
      * 所属代理商
      */
     private Integer agentId;
+    private String owner;
 
     /**
      * 设备数量

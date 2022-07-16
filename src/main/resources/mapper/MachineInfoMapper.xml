@@ -456,7 +456,9 @@
   </resultMap>
 
   <select id="queryMachineByIDAndParm22"  resultMap="MachineXXXResultMap">
-    select *  from machine_info s  left join t_stores si on s.store_id=si.id left join user_info ui on s.user_id=ui.id
+    select *  from machine_info s
+        left join t_stores si on s.store_id=si.id
+        left join user_info ui on s.user_id=ui.id
     where 1=1
     <if test="id != null and id != '' ">
       and s.user_id = #{id}
