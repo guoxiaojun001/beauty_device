@@ -18,6 +18,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.Iterator;
 import java.util.List;
 
 @Configuration      //1.主要用于标记配置类，兼备Component的效果。
@@ -67,45 +68,25 @@ public class SaticScheduleTask {
                 List<MachineInfoEntity> machineInfoList = service.selectAllByNormalWithParm22(null,null,0,1000);
                 for(int i = 0 ; i < jsonArray.size(); i ++){
                     JSONObject o =  jsonArray.getJSONObject(i);
-                    for(MachineInfoEntity machineInfo : machineInfoList){
-                        if(machineInfo.getMachineParam().equals(o.getStr("clientid"))){
+
+                    Iterator<MachineInfoEntity> iterator = machineInfoList.iterator();
+                    while (iterator.hasNext()) {
+                        MachineInfoEntity machineInfo = iterator.next();
+                        if (machineInfo.getMachineParam().equals(o.getStr("clientid"))) {
                             machineInfo.setOnlineStatus(o.getBool("connected",false) ? 1 :0);
                             machineInfo.setLastloginTime(o.getStr("connected_at",""));
-
                             System.out.println("更新在线状态和登录时间 : " +machineInfo);
 
-                            MachineInfo mf = new MachineInfo();
-                            mf.setId(machineInfo.getId());
-                            mf.setCooperationMode(machineInfo.getCooperationMode());
-                            mf.setLastloginTime(machineInfo.getLastloginTime());
-                            mf.setCreateTime(machineInfo.getCreateTime());
-                            mf.setDeviceSn(machineInfo.getDeviceSn());
-                            mf.setLockStatus(machineInfo.getLockStatus());
-
-                            mf.setOnlineStatus(machineInfo.getOnlineStatus());
-                            mf.setMachineAttribute(machineInfo.getMachineAttribute());
-                            mf.setMachineBrand(machineInfo.getMachineBrand());
-                            mf.setLeftTime(machineInfo.getLeftTime());
-                            mf.setMachineCity(machineInfo.getMachineCity());
-                            mf.setMachineCityId(machineInfo.getMachineCityId());
-
-                            mf.setMachineParam(machineInfo.getMachineParam());
-                            mf.setMachineFunction(machineInfo.getMachineFunction());
-                            mf.setMachineProvice(machineInfo.getMachineProvice());
-                            mf.setMachineProviceId(machineInfo.getMachineProviceId());
-                            mf.setMachineStatus(machineInfo.getMachineStatus());
-                            mf.setMachineType(machineInfo.getMachineType());
-
-                            mf.setUserId(machineInfo.getUserId());
-                            mf.setOtherParm(machineInfo.getOtherParm());
-                            mf.setStoreId(machineInfo.getStoreId());
-                            mf.setMachineWorkTimeOnce(machineInfo.getMachineWorkTimeOnce());
-                            mf.setUsedDuration(machineInfo.getUsedDuration());
-                            mf.setUserName(machineInfo.getOwner());
-
-
-                            service.updateByPrimaryKeySelective(mf);
+                            updateMachineInfo(machineInfo);
+                            iterator.remove();
                         }
+                    }
+
+                    System.out.println("将剩余部分设备设置为离线 ： " + machineInfoList);
+                    for(MachineInfoEntity machineInfoEntity : machineInfoList){
+                        machineInfoEntity.setOnlineStatus( 0);
+                        updateMachineInfo(machineInfoEntity);
+
                     }
                 }
             }
@@ -122,6 +103,39 @@ public class SaticScheduleTask {
 
     }
 
+
+    private void updateMachineInfo(MachineInfoEntity machineInfo){
+        MachineInfo mf = new MachineInfo();
+        mf.setId(machineInfo.getId());
+        mf.setCooperationMode(machineInfo.getCooperationMode());
+        mf.setLastloginTime(machineInfo.getLastloginTime());
+        mf.setCreateTime(machineInfo.getCreateTime());
+        mf.setDeviceSn(machineInfo.getDeviceSn());
+        mf.setLockStatus(machineInfo.getLockStatus());
+
+        mf.setOnlineStatus(machineInfo.getOnlineStatus());
+        mf.setMachineAttribute(machineInfo.getMachineAttribute());
+        mf.setMachineBrand(machineInfo.getMachineBrand());
+        mf.setLeftTime(machineInfo.getLeftTime());
+        mf.setMachineCity(machineInfo.getMachineCity());
+        mf.setMachineCityId(machineInfo.getMachineCityId());
+
+        mf.setMachineParam(machineInfo.getMachineParam());
+        mf.setMachineFunction(machineInfo.getMachineFunction());
+        mf.setMachineProvice(machineInfo.getMachineProvice());
+        mf.setMachineProviceId(machineInfo.getMachineProviceId());
+        mf.setMachineStatus(machineInfo.getMachineStatus());
+        mf.setMachineType(machineInfo.getMachineType());
+
+        mf.setUserId(machineInfo.getUserId());
+        mf.setOtherParm(machineInfo.getOtherParm());
+        mf.setStoreId(machineInfo.getStoreId());
+        mf.setMachineWorkTimeOnce(machineInfo.getMachineWorkTimeOnce());
+        mf.setUsedDuration(machineInfo.getUsedDuration());
+        mf.setUserName(machineInfo.getOwner());
+
+        service.updateByPrimaryKeySelective(mf);
+    }
 
     public static String query(String serverPath, String authorization, int pageIndex, int pageSize) throws Exception {
         //拼接查询参数

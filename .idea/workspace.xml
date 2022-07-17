@@ -5,12 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5b7c9d0-bd3b-4daf-a8aa-a123ed446911" name="Default" comment="Merge branch 'master' of github.com:guoxiaojun001/beauty_device&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/machine/manager/controller/LoginController.java&#10;#&#9;src/main/java/com/machine/manager/service/UserService.java&#10;#&#9;src/main/java/com/machine/manager/service/impl/UserServiceImpl.java">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/store/StoresAndStoreName.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/Store.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/Store.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/impl/StoreServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/service/impl/StoreServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/MachineInfoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/MachineInfoMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/StoreDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/StoreDao.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/MachineOperateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/MachineOperateController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/OrdersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/OrdersController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/SaticScheduleTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/controller/SaticScheduleTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/machine/manager/entity/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/machine-6-26.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/machine-6-26.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/OrderDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/OrderDao.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -332,8 +334,8 @@
       <recent name="D:\xxxx\beauty\beauty_device\src\main\java\com\machine\manager\config" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.machine.manager.entity.store" />
       <recent name="com.machine.manager.entity" />
+      <recent name="com.machine.manager.entity.store" />
       <recent name="com.machine.manager.util" />
       <recent name="com.machine.manager.entity.machine" />
       <recent name="com.machine.manager.controller" />
@@ -513,10 +515,10 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Test" />
         <item itemvalue="Application.AesEncryptUtils" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.SecurityConfig" />
-        <item itemvalue="Application.Test" />
         <item itemvalue="Application.TestOld" />
       </list>
     </recent_temporary>
@@ -557,7 +559,8 @@
       <workItem from="1657719757459" duration="4327000" />
       <workItem from="1657778075972" duration="10291000" />
       <workItem from="1657866007963" duration="5852000" />
-      <workItem from="1657934399718" duration="3799000" />
+      <workItem from="1657934399718" duration="18718000" />
+      <workItem from="1658027599033" duration="8015000" />
     </task>
     <servers />
   </component>
@@ -727,7 +730,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/machine/manager/Test.java</url>
-          <line>34</line>
+          <line>40</line>
           <option name="timeStamp" value="46" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -779,6 +782,11 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/machine/manager/dao/StoreDao.java</url>
           <line>50</line>
           <option name="timeStamp" value="77" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/machine/manager/Test.java</url>
+          <line>42</line>
+          <option name="timeStamp" value="78" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

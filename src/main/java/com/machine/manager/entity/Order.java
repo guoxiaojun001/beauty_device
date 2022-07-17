@@ -56,12 +56,14 @@ public class Order implements Serializable {
     /**
      * 操作时间
      */
-    private Integer operationTime;
+    private String operationTime;
 
 
     private String machineParam;//设备id
+    private String machineName;
 
-    private String store_id;//门店id
+    private Integer storeId;//门店id
+    private String stName;
 
     private Integer agentId;
 

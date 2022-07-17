@@ -1,14 +1,13 @@
 package com.machine.manager.controller;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.machine.manager.entity.Order;
-import com.machine.manager.entity.Store;
-import com.machine.manager.entity.UserInfo;
+import com.machine.manager.entity.*;
 import com.machine.manager.entity.machine.CommonRequest;
 import com.machine.manager.jwt.JwtTokenUtil222;
 import com.machine.manager.jwt.RestResult;
 import com.machine.manager.reject.AdminToken;
 import com.machine.manager.reject.UserLoginToken;
+import com.machine.manager.service.MachineService;
 import com.machine.manager.service.OrderService;
 import com.machine.manager.service.StoreService;
 import com.machine.manager.util.RequestUtils;
@@ -22,7 +21,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * 门店操作
@@ -35,12 +37,26 @@ public class OrdersController extends  BaseController{
     @Autowired
     private OrderService orderService;
 
-    @ApiOperation("新增订单")
+    @Autowired
+    private MachineService service;
+
+    @ApiOperation("新增订单,订单状态1 ：待支付，2： 已经支付，3 取消")
     @UserLoginToken
 //    @AdminToken
     @PostMapping("/addOrder")
     public RestResult addOrder(@RequestBody Order order) {
         RestResult restResult = new RestResult();
+
+        logger.info( "新增订单 add order => " + order.toString());
+        order.setOrderNo("orderNo-" + UUID.randomUUID());
+        Date date = new Timestamp(System.currentTimeMillis());
+        System.out.println("创建时间 ： " + date);
+        order.setCreateTime(date.toString());
+        order.setOrderStatus(1);
+        order.setPayStatus(1);
+        int price = order.getPrice();
+        System.out.println("price ： " + price);
+
         int code = orderService.insertSelective(order);
         if(code == 1){
             restResult.setCode(200);
@@ -80,6 +96,27 @@ public class OrdersController extends  BaseController{
     @PostMapping("/updateOrder")
     public RestResult updateStoreInfo(@RequestBody Order order) {
         RestResult restResult = new RestResult();
+        logger.info( "修改订单状态 add order => " + order.toString());
+
+        int status = order.getPayStatus();
+        int price = order.getPrice();
+
+        if(status == 2){
+            //更新设备 剩余工作时间
+            MachineInfo machineInfo = service.selectDeviceId(order.getMachineParam());
+            if(machineInfo != null){
+                System.out.println("更新设备 剩余工作时间 ： " );
+                int leftTime = machineInfo.getLeftTime();
+                leftTime += (price * 45 * 60);
+                machineInfo.setLeftTime(leftTime);
+                service.updateByPrimaryKey(machineInfo);
+            }
+        }else if(status == 3){
+            //删除订单
+            System.out.println("更新设备 剩余工作时间 ： " );
+            orderService.deleteByPrimaryKey(order.getId());
+        }
+
         int code = orderService.updateByPrimaryKeySelective(order);
         if(code == 1){
             restResult.setCode(200);

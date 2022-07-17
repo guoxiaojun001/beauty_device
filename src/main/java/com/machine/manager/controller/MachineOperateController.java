@@ -372,6 +372,82 @@ public class MachineOperateController extends BaseController {
     }
 
 
+    @ApiOperation("查询设备信息")
+    @PostMapping("/getMachinedInfo")
+    @ResponseBody
+    public RestResult getMachinedInfo(){
+        RestResult restResult = new RestResult();
+
+        HttpServletRequest httpServletRequest = RequestUtils.getHttpRequest();
+        if(null == httpServletRequest ){
+            restResult.setCode(202);
+            restResult.setData("no data");
+            restResult.setMsg("请求参数异常3");
+            restResult.setSuccess(false);
+            return restResult;
+        }
+
+        String machineParam = httpServletRequest.getHeader("blackId");
+        String parm = "";
+        logger.info("解密前 machineParam ：" + machineParam);
+        try {
+            machineParam = AesEncryptUtils.decrypt(machineParam);
+            logger.info("解密后：" + machineParam);
+
+            System.out.println("解密后 = " + machineParam);
+
+            String[] arr = machineParam.split("#####");
+
+            parm = arr[0];
+            System.out.println("解密后：设备parm = " + parm);
+            System.out.println("解密后：时间戳 = " + arr[1]);
+            long start = Long.parseLong(arr[1]);
+            System.out.println("start = " + start);
+            Thread.sleep(1000);
+            long end = System.currentTimeMillis();
+            System.out.println("end = " + end);
+
+            long diff = end-start;
+            System.out.println("diff = " + diff);
+
+            if(diff >= 5000){
+                restResult.setCode(202);
+                restResult.setSuccess(false);
+                restResult.setMsg("参数过期");
+                return restResult;
+            }
+        } catch (Exception e) {
+            restResult.setCode(202);
+            restResult.setSuccess(false);
+            restResult.setMsg(e.getMessage());
+            return restResult;
+        }
+
+        if(StringUtils.isEmpty(parm)){
+            restResult.setCode(202);
+            restResult.setSuccess(false);
+            restResult.setMsg("请求blackId为空");
+            return restResult;
+        }else {
+            //TODO 所有者id  通过选择添加，不能手动输入
+            MachineInfo qu = service.selectDeviceId(parm);
+            System.out.print("qu==>" + qu);
+            if(null == qu ){
+                System.out.print("指定的设备id 不存在2");
+                restResult.setCode(202);
+                restResult.setSuccess(false);
+                restResult.setMsg("指定的设备id 不存在2");
+                return restResult;
+            }else {
+                restResult.setCode(200);
+                restResult.setSuccess(true);
+                restResult.setData(qu);
+                restResult.setMsg("success");
+                return restResult;
+            }
+        }
+    }
+
 
     @ApiOperation("更新设备使用时长")
     @PostMapping("/updateUsedTime")
@@ -398,6 +474,7 @@ public class MachineOperateController extends BaseController {
         }
 
         String machineParam = httpServletRequest.getHeader("blackId");
+        String parm = "";
         logger.info("解密前 machineParam ：" + machineParam);
         try {
             machineParam = AesEncryptUtils.decrypt(machineParam);
@@ -407,6 +484,8 @@ public class MachineOperateController extends BaseController {
 
             String[] arr = machineParam.split("#####");
 
+            parm = arr[0];
+            System.out.println("解密后：设备id = " + parm);
             System.out.println("解密后：arr = " + arr[1]);
             long start = Long.parseLong(arr[1]);
             System.out.println("start = " + start);
@@ -417,7 +496,7 @@ public class MachineOperateController extends BaseController {
             long diff = end-start;
             System.out.println("diff = " + diff);
 
-            if(diff >= 3000){
+            if(diff >= 5000){
                 restResult.setCode(202);
                 restResult.setSuccess(false);
                 restResult.setMsg("参数过期");
@@ -440,7 +519,7 @@ public class MachineOperateController extends BaseController {
             //TODO 所有者id  通过选择添加，不能手动输入
 //            MachineInfo xx = service.selectDeviceId("12324");
 //            System.out.print("qu1==>" + xx);
-            MachineInfo qu = service.selectDeviceId(machineParam);
+            MachineInfo qu = service.selectDeviceId(parm);
             System.out.print("qu==>" + qu);
             if(null == qu ){
                 System.out.print("指定的设备id 不存在2");

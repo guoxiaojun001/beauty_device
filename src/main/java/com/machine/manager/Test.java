@@ -19,9 +19,11 @@ public class Test {
     //用户名
     private static String username = "admin";
     //登录密码
-    private static String password = "public";
+    private static String password = "qunimabi#123$456";
+    //    private static String password = "public";
     //服务器地址
-    private static String serverPath = "http://localhost:18083";
+//    private static String serverPath = "http://localhost:18083";
+    private static String serverPath = "http://39.98.108.64:18083";
     //当前页
     private static int pageIndex = 1;
     //页大小
@@ -29,6 +31,10 @@ public class Test {
 
     public static void main(String[] args) throws Exception {
         //账号密码Base64加密
+
+//        String xxxsaa = transfom(100);
+//        System.out.println ("xxxsaa=======>" + xxxsaa);
+
         String authorization = getBase64(username, password);
    
         //查询
@@ -44,6 +50,15 @@ public class Test {
         System.out.println ("=========clientid==>" + clientid);
 
     }
+
+    public static String transfom(long time) {
+        long shi= time / 3600;
+        long fen= (time % 3600) / 60;
+        long miao= (time % 3600) % 60;
+        //shi< 10 ? ("0" + shi) : shi)判断时否大于10时的话就执行shi,否则执行括号中的
+        return (shi< 10 ? ("0" + shi) : shi) + ":" + (fen< 10 ? ("0" + fen) : fen) + ":" + (miao< 10 ? ("0" + miao) : miao);
+    }
+
 
     private static String query(String serverPath, String authorization, int pageIndex, int pageSize) throws Exception {
         //拼接查询参数
