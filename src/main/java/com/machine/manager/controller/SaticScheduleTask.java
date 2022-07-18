@@ -42,15 +42,15 @@ public class SaticScheduleTask {
 //    @Autowired
 //    MqttGateway mqttGateway;
 
-    @Autowired
-    private MachineService service;
+//    @Autowired
+//    private MachineService service;
 
 
     //3.添加定时任务
 //    @Scheduled(cron = "0/30 * * * * ?")
     //或直接指定时间间隔，例如：30秒
-    @Scheduled(fixedRate=600000)
-    public void configureTasks() {
+//    @Scheduled(fixedRate=600000)
+    public void configureTasks(MachineService service) {
         System.err.println("执行静态定时任务时间: " + LocalDateTime.now());
         //账号密码Base64加密
         String authorization = null;
@@ -59,13 +59,14 @@ public class SaticScheduleTask {
 
             //查询
             String json = query (serverPath,authorization,pageIndex, pageSize);
-            System.out.println ("===========>" + json);
+            System.err.println (service + "== service ，===mqtt 后台查询数据======>" + json);
             JSONObject jsonObject = new JSONObject(json);
             JSONArray jsonArray = jsonObject.getJSONArray("data");
 //            String  clientid = jsonObject.getJSONArray("data").getJSONObject(0).getStr("clientid");
             if(!StringUtils.isEmpty(json)){
                 if(null == service) return;
                 List<MachineInfoEntity> machineInfoList = service.selectAllByNormalWithParm22(null,null,0,1000);
+                System.err.println ("=====本地设备查询======>" + json);
                 for(int i = 0 ; i < jsonArray.size(); i ++){
                     JSONObject o =  jsonArray.getJSONObject(i);
 
@@ -75,23 +76,25 @@ public class SaticScheduleTask {
                         if (machineInfo.getMachineParam().equals(o.getStr("clientid"))) {
                             machineInfo.setOnlineStatus(o.getBool("connected",false) ? 1 :0);
                             machineInfo.setLastloginTime(o.getStr("connected_at",""));
-                            System.out.println("更新在线状态和登录时间 : " +machineInfo);
+                            System.err.println("更新在线状态和登录时间 : " +machineInfo);
 
-                            updateMachineInfo(machineInfo);
+//                            updateMachineInfo(machineInfo);
+                            service.updateByPrimaryKeySelective(updateMachineInfo(machineInfo));
                             iterator.remove();
                         }
                     }
+                }
 
-                    System.out.println("将剩余部分设备设置为离线 ： " + machineInfoList);
-                    for(MachineInfoEntity machineInfoEntity : machineInfoList){
-                        machineInfoEntity.setOnlineStatus( 0);
-                        updateMachineInfo(machineInfoEntity);
 
-                    }
+                System.err.println("将剩余部分设备设置为离线 ： " + machineInfoList);
+                for(MachineInfoEntity machineInfoEntity : machineInfoList){
+                    machineInfoEntity.setOnlineStatus( 0);
+                    service.updateByPrimaryKeySelective(updateMachineInfo(machineInfoEntity));
+
                 }
             }
 
-            System.err.println("执行静态定时任务时间2: " + LocalDateTime.now());
+//            System.err.println("执行静态定时任务时间2: " + LocalDateTime.now());
             //通知前端更新
 //            mqttGateway.sendToMqtt("{'messsageType':'update'}","/device_list/device_status");
 
@@ -104,7 +107,7 @@ public class SaticScheduleTask {
     }
 
 
-    private void updateMachineInfo(MachineInfoEntity machineInfo){
+    private MachineInfo updateMachineInfo(MachineInfoEntity machineInfo){
         MachineInfo mf = new MachineInfo();
         mf.setId(machineInfo.getId());
         mf.setCooperationMode(machineInfo.getCooperationMode());
@@ -134,7 +137,7 @@ public class SaticScheduleTask {
         mf.setUsedDuration(machineInfo.getUsedDuration());
         mf.setUserName(machineInfo.getOwner());
 
-        service.updateByPrimaryKeySelective(mf);
+        return mf;
     }
 
     public static String query(String serverPath, String authorization, int pageIndex, int pageSize) throws Exception {

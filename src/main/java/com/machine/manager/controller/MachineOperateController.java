@@ -333,7 +333,7 @@ public class MachineOperateController extends BaseController {
         }
         //手动查询一下在线状态
         System.out.println("scan start === " +System.currentTimeMillis());
-        saticScheduleTask.configureTasks();
+        saticScheduleTask.configureTasks(service);
 
         try {
             DecodedJWT decodedJWT = JwtTokenUtil222 .getTokenInfo(token);

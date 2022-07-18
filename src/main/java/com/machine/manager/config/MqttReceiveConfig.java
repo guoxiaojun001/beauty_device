@@ -74,6 +74,7 @@ public class MqttReceiveConfig {
         mqttConnectOptions.setPassword(password.toCharArray());
         mqttConnectOptions.setServerURIs(new String[]{hostUrl});
         mqttConnectOptions.setKeepAliveInterval(2);
+        mqttConnectOptions.setMaxInflight(1000);
         return mqttConnectOptions;
     }
 
