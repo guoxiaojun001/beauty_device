@@ -7,6 +7,11 @@ import java.nio.charset.StandardCharsets;
 public class Main {
     public static void main(String[] args) {
 
+
+        String topic = "/7776d2da8f29cffb/device_status";
+        String[] aaa = topic.split("/");
+
+
         String s = "1234567891013";
         //字符串转字节数组
         byte[] array = s.getBytes(StandardCharsets.UTF_8);

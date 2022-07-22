@@ -112,11 +112,13 @@ public class MqttReceiveConfig {
             @Override
             public void handleMessage(Message<?> message) throws MessagingException {
                 String payload = (String) message.getPayload();
-                log.info("主题：{}，消息接收到的数据：{}", message.getHeaders().get("mqtt_receivedTopic"), payload);
+                String topic = (String) message.getHeaders().get("mqtt_receivedTopic");
+                String[] split = topic.split("/");
+                log.info("主题：{}，消息接收到的数据：{}", topic, payload);
 
                 JSONObject jsonObject = new JSONObject(payload);
                 String messsageType = jsonObject.getStr("messsageType","");
-                String machineParam = jsonObject.getStr("machineParam");
+                String machineParam = split[1];
                 switch (messsageType){
                     case "vue_lock":
                         MachineInfo machineInfo =  service.selectDeviceId(machineParam);

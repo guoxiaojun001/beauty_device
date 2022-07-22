@@ -59,14 +59,14 @@ public class SaticScheduleTask {
 
             //查询
             String json = query (serverPath,authorization,pageIndex, pageSize);
-            System.err.println (service + "== service ，===mqtt 后台查询数据======>" + json);
+//            System.err.println (service + "== service ，===mqtt 后台查询数据======>" + json);
             JSONObject jsonObject = new JSONObject(json);
             JSONArray jsonArray = jsonObject.getJSONArray("data");
 //            String  clientid = jsonObject.getJSONArray("data").getJSONObject(0).getStr("clientid");
             if(!StringUtils.isEmpty(json)){
                 if(null == service) return;
                 List<MachineInfoEntity> machineInfoList = service.selectAllByNormalWithParm22(null,null,0,1000);
-                System.err.println ("=====本地设备查询======>" + json);
+//                System.err.println ("=====本地设备查询======>" + json);
                 for(int i = 0 ; i < jsonArray.size(); i ++){
                     JSONObject o =  jsonArray.getJSONObject(i);
 
@@ -86,7 +86,7 @@ public class SaticScheduleTask {
                 }
 
 
-                System.err.println("将剩余部分设备设置为离线 ： " + machineInfoList);
+//                System.err.println("将剩余部分设备设置为离线 ： " + machineInfoList);
                 for(MachineInfoEntity machineInfoEntity : machineInfoList){
                     machineInfoEntity.setOnlineStatus( 0);
                     service.updateByPrimaryKeySelective(updateMachineInfo(machineInfoEntity));

@@ -60,7 +60,7 @@ CREATE TABLE `machine_info`  (
   `cooperation_mode` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `online_status` int NOT NULL DEFAULT -1,
   `lastlogin_time` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `lock_status` int NOT NULL DEFAULT -1,
+  `lock_status` int NOT NULL DEFAULT 0,
   `store_id` int NOT NULL ,
   `other_parm` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `device_sn` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,

@@ -455,7 +455,7 @@ public class MachineOperateController extends BaseController {
     @ResponseBody
     public RestResult updateUsedTime( @RequestBody UserTimeRequest userTimeRequest){
         RestResult restResult = new RestResult();
-        System.out.print("userTimeRequest==>" + userTimeRequest);
+//        System.out.print("userTimeRequest==>" + userTimeRequest);
         if(userTimeRequest.getLeftTime() < 0){
             restResult.setCode(202);
             restResult.setData("data error");
@@ -475,7 +475,7 @@ public class MachineOperateController extends BaseController {
 
         String machineParam = httpServletRequest.getHeader("blackId");
         String parm = "";
-        logger.info("解密前 machineParam ：" + machineParam);
+//        logger.info("解密前 machineParam ：" + machineParam);
         try {
             machineParam = AesEncryptUtils.decrypt(machineParam);
             logger.info("解密后：" + machineParam);
@@ -485,8 +485,8 @@ public class MachineOperateController extends BaseController {
             String[] arr = machineParam.split("#####");
 
             parm = arr[0];
-            System.out.println("解密后：设备id = " + parm);
-            System.out.println("解密后：arr = " + arr[1]);
+//            System.out.println("解密后：设备id = " + parm);
+//            System.out.println("解密后：arr = " + arr[1]);
             long start = Long.parseLong(arr[1]);
             System.out.println("start = " + start);
             Thread.sleep(1000);
