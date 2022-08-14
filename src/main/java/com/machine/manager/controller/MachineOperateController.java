@@ -366,7 +366,7 @@ public class MachineOperateController extends BaseController {
         }
 
 
-        logger.info("xxxxxxxx设备列表 = {}",restResult);
+//        logger.info("xxxxxxxx设备列表 = {}",restResult);
 
         return restResult;
     }
@@ -455,7 +455,7 @@ public class MachineOperateController extends BaseController {
     @ResponseBody
     public RestResult updateUsedTime( @RequestBody UserTimeRequest userTimeRequest){
         RestResult restResult = new RestResult();
-//        System.out.print("userTimeRequest==>" + userTimeRequest);
+        System.out.print("userTimeRequest==>" + userTimeRequest);
         if(userTimeRequest.getLeftTime() < 0){
             restResult.setCode(202);
             restResult.setData("data error");
@@ -489,7 +489,7 @@ public class MachineOperateController extends BaseController {
 //            System.out.println("解密后：arr = " + arr[1]);
             long start = Long.parseLong(arr[1]);
             System.out.println("start = " + start);
-            Thread.sleep(1000);
+//            Thread.sleep(1000);
             long end = System.currentTimeMillis();
             System.out.println("end = " + end);
 
@@ -536,6 +536,8 @@ public class MachineOperateController extends BaseController {
             }else {
                 qu.setLeftTime(0);
             }
+
+            qu.setOtherParm(userTimeRequest.getRealAddress());
             int dura = qu.getUsedDuration();
             System.out.println("已经使用时长 dura = " + dura);
             qu.setUsedDuration(userTimeRequest.getTotalTime());

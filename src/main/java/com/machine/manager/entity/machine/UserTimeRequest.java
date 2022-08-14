@@ -19,4 +19,7 @@ public class UserTimeRequest {
     @ApiModelProperty("单此使用时长")
     private int leftTime;
 
+    @ApiModelProperty("真实地址")
+    private String realAddress;
+
 }
